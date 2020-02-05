@@ -10,8 +10,10 @@ public class Speech : MonoBehaviour
     private bool waitingForReco;
     private string message;
     public int yeet = 3;
+    public GameObject Canvas;
+    
 
-    private bool micPermissionGranted = false;
+private bool micPermissionGranted = false;
 
     public async void SpeechContinuousRecognitionAsync()
     {
@@ -41,18 +43,13 @@ public class Speech : MonoBehaviour
 
             recognizer.Canceled += (s, e) => {
                 message = $"\n    Recognition Canceled. Reason: {e.Reason.ToString()}, CanceledReason: {e.Reason}";
-                System.IO.File.AppendAllText(@"notepad.txt", message);
-                System.IO.File.AppendAllText(@"notepad.txt", "\n");
             };
-
             recognizer.SessionStarted += (s, e) => {
                 message = "\n    Session started event.";
             };
 
             recognizer.SessionStopped += (s, e) => {
                 message = "\n    Session stopped event.";
-                System.IO.File.WriteAllText(@"notepad.txt", message);
-                System.IO.File.AppendAllText(@"notepad.txt", "\n");
             };
 
             // Starts continuous recognition. Uses StopContinuousRecognitionAsync() to stop recognition.
