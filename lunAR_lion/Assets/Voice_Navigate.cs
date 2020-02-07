@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using Microsoft.CognitiveServices.Speech;
+using System.Text.RegularExpressions;
 public class Voice_Navigate : MonoBehaviour
 {
     private object threadLocker = new object();
@@ -13,6 +14,7 @@ public class Voice_Navigate : MonoBehaviour
     public int counter = 0; 
     public GameObject Canvas;
     private bool micPermissionGranted = false;
+    public Button notepad_button;
 
     // Start is called before the first frame update
     void Start()
@@ -96,6 +98,11 @@ public class Voice_Navigate : MonoBehaviour
                 {
                     System.IO.File.AppendAllText(@"yeet.txt", l);
                     System.IO.File.AppendAllText(@"yeet.txt", "\n");
+                    if (l.Contains("Open Notes"))
+                    {
+                        System.IO.File.AppendAllText(@"yeet.txt", "HEOALDAKFCK");
+                        notepad_button.onClick.Invoke();
+                    }
                 }
                 System.IO.File.Create(@"notepad.txt").Close();
             }

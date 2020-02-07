@@ -807,8 +807,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d5f5b020acda141aa2fe7e5bee95ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waitingForReco: 0
+  message: 
   yeet: 3
   Canvas: {fileID: 0}
+  micPermissionGranted: 0
 --- !u!114 &367608543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,6 +827,7 @@ MonoBehaviour:
   yeet: 3
   counter: 0
   Canvas: {fileID: 0}
+  notepad_button: {fileID: 2126327957}
 --- !u!1 &407158175
 GameObject:
   m_ObjectHideFlags: 0
