@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="693ed005-5cba-4e27-9968-94024d834d10" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XUtDf2yncfPalsBdKhjNfafP4n" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="DatabaseCreator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DatabaseCreator" />
+      <module name="NASA" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DatabaseCreator" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="693ed005-5cba-4e27-9968-94024d834d10" name="Default Changelist" comment="" />
+      <created>1581112382492</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581112382492</updated>
+      <workItem from="1581112390698" duration="2431000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="533" y="123" key="#com.intellij.ide.util.MemberChooser" timestamp="1581113691944">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state x="533" y="123" key="#com.intellij.ide.util.MemberChooser/0.23.1440.819@0.23.1440.819" timestamp="1581113691944" />
+    <state width="1358" height="198" key="GridCell.Tab.0.bottom" timestamp="1581115063800">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1358" height="198" key="GridCell.Tab.0.bottom/0.23.1440.819@0.23.1440.819" timestamp="1581115063800" />
+    <state width="1358" height="198" key="GridCell.Tab.0.center" timestamp="1581115063799">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1358" height="198" key="GridCell.Tab.0.center/0.23.1440.819@0.23.1440.819" timestamp="1581115063799" />
+    <state width="1358" height="198" key="GridCell.Tab.0.left" timestamp="1581115063799">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1358" height="198" key="GridCell.Tab.0.left/0.23.1440.819@0.23.1440.819" timestamp="1581115063799" />
+    <state width="1358" height="198" key="GridCell.Tab.0.right" timestamp="1581115063800">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state width="1358" height="198" key="GridCell.Tab.0.right/0.23.1440.819@0.23.1440.819" timestamp="1581115063800" />
+    <state x="385" y="166" width="670" height="676" key="search.everywhere.popup" timestamp="1581114683055">
+      <screen x="0" y="23" width="1440" height="819" />
+    </state>
+    <state x="385" y="166" width="670" height="676" key="search.everywhere.popup/0.23.1440.819@0.23.1440.819" timestamp="1581114683055" />
+  </component>
+</project>
