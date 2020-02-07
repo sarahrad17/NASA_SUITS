@@ -1,0 +1,7 @@
+okay this is me trying to reconstruct what I did 
+1) make sure you have node/npm installed on your system 
+2) make sure you have simulate.js and suitswitch.js in a folder called models
+3) run "node app.js", you should see time stamps printing (1s, 2s...etc) 
+4) then navigate to "http://localhost:3000/api/suit" to see telemetry stream data 
+
+**if you have problems at any of these steps let me know**
