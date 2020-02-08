@@ -33,7 +33,7 @@ public class Click_button : MonoBehaviour
         Notepad.GetComponent<Image>().enabled = Notepad_Boolean;
         Notepad_Text.GetComponent<Text>().enabled = Notepad_Boolean;
         Notepad_Button.GetComponent<Button>().enabled = Notepad_Boolean;
-        Notepad_Text.text = Read(@"yeet.txt");
+        
     }
     public string Read(string path)
     {

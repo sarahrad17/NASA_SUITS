@@ -15,6 +15,10 @@ public class Voice_Navigate : MonoBehaviour
     public GameObject Canvas;
     private bool micPermissionGranted = false;
     public Button notepad_button;
+    public Text Notepad_Text;
+    public string texty;
+    public bool taking_notes;
+    public bool notepad_open;
 
     // Start is called before the first frame update
     void Start()
@@ -22,12 +26,16 @@ public class Voice_Navigate : MonoBehaviour
         // Continue with normal initialization, Text and Button objects are present.
         micPermissionGranted = true;
         message = " ";
+        taking_notes = false;
+        notepad_open = false;
+        System.IO.File.Create(@"notepad_output.txt").Close();
+        System.IO.File.Create(@"notepad.txt").Close();
         SpeechContinuousRecognitionAsync();
     }
 
     public async void SpeechContinuousRecognitionAsync()
     {
-        System.IO.File.Create(@"notepad.txt").Close();
+        
 
         // Creates an instance of a speech config with specified subscription key and service region.
         var config = SpeechConfig.FromSubscription("82b1859945464df6a90737eef58dc46f", "westus");
@@ -67,7 +75,6 @@ public class Voice_Navigate : MonoBehaviour
 
             do
             {
-
                 message = "";
             } while (yeet == 3);
             // Stops recognition.
@@ -89,27 +96,80 @@ public class Voice_Navigate : MonoBehaviour
             if (File.Exists(@"notepad.txt"))
             {
                 //read input into array of lines
-                string[] lines = System.IO.File.ReadAllLines(@"notepad.txt");
-                if (!File.Exists(@"log.txt"))
+                string[] file_contents = System.IO.File.ReadAllLines(@"notepad.txt");
+                
+                foreach(string f in file_contents)
                 {
-                    System.IO.File.Create(@"log.txt");
-                }
-                foreach (string l in lines)
-                {
-                    System.IO.File.AppendAllText(@"yeet.txt", l);
-                    System.IO.File.AppendAllText(@"yeet.txt", "\n");
-                    if (l.Contains("Open Notes"))
+                    //commands
+                    if (taking_notes==false)
                     {
-                        System.IO.File.AppendAllText(@"yeet.txt", "HEOALDAKFCK");
-                        notepad_button.onClick.Invoke();
+                        //open notepad
+                        if (f.Contains("Open notepad"))
+                        {
+                            if (notepad_open == false)
+                            {
+                                notepad_button.onClick.Invoke();
+                                notepad_open = true;
+                            }
+                            Notepad_Text.text = Read(@"notepad_output.txt");
+                        }
+                        //start taking notes
+                        else if (f.Contains("Start taking notes"))
+                        {
+                            if (notepad_open == false)
+                            {
+                                notepad_button.onClick.Invoke();
+                                notepad_open = true;
+                            }
+                            Notepad_Text.text = Read(@"notepad_output.txt");
+                            taking_notes = true;
+                        }
+                        else if (f.Contains("Close notepad"))
+                        {
+                            if (notepad_open == true)
+                            {
+                                notepad_button.onClick.Invoke();
+                                notepad_open = false;
+                            }
+                            taking_notes = false;
+                        }
                     }
-                }
-                System.IO.File.Create(@"notepad.txt").Close();
-            }
+                    //notepad tasks (taking_notes == true)
+                    else
+                    {
+                        //stop taking notes
+                        if (f.Contains("Stop taking notes"))
+                        {
+                            taking_notes = false;
+                        }
+                        else if (f.Contains("Close notepad"))
+                        {
+                            if (notepad_open == true)
+                            {
+                                notepad_button.onClick.Invoke();
+                                notepad_open = false;
+                            }
+                            taking_notes = false;
+                        }
+                        //else add text to notepad
+                        else
+                        {
+                            System.IO.File.AppendAllText(@"notepad_output.txt", f);
+                            System.IO.File.AppendAllText(@"notepad_output.txt", "\n");
+                            Notepad_Text.text = Read(@"notepad_output.txt");
+                            taking_notes = true;
+                        }
+                    }
+                }                
 
-            counter = 0;
-        
-         
+            }
+        System.IO.File.Create(@"notepad.txt").Close();
+        counter = 0;
         }
+    }
+    public string Read(string path)
+    {
+        texty = File.ReadAllText(path);
+        return texty;
     }
 }
