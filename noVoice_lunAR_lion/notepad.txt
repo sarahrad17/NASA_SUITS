@@ -1,0 +1,328 @@
+All I heard was a close notepad.
+Navigate through I now so like open whatever.
+I mean right now, I just am using this 'cause. It's basically what we're going to have, but I'm gonna have someone?
+Hornady UI stuff because stomach based version of it.
+So it like projects out into the environment.
+And like it's just better to work with for like the kind of tasks that we're gonna be doing.
+
+Facebook.
+Yeah.
+Yeah, wait different you know just like different settings, you can like play it under.
+I'm talking about in blender.
+Maybe later.
+I think you're using like a way different version of.
+
+
+I think its 'cause for rendering is an image.
+Animation is that way.
+****.
+Am I crazy to be able to render it and there was like 635 or 6 different ways. You could like render it and one of them was like more realistic and one of them was like slower in like it has like the.
+I'll figure it out.
+
+
+
+
+
+
+
+This is an experiment right? Yeah.
+Open the Camera and then.
+If.
+Something like that.
+Why do you look like in within the actor?
+Yeah.
+Yeah.
+Yeah, yeah.
+We can move the Camera to move the object.
+Hey.
+What would you do a little later when the objects and the other thing with this move?
+Changes.
+Says the same thing.
+Yeah.
+It does.
+So we just need to make like a I guess we could even do it in C Sharp and like.
+Yeah.
+Maybe.
+I feel like unity might freeze if we try and take a million, though like or like a couple 1000.
+Cash.
+I guess we can do it multiple times. Maybe it like different.
+So that that way.
+Yeah, and that way we don't even have to like about it.
+Minecraft.
+Hello.
+Set up windows.
+Locally.
+Maybe.
+Sorry.
+I mean?
+Hey.
+No no just in the game.
+I mean, honestly do we need a gaming computer to do that, like?
+Thanks.
+Out the mobile like tomorrow that I was planning on using that uses.
+About service so.
+We need to leave by membership, though for it or is it free for 30 days.
+Free for 30 days.
+Yeah, we also did ask for $500 and we haven't used any of it, though so and now we need for speech. I already need to use some of it for speech so if it's Microsoft is not Microsoft, though, is it?
+Google CPS but it's based on your usage so the article that I was reading it says like it takes like $5.
+We can pay for it, it's Colombia's money not ours so.
+Nothing and like if we're using our own machine and say, I don't know if it's saving PC or like without but it takes like ours.
+I mean as long as we remember to turn it of- then it's fine.
+Already had to replace the power supply on PC and I don't know why.
+I feel like doing like CS at school kind of makes a difference. Now you're doing, it all day and sort of just like after school.
+Your computer is just died.
+Mine is also given up hope.
+OK So what is the moon?
+Creating the same script.
+Google.
+We have to create the script for.
+Recent longest building script.
+Hello.
+I think.
+Yeah.
+I feel like I should not be pretty easy immunity because you have like the exact location of the.
+Open it's pixel.
+YouTube.
+Post facto.
+I could be wrong.
+Facebook.
+I think we should make the objects like the center and put the Camera attached to it, maybe or something like that.
+We would then it would still like not be in the same location.
+This is moving the Camera.
+Yeah, Yeah, but like don't we need to object to be the same like.
+General position in the video so like to move the Camera means really getting closer and further away. We have to make sure that the Camera.
+Which is possible but that's nothing like have it connected to it like as a child of it so that that way.
+Yes.
+OK.
+After that, we also need like obstructed background photos.
+What exactly do you need?
+Yes.
+You're right.
+Well, we could try to sleep with open TV.
+Will be easier?
+Not right gives in furniture.
+So how to
+I don't, either so.
+Me.
+I believe that there's a way. But if we don't have to find out let's just not.
+
+OK.
+Do you
+alarm?
+In the background.
+And you know this is.
+We didn't rotate the Camera is still around.
+All we need is just like a few colors as well.
+And we thought.
+So I think.
+So we read that the object in the background in the same game so.
+Delete your by then.
+Lost me but I trust you.
+Facebook.
+Who is the one for this task?
+Select.
+Going.
+I just don't think so.
+What track are you doing?
+That's why I'm saying like the CNN I can do that.
+
+And then one please.
+I have different tab.
+In a place where would actually be if he were descriptor that looked like when joining session with a detector on the background. And then places that thing on the ground and not in the Sky.
+I don't do that.
+That you can do it.
+We will have to manually.
+Hello.
+So.
+OK, I mean, if we have to do that. That's not the end of the world, but it be great to not?
+Open windows.
+Right.
+Region.
+Yeah, So what is does it create realistic environment?
+Around this.
+So we just need to project like that there instead of on the grey.
+Who replace agree with this and then we move the Camera around the object and moving the Camera around the scene as well.
+The 360 image.
+So just download a bunch of these and then explosive.
+If you wanna start on this before, I ask him that's cool, but I can run this by Steve if you would like.
+I do not.
+I think it's possible.
+Open Skype Pizza.
+Yeah, so you just did.
+Because.
+Oh, OK.
+If you guys want to talk to Steve about it yourself or I guess our minds. We're talking about you're more than welcome to.
+Say, the word.
+Yeah, that Steve Carmine says little minion boy but we like.
+Actually, very helpful.
+OK.
+You can do it.
+Pictures.
+I don't know I didn't read the documentation that you guys, said about what this is like.
+And like if we do have pictures like.
+Gonna be related.
+Be sure that every picture.
+I mean?
+This can be important like if we just import like.
+A couple hundred of them I guess like I feel like that's fine.
+Put this one guy will run this service, so I don't have that much.
+The skybox like there's a bunch of them on the unity asset store, we can just get.
+For the bounding boxes.
+If we could do them in unity.
+Locating the position of the project.
+And then somehow using that.
+Then, like actually.
+Because.
+But then
+because one like that could be so bad.
+Well, if we could get like.
+If we projected like if we make a UI element like office that that has the coordinates of that all around like as long as we know that those are constant like if we just use a screenshot of that. We can find those pixels and manually image soon that they are the same for all the different backgrounds.
+Object doesn't move around.
+The objects.
+Will look when you think about it like this, the Camera. This is the object like when you move the Camera unless it's a perfect circle, it like goes in and out.
+So let me want it to move in and out like if we use. This only have one set like box. I think that it kind of contradicts the point of like trying to build a database 'cause. It's just all the same picture you know.
+Outlook thinking.
+So here's the thing like how are we going to rotate it around all the angles?
+All right.
+Something like rotating around like points on a sphere.
+Yeah, I mean, we could just.
+Yeah.
+But.
+I feel confident that we can do that.
+It's going to be talking like this.
+Yeah.
+In that game mode.
+I don't know I just know that you can use it when you're in it, like in game mode, so I'm sure that you can? Yeah.
+OK.
+Hum.
+One of us can work on like.
+Figure it out.
+Take the actual picture of them playing in generating.
+I'll think about how to rotate look just five bounding box. I mean, just like how to translate the 3D position of the object into 2D position.
+In Transit.
+Because it isn't bad.
+I need to get the Phone right now.
+Map.
+Unity is mad like that's Why?
+I didn't want to work in that Department because it's just like all math.
+Yeah.
+Help.
+Good motion dot product, yeah, so bad.
+Are you using like object references for like like you're using reference frames within reference frames so you're like I can't even think about it gives me a migraine like?
+You guys haven't even taken linear have you taken linear?
+Rose.
+Actually have homework treadmill.
+You have not bear it.
+Oh, I love Tony OK, yeah, you actually are gonna have a good experience. No mine was a nightmare like.
+Yeah.
+Healy.
+I don't know.
+I was gonna do me like I was thinking about it, but like scaring me out of it is.
+Like I was talking to.
+Same.
+Smells like a math in stash nature and he's doing a Maryland, he's like.
+No, it's like an Indian guy.
+Name.
+I know him.
+I won't tell me.
+I don't know not well.
+Yeah, it's
+he's pretty insane. But he's also scared in the way that he talks about it. It's just like Oh, he's like if you don't know the math. If you don't like math don't do that major, if you're not passionate.
+He needs to show it's fine, you don't have to like.
+I like math, I tolerate mouth.
+Created to learn what I asked.
+It doesn't cool things that I appreciate like Well, you use the math to make the databases and do the neural networks now that **** that, like you can use like to do this kind of work like I don't know if you like doing this project like this track.
+Yeah, I really once you learn it. You never have to think about it again really like it's like second nature, so like you sell for like a semester, but then. After that, it's like Oh look at all. This cool stuff, I get to do like.
+Um.
+Before I Molly should take props dots. I would I didn't do it, but I really should have, like it was messy uhm. I would just take props at some linear not only really need. Yeah, like you don't need more than that 'cause That's all I'm taking and then I'm doing like cryptography kind of stuff from my other math requirements for the math minor so.
+I wish.
+You're in cities.
+Actually, I never took him to the school and they're making me go back and take it next year.
+Calculator.
+I don't know.
+I like didn't take that many credits in high school.
+So I just got like decked over but.
+Are you writing assignment?
+Wait. What is it?
+Next Monday.
+It makes you feel better. I have 2 midterms back to back next week so.
+Alright so do we need to discuss more in person were gonna do? Wherever you like all good with our individual tasks things you don't have to have it done by Friday or anything.
+Video.
+Aspects are spotless, but you didn't have any hours.
+No no no, but that's just ********. They just didn't want to accept us for some other reason that is beyond, to me because that's just not.
+Do you want me to show it to you can see your feedback?
+Write them an angry note please.
+Things are the way to do it.
+Hey.
+Nothing.
+OK.
+Like.
+Still have a vertical access right.
+Select as long as he knows like it centerpoint vertical access, we can use the app.
+Yeah.
+Yeah.
+Open.
+Here's our feedback.
+Oh.
+Feedback is like design meets challenge descriptions like aspect shows is fine. It's like only provides test protocol does not provide a subject pool. So basically they wanted us to list like the people we were going to test on.
+Select.
+No discussion.
+What time is it?
+And they would just come up with some other ******** like I looked and it's the same exact team when they took last year, yeah, your name is stupid.
+It's fine, I feel like the video.
+Hello.
+Not here by them.
+Google.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
