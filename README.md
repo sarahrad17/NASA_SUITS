@@ -7,7 +7,6 @@ Team Members:
 Code for Location Services:
 
 #pragma
-
 using System;
 import UnityEngine;
 import System.Collections;
