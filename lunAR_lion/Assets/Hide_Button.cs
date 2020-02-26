@@ -6,7 +6,6 @@ using System.IO;
 
 public class Hide_Button : MonoBehaviour
 {
-    public Button Notepad_Button;
     public Text Notepad_Text;
     public Image Notepad;
 
