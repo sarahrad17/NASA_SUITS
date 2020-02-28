@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 //Request library
 using System.Net;
 using System.IO;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 
 namespace HelloWorld
 {
     class Hello {
         static void Main(string[] args)
         {
-            using (var wc = new WebClient())
-            {
-                var body = wc.DownloadString("http:localhost:3000/api/suit/");
-                var js = Newtonsoft.Json.Linq.JObject.Parse(body);
-		Console.WriteLine(js);
-            }	    
+           string url = @"https://api.stackexchange.com/2.2/answers?order=desc&sort=activity&site=stackoverflow";
+
+           HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+           request.AutomaticDecompression = DecompressionMethods.GZip;
+
+           using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+           using (Stream stream = response.GetResponseStream())
+           using (StreamReader reader = new StreamReader(stream))
+           {
+               html = reader.ReadToEnd();
+           }
+           Console.WriteLine(html);  
     
         }
     }
