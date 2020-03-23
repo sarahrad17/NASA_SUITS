@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "pqCTaKvyalxYVrcNRh1Pwv0F1QqxFbr4DxLZg5BabSkSesmquzT8pISPfcI6/mKm7pHrqGSK20S7YY1Cim3aOg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sarah\\lunAR_lion\\AR\\SUITS_AR\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\DotNetAdapter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.windows.mixedreality.dotnetwinrt\\0.5.1048\\microsoft.windows.mixedreality.dotnetwinrt.0.5.1048.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\msbuildforunity\\0.8.3\\msbuildforunity.0.8.3.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\system.drawing.primitives\\4.3.0\\system.drawing.primitives.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
