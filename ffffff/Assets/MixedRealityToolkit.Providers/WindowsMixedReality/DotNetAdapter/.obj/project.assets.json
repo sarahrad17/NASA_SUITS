@@ -145,17 +145,17 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sarah\\lunAR_lion\\AR\\SUITS_AR\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\DotNetAdapter.csproj",
+      "projectUniqueName": "C:\\Users\\sarah\\lunAR_lion\\NASA_SUITS\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\DotNetAdapter.csproj",
       "projectName": "DotNetAdapter",
-      "projectPath": "C:\\Users\\sarah\\lunAR_lion\\AR\\SUITS_AR\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\DotNetAdapter.csproj",
+      "projectPath": "C:\\Users\\sarah\\lunAR_lion\\NASA_SUITS\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\DotNetAdapter.csproj",
       "packagesPath": "C:\\Users\\sarah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sarah\\lunAR_lion\\AR\\SUITS_AR\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\.obj\\",
+      "outputPath": "C:\\Users\\sarah\\lunAR_lion\\NASA_SUITS\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\.obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\sarah\\lunAR_lion\\AR\\SUITS_AR\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\NuGet.Config",
+        "C:\\Users\\sarah\\lunAR_lion\\NASA_SUITS\\ffffff\\Assets\\MixedRealityToolkit.Providers\\WindowsMixedReality\\DotNetAdapter\\NuGet.Config",
         "C:\\Users\\sarah\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

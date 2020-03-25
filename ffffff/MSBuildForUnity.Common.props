@@ -2,8 +2,8 @@
   <PropertyGroup>
     <MSBuildForUnityVersion>0.8.3</MSBuildForUnityVersion>
     
-    <MSBuildForUnityGeneratedOutputDirectory>C:\Users\sarah\lunAR_lion\AR\SUITS_AR\ffffff\MSBuild\Projects</MSBuildForUnityGeneratedOutputDirectory>
-    <UnityProjectAssetsPath>C:\Users\sarah\lunAR_lion\AR\SUITS_AR\ffffff\Assets</UnityProjectAssetsPath>
+    <MSBuildForUnityGeneratedOutputDirectory>C:\Users\sarah\lunAR_lion\NASA_SUITS\ffffff\MSBuild\Projects</MSBuildForUnityGeneratedOutputDirectory>
+    <UnityProjectAssetsPath>C:\Users\sarah\lunAR_lion\NASA_SUITS\ffffff\Assets</UnityProjectAssetsPath>
     <MSBuildForUnityDefaultOutputPath>$(UnityProjectAssetsPath)\Dependencies</MSBuildForUnityDefaultOutputPath>
     
     <UnityCurrentPlatform>WSA</UnityCurrentPlatform>
