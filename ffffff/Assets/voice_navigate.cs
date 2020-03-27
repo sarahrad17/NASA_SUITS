@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 public class voice_navigate : MonoBehaviour
 {
 
-
     private object threadLocker = new object();
     private bool waitingForReco;
     private string message;
@@ -26,17 +25,16 @@ public class voice_navigate : MonoBehaviour
         message = " ";
         menu_open = false;
         Menu_Buttons.SetActive(false);
-        //System.IO.File.Create(@"speech_output.txt").Close();
+        System.IO.File.Create(@"speech_output.txt").Close();
         System.IO.File.Create(@"speech_finaloutput.txt").Close();
         SpeechContinuousRecognitionAsync();
     }
 
     public async void SpeechContinuousRecognitionAsync()
     {
-        //System.IO.File.AppendAllText(@"speech_output.txt", "starting \n");
         // Creates an instance of a speech config with specified subscription key and service region.
-        var config = SpeechConfig.FromSubscription("82b1859945464df6a90737eef58dc46f", "westus");
-        //System.IO.File.AppendAllText(@"speech_output.txt", "config good \n");
+        var config = SpeechConfig.FromSubscription("11320a35e5eb4440a0a582af2e169169", "eastus");
+        
         // Creates a speech recognizer from microphone.
         using (var recognizer = new SpeechRecognizer(config))
         {
@@ -47,11 +45,11 @@ public class voice_navigate : MonoBehaviour
             };
 
             recognizer.Recognized += (s, e) => {
+                System.IO.File.AppendAllText(@"speech_output.txt", "yeet");
                 var result = e.Result;
                 if (result.Reason == ResultReason.RecognizedSpeech)
                 {
                     message = result.Text;
-                    System.IO.File.AppendAllText(@"speech_output.txt", "message");
                     System.IO.File.AppendAllText(@"speech_output.txt", message);
                     System.IO.File.AppendAllText(@"speech_output.txt", "\n");
                 }
@@ -86,7 +84,6 @@ public class voice_navigate : MonoBehaviour
         //if not 15th frame
         if (counter < 150)
         {
-            System.IO.File.AppendAllText(@"speech_finaloutput.txt", "hello");
             counter = counter + 1;
         }
         //if 15th frame
