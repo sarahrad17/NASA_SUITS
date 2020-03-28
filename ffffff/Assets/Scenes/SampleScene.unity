@@ -1043,6 +1043,9 @@ MonoBehaviour:
   counter: 0
   menu_open: 0
   Menu_Buttons: {fileID: 1990577553}
+  notepad_open: 0
+  Notepad: {fileID: 851936844}
+  notepad_matches: 0
 --- !u!1 &521677490
 GameObject:
   m_ObjectHideFlags: 0

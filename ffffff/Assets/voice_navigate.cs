@@ -14,8 +14,18 @@ public class voice_navigate : MonoBehaviour
     public int yeet = 3;
     public int counter = 0;
     private bool micPermissionGranted = false;
+
+    //open/close menu
     public bool menu_open;
     public GameObject Menu_Buttons;
+    //open/close notes
+    public bool notepad_open;
+    public GameObject Notepad;
+    public int notepad_matches;
+    //take notes
+    public bool taking_notes;
+    public Text Notes_Text;
+    public int notes_matches;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +33,16 @@ public class voice_navigate : MonoBehaviour
         //Continue with normal initialization, Text and Button objects are present.
         micPermissionGranted = true;
         message = " ";
+        //menu
         menu_open = false;
         Menu_Buttons.SetActive(false);
+        //notepad
+        notepad_open = false;
+        Notepad.SetActive(false);
+        //take notes
+        taking_notes = false;
+
+
         System.IO.File.Create(@"speech_output.txt").Close();
         System.IO.File.Create(@"speech_finaloutput.txt").Close();
         SpeechContinuousRecognitionAsync();
@@ -45,7 +63,6 @@ public class voice_navigate : MonoBehaviour
             };
 
             recognizer.Recognized += (s, e) => {
-                System.IO.File.AppendAllText(@"speech_output.txt", "yeet");
                 var result = e.Result;
                 if (result.Reason == ResultReason.RecognizedSpeech)
                 {
@@ -98,7 +115,13 @@ public class voice_navigate : MonoBehaviour
                 foreach (string f in file_contents)
                 {
                     System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
-                    if (f.Contains("open menu"))
+                    System.IO.File.AppendAllText(@"speech_finaloutput.txt", "\n");
+
+
+                    //MENU
+                    Regex rx = new Regex(@"\bOpen menu\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches0 = rx.Matches(f);
+                    if (matches0.Count > 0)
                     {
                         //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
                         if (menu_open == false)
@@ -107,7 +130,9 @@ public class voice_navigate : MonoBehaviour
                             menu_open = true;
                         }
                     }
-                    if (f.Contains("close menu"))
+                    Regex rx1 = new Regex(@"\bClose menu\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches1 = rx1.Matches(f);
+                    if (matches1.Count > 0)
                     {
                         if (menu_open == true)
                         {
@@ -115,9 +140,40 @@ public class voice_navigate : MonoBehaviour
                             menu_open = false;
                         }
                     }
+
+                    //NOTEPAD
+                    Regex rx2 = new Regex(@"\bOpen notepad\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches2 = rx2.Matches(f);
+                    Regex rx3 = new Regex(@"\bOpen notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches3 = rx3.Matches(f);
+                    notepad_matches = matches2.Count + matches3.Count;
+                    if(notepad_matches > 0)
+                    {
+                        //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
+                        if (notepad_open == false)
+                        {
+                            Notepad.SetActive(true);
+                            notepad_open = true;
+                        }
+                    }
+                    Regex rx4 = new Regex(@"\bClose notepad\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches4 = rx4.Matches(f);
+                    Regex rx5 = new Regex(@"\bClose notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches5 = rx5.Matches(f);
+                    notepad_matches = matches4.Count + matches5.Count;
+                    if (notepad_matches > 0)
+                    {
+                        //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
+                        if (notepad_open == true)
+                        {
+                            Notepad.SetActive(false);
+                            notepad_open = false;
+                        }
+                    }
+
                 }
             }
-            //System.IO.File.Create(@"speech_finaloutput.txt").Close();
+            System.IO.File.Create(@"speech_output.txt").Close();
             counter = 0;
         }
     }
