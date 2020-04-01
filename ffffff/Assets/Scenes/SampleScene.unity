@@ -1046,6 +1046,10 @@ MonoBehaviour:
   notepad_open: 0
   Notepad: {fileID: 851936844}
   notepad_matches: 0
+  taking_notes: 0
+  Notes_Text: {fileID: 1332540510}
+  notes_matches: 0
+  not_first: 0
 --- !u!1 &521677490
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,10 +3099,10 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332540509}
-  m_Text: NOTES GO HERE
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 0.1
-  m_LineSpacing: 0.005
+  m_LineSpacing: 0.75
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
@@ -3156,7 +3160,7 @@ Transform:
   m_GameObject: {fileID: 1332540509}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.48, y: 0.50008136, z: -0.099999994}
-  m_LocalScale: {x: 0.5, y: 0.3333333, z: 999.99994}
+  m_LocalScale: {x: 0.25, y: 0.15, z: 999.99994}
   m_Children: []
   m_Father: {fileID: 851936845}
   m_RootOrder: 0

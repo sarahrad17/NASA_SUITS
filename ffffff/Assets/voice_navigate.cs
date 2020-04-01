@@ -24,8 +24,9 @@ public class voice_navigate : MonoBehaviour
     public int notepad_matches;
     //take notes
     public bool taking_notes;
-    public Text Notes_Text;
+    public TextMesh Notes_Text;
     public int notes_matches;
+    public bool not_first;
 
     // Start is called before the first frame update
     void Start()
@@ -117,57 +118,90 @@ public class voice_navigate : MonoBehaviour
                     System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
                     System.IO.File.AppendAllText(@"speech_finaloutput.txt", "\n");
 
-
-                    //MENU
-                    Regex rx = new Regex(@"\bOpen menu\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches0 = rx.Matches(f);
-                    if (matches0.Count > 0)
+                    //CHECK IF TAKING NOTES
+                    Regex rx0 = new Regex(@"\bstart taking notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches0 = rx0.Matches(f);
+                    Regex rx0_1 = new Regex(@"\btake notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches0_1 = rx0_1.Matches(f);
+                    not_first = true; 
+                    if (matches0_1.Count + matches0.Count > 0)
                     {
-                        //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
-                        if (menu_open == false)
-                        {
-                            Menu_Buttons.SetActive(true);
-                            menu_open = true;
-                        }
-                    }
-                    Regex rx1 = new Regex(@"\bClose menu\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches1 = rx1.Matches(f);
-                    if (matches1.Count > 0)
-                    {
-                        if (menu_open == true)
-                        {
-                            Menu_Buttons.SetActive(false);
-                            menu_open = false;
-                        }
+                        taking_notes = true;
+                        not_first = false;
                     }
 
-                    //NOTEPAD
-                    Regex rx2 = new Regex(@"\bOpen notepad\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches2 = rx2.Matches(f);
-                    Regex rx3 = new Regex(@"\bOpen notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches3 = rx3.Matches(f);
-                    notepad_matches = matches2.Count + matches3.Count;
-                    if(notepad_matches > 0)
+                    //TAKING NOTES
+                    if (taking_notes == true && not_first == true)
                     {
-                        //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
-                        if (notepad_open == false)
+                        //check if stop taking notes
+                        Regex rx_0 = new Regex(@"\bstop taking notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches_0 = rx_0.Matches(f);
+                        if (matches_0.Count > 0)
                         {
-                            Notepad.SetActive(true);
-                            notepad_open = true;
+                            taking_notes = false;
+                        }
+                        else
+                        {
+                            Notes_Text.text = Notes_Text.text + f + "\n";
+
                         }
                     }
-                    Regex rx4 = new Regex(@"\bClose notepad\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches4 = rx4.Matches(f);
-                    Regex rx5 = new Regex(@"\bClose notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches5 = rx5.Matches(f);
-                    notepad_matches = matches4.Count + matches5.Count;
-                    if (notepad_matches > 0)
+
+                    //NOT TAKING NOTES
+                    else
                     {
-                        //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
-                        if (notepad_open == true)
+
+                        //MENU
+                        Regex rx = new Regex(@"\bOpen menu\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches = rx.Matches(f);
+                        if (matches.Count > 0)
                         {
-                            Notepad.SetActive(false);
-                            notepad_open = false;
+                            //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
+                            if (menu_open == false)
+                            {
+                                Menu_Buttons.SetActive(true);
+                                menu_open = true;
+                            }
+                        }
+                        Regex rx1 = new Regex(@"\bClose menu\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches1 = rx1.Matches(f);
+                        if (matches1.Count > 0)
+                        {
+                            if (menu_open == true)
+                            {
+                                Menu_Buttons.SetActive(false);
+                                menu_open = false;
+                            }
+                        }
+
+                        //NOTEPAD
+                        Regex rx2 = new Regex(@"\bOpen notepad\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches2 = rx2.Matches(f);
+                        Regex rx3 = new Regex(@"\bOpen notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches3 = rx3.Matches(f);
+                        notepad_matches = matches2.Count + matches3.Count;
+                        if (notepad_matches > 0)
+                        {
+                            //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
+                            if (notepad_open == false)
+                            {
+                                Notepad.SetActive(true);
+                                notepad_open = true;
+                            }
+                        }
+                        Regex rx4 = new Regex(@"\bClose notepad\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches4 = rx4.Matches(f);
+                        Regex rx5 = new Regex(@"\bClose notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches5 = rx5.Matches(f);
+                        notepad_matches = matches4.Count + matches5.Count;
+                        if (notepad_matches > 0)
+                        {
+                            //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
+                            if (notepad_open == true)
+                            {
+                                Notepad.SetActive(false);
+                                notepad_open = false;
+                            }
                         }
                     }
 
