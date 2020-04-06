@@ -1,5 +1,10 @@
 okay this is me trying to reconstruct what I did 
-1) make sure you have node/npm and node/express installed on your system (install npm and run npm i node and then npm install express)
+1) make sure you have the following installed on your system along with npm: 
+  RUN: 
+  npm i node 
+  npm install express
+  npm install mongoose
+  
 2) make sure you have simulate.js and suitswitch.js in a folder called models
 3) run "node app.js", you should see time stamps printing (1s, 2s...etc) 
 4) then navigate to "http://localhost:3000/api/suit" to see telemetry stream data 
