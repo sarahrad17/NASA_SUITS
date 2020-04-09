@@ -274,8 +274,8 @@ public class prioritize_telemetry : MonoBehaviour
         {
             
             yield return new WaitForSeconds(.5f);
-            Image img = GameObject.Find("warning_flash").GetComponent<Image>();
-            img.color = new Color(1, 0, 0, .5f);
+            //Image img = GameObject.Find("Canvas").GetComponent<Image>();
+            //img.color = new Color(1, 0, 0, .5f);
             yeet = yeet + 1;
         }
        

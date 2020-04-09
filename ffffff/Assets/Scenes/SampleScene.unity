@@ -1004,6 +1004,7 @@ GameObject:
   - component: {fileID: 409353145}
   - component: {fileID: 409353147}
   - component: {fileID: 409353146}
+  - component: {fileID: 409353148}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1171,6 +1172,26 @@ MonoBehaviour:
   additionalOffset: {x: 0, y: 0, z: 0}
   additionalRotation: {x: 0, y: 0, z: 0}
   updateSolvers: 1
+--- !u!131 &409353148
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409353139}
+  m_Enabled: 1
+  m_Texture: {fileID: 0}
+  m_Color: {r: 0.9150943, g: 0.07769671, b: 0.07769671, a: 0.52156866}
+  m_PixelInset:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
 --- !u!1 &460219620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,7 +1516,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641285425}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -0.025, z: 0}
+  m_LocalPosition: {x: -0.1, y: -0.025, z: 0}
   m_LocalScale: {x: 0.25, y: 0.15, z: 0.099999994}
   m_Children: []
   m_Father: {fileID: 1132854784}
