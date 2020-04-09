@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Experimental.Networking;
+using System.IO;
+using System;
+using System.Globalization;
 
 public class retrieve_telemetry : MonoBehaviour
 {
@@ -11,6 +14,7 @@ public class retrieve_telemetry : MonoBehaviour
     string telem_print;
     int telem_length;
     int telem_start;
+
     // Start is called before the first frame update
     void Start()
     {
