@@ -169,7 +169,6 @@ public class sort_telemetry : MonoBehaviour
                 t_water_value = telemetry.Substring(t_water_start + 11, t_water_stop);
                 Debug.Log(t_water_value);
 
-
             }
         }
         
