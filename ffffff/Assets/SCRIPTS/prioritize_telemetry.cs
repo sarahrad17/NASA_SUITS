@@ -31,13 +31,20 @@ public class prioritize_telemetry : MonoBehaviour
 
     public bool yes = true;
 
-    public Canvas warning_flash;
+    public int battery_warn;
+    public int oxygen_warn;
+    public int water_warn;
+
+    public Image warning_flash;
 
     // Start is called before the first frame update
     void Start()
     {
         emergency_warning_text.text = "";
-        StartCoroutine(Update_Telemetry());
+        battery_warn = 0;
+        oxygen_warn = 0;
+        water_warn = 0;
+    StartCoroutine(Update_Telemetry());
 
     }
 
@@ -45,10 +52,12 @@ public class prioritize_telemetry : MonoBehaviour
     IEnumerator Update_Telemetry()
     {
         yield return new WaitForSeconds(5);
-        
+
+        //StartCoroutine(Flash_Screen());
+
         while (yes == true)
         {
-            StartCoroutine(Flash_Screen());
+            
             yield return new WaitForSeconds(3);
 
             //check values
@@ -171,15 +180,26 @@ public class prioritize_telemetry : MonoBehaviour
             {
                 t_battery_text.color = Color.red;
                 emergency_warning_text.text = emergency_warning_text.text + "BATTERY TIME LOW\n";
-                Flash_Screen();
+                if (battery_warn == 100)
+                {
+                    battery_warn = 1;
+                    StartCoroutine(Flash_Screen());
+                }
+                else if (battery_warn == 0)
+                {
+                    battery_warn = 1;
+                    StartCoroutine(Flash_Screen());
+                }
+                else
+                {
+                    battery_warn = battery_warn + 1;
+                }
             }
             
 
             //T_OXYGEN
             //show always 10:59:59
             t_oxygen_text.text = sort_telemetry.t_oxygen_value;
-
-            /*
             int oxygen_find_hours = sort_telemetry.t_oxygen_value.IndexOf(":");
             string oxygen_hours_str = sort_telemetry.t_oxygen_value.Substring(0, oxygen_find_hours);
             int oxygen_hours = Int32.Parse(oxygen_hours_str, CultureInfo.InvariantCulture);
@@ -188,15 +208,26 @@ public class prioritize_telemetry : MonoBehaviour
             {
                 t_oxygen_text.color = Color.red;
                 emergency_warning_text.text = emergency_warning_text.text + "OXYGEN TIME LOW\n";
-                //Flash_Screen();
+                if (oxygen_warn == 100)
+                {
+                    oxygen_warn = 1;
+                    StartCoroutine(Flash_Screen());
+                }
+                else if (oxygen_warn == 0)
+                {
+                    oxygen_warn = 1;
+                    StartCoroutine(Flash_Screen());
+                }
+                else
+                {
+                    oxygen_warn = oxygen_warn + 1;
+                }
 
             }
-            */
 
             //T_WATER
             //show always 10:59:59
             t_water_text.text = sort_telemetry.t_water_value;
-            /*
             int water_find_hours = sort_telemetry.t_water_value.IndexOf(":");
             string water_hours_str = sort_telemetry.t_water_value.Substring(0, water_find_hours);
             int water_hours = Int32.Parse(water_hours_str, CultureInfo.InvariantCulture);
@@ -205,10 +236,22 @@ public class prioritize_telemetry : MonoBehaviour
             {
                 t_water_text.color = Color.red;
                 emergency_warning_text.text = emergency_warning_text.text + "WATER TIME LOW\n";
-                //Flash_Screen();
-
+                if (water_warn == 100)
+                {
+                    water_warn = 1;
+                    StartCoroutine(Flash_Screen());
+                }
+                else if (water_warn == 0)
+                {
+                    water_warn = 1;
+                    StartCoroutine(Flash_Screen());
+                }
+                else
+                {
+                    water_warn = water_warn + 1;
+                }
             }
-            */
+
 
             //display emergency signals
             if (heart_bpm_bool)
@@ -274,9 +317,11 @@ public class prioritize_telemetry : MonoBehaviour
         {
             
             yield return new WaitForSeconds(.5f);
-            //Image img = GameObject.Find("Canvas").GetComponent<Image>();
-            //img.color = new Color(1, 0, 0, .5f);
+            Image img = GameObject.Find("warning_flash").GetComponent<Image>();
+            img.color = new Color(1, 0, 0, .5f);
             yeet = yeet + 1;
+            yield return new WaitForSeconds(.5f);
+            img.color = new Color(0, 0, 0, 0f);
         }
        
     }
