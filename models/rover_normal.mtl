@@ -1,0 +1,23 @@
+# Blender MTL File: 'rover_normal.blend'
+# Material Count: 2
+
+newmtl MMSEV
+Ns 254.901961
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.200000 0.200000 0.200000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd MMSEV_Color_v2s.png
+map_Bump MMSEV_Bump_v1s.png
+map_Ks MMSEV_spec_color_v1s.png
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2

@@ -1,0 +1,15 @@
+# Blender MTL File: 'tire.blend'
+# Material Count: 1
+
+newmtl MMSEV
+Ns 254.901961
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.200000 0.200000 0.200000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\sarah\Documents\SUITS\MODELS\MMSEV_Color_v2s.png
+map_Bump C:\\Users\\sarah\\Documents\\SUITS\\MODELS\\MMSEV_Bump_v1s.png
+map_Ks C:\\Users\\sarah\\Documents\\SUITS\\MODELS\\MMSEV_spec_color_v1s.png
