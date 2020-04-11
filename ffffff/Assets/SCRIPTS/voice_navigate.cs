@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,10 @@ public class voice_navigate : MonoBehaviour
     public TextMesh Notes_Text;
     public int notes_matches;
     public bool not_first;
+    //map
+    public GameObject Location_Data;
+    public bool location_data_open;
+    public TextMesh Location_Text;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +47,12 @@ public class voice_navigate : MonoBehaviour
         Notepad.SetActive(false);
         //take notes
         taking_notes = false;
+        //location data
+        location_data_open = false;
+        Location_Data.SetActive(false);
 
 
+        System.IO.File.Create(@"mark_location.txt").Close();
         System.IO.File.Create(@"speech_output.txt").Close();
         System.IO.File.Create(@"speech_finaloutput.txt").Close();
         SpeechContinuousRecognitionAsync();
@@ -156,7 +165,6 @@ public class voice_navigate : MonoBehaviour
                         MatchCollection matches = rx.Matches(f);
                         if (matches.Count > 0)
                         {
-                            //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
                             if (menu_open == false)
                             {
                                 Menu_Buttons.SetActive(true);
@@ -182,7 +190,6 @@ public class voice_navigate : MonoBehaviour
                         notepad_matches = matches2.Count + matches3.Count;
                         if (notepad_matches > 0)
                         {
-                            //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
                             if (notepad_open == false)
                             {
                                 Notepad.SetActive(true);
@@ -196,11 +203,38 @@ public class voice_navigate : MonoBehaviour
                         notepad_matches = matches4.Count + matches5.Count;
                         if (notepad_matches > 0)
                         {
-                            //System.IO.File.AppendAllText(@"speech_finaloutput.txt", f);
                             if (notepad_open == true)
                             {
                                 Notepad.SetActive(false);
                                 notepad_open = false;
+                            }
+                        }
+
+                        //LOCATION DATA
+                        Regex rx11 = new Regex(@"\bOpen location data\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches11 = rx11.Matches(f);
+                        Regex rx12 = new Regex(@"\bOpen locations\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches12 = rx12.Matches(f);
+                        int loc_matches = matches11.Count + matches12.Count;
+                        if (loc_matches > 0)
+                        {
+                            if (location_data_open == false)
+                            {
+                                Location_Data.SetActive(true);
+                                location_data_open = true;
+                            }
+                        }
+                        Regex rx13 = new Regex(@"\bClose location data\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches13 = rx13.Matches(f);
+                        Regex rx14 = new Regex(@"\bClose locations\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches14 = rx14.Matches(f);
+                        loc_matches = matches13.Count + matches14.Count;
+                        if (loc_matches > 0)
+                        {
+                            if (location_data_open == true)
+                            {
+                                Location_Data.SetActive(false);
+                                location_data_open = false;
                             }
                         }
 
@@ -214,7 +248,11 @@ public class voice_navigate : MonoBehaviour
                         {
                             UnityEngine.Vector3 cam_pos = Camera.main.transform.position;
                             string cam_pos_string = cam_pos.ToString();
-                            System.IO.File.AppendAllText(@"mark_location.txt", cam_pos_string);
+                            System.IO.File.AppendAllText(@"mark_location.txt", System.DateTime.Now + " : ");
+                            System.IO.File.AppendAllText(@"mark_location.txt", cam_pos_string + "\n");
+                            string location_data = System.IO.File.ReadAllText(@"mark_location.txt");
+                            Location_Text.text = location_data;
+
                         }
                     }
 
