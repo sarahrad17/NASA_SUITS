@@ -203,6 +203,19 @@ public class voice_navigate : MonoBehaviour
                                 notepad_open = false;
                             }
                         }
+
+                        //MARK LOCATION
+                        Regex rx9 = new Regex(@"\bMark Location\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches9 = rx9.Matches(f);
+                        Regex rx10 = new Regex(@"\bTag Location\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches10 = rx10.Matches(f);
+                        int location_matches = matches9.Count + matches10.Count;
+                        if(location_matches > 0)
+                        {
+                            UnityEngine.Vector3 cam_pos = Camera.main.transform.position;
+                            string cam_pos_string = cam_pos.ToString();
+                            System.IO.File.AppendAllText(@"mark_location.txt", cam_pos_string);
+                        }
                     }
 
                 }
