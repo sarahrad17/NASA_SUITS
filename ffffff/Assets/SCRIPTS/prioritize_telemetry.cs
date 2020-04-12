@@ -84,7 +84,7 @@ public class prioritize_telemetry : MonoBehaviour
             if ((sort_telemetry.heart_bpm_value < 40) || (sort_telemetry.heart_bpm_value > 140))
             {
                 heart_bpm_bool = true;
-                Debug.Log("HEART : " + sort_telemetry.heart_bpm_value);
+                //Debug.Log("HEART : " + sort_telemetry.heart_bpm_value);
             }
 
             
@@ -92,77 +92,77 @@ public class prioritize_telemetry : MonoBehaviour
             if ((sort_telemetry.p_suit_value < 2.0) || (sort_telemetry.p_suit_value > 4.0))
             {
                 p_suit_bool = true;
-                Debug.Log("PSUIT" + sort_telemetry.p_suit_value);
+                //Debug.Log("PSUIT" + sort_telemetry.p_suit_value);
             }
 
             //P_SUB
             if ((sort_telemetry.p_sub_value < 2.0) || (sort_telemetry.p_sub_value > 4.0))
             {
                 p_sub_bool = true;
-                Debug.Log("P_SUB" + sort_telemetry.p_sub_value);
+                //Debug.Log("P_SUB" + sort_telemetry.p_sub_value);
             }
 
             //T_SUB
             if ((sort_telemetry.t_sub_value < 0) || (sort_telemetry.t_sub_value > 80))
             {
                 t_sub_bool = true;
-                Debug.Log("T_SUB" + sort_telemetry.t_sub_value);
+                //Debug.Log("T_SUB" + sort_telemetry.t_sub_value);
             }
 
             //V_FAN 
             if (sort_telemetry.v_fan_value > 40000)
             {
                 v_fan_bool = true;
-                Debug.Log("V_FAN" + sort_telemetry.v_fan_value);
+                //Debug.Log("V_FAN" + sort_telemetry.v_fan_value);
             }
 
             //P_O2
             if ((sort_telemetry.p_o2_value < 750) || (sort_telemetry.p_o2_value > 950))
             {
                 p_o2_bool = true;
-                Debug.Log("P_O2" + sort_telemetry.p_o2_value);
+                //Debug.Log("P_O2" + sort_telemetry.p_o2_value);
             }
 
             //RATE_O2
             if ((sort_telemetry.rate_o2_value < .5) || (sort_telemetry.rate_o2_value > 1))
             {
                 rate_o2_bool = true;
-                Debug.Log("RATEO2" + sort_telemetry.rate_o2_value);
+                //Debug.Log("RATEO2" + sort_telemetry.rate_o2_value);
             }
 
             //CAP_BATTERY
             if ((sort_telemetry.cap_battery_value < 0) || (sort_telemetry.cap_battery_value > 30))
             {
                 cap_battery_bool = true;
-                Debug.Log("CAPBAT" + sort_telemetry.cap_battery_value);
+                //Debug.Log("CAPBAT" + sort_telemetry.cap_battery_value);
             }
 
             //P_H2O_G
             if ((sort_telemetry.p_h2o_g_value < 14) || (sort_telemetry.p_h2o_g_value > 16))
             {
                 p_h2o_g_bool = true;
-                Debug.Log("P_H2O_G" + sort_telemetry.p_h2o_g_value);
+                //Debug.Log("P_H2O_G" + sort_telemetry.p_h2o_g_value);
             }
 
             //P_H2O_L
             if ((sort_telemetry.p_h2o_l_value < 14) || (sort_telemetry.p_h2o_l_value > 16))
             {
                 p_h2o_l_bool = true;
-                Debug.Log("P_H2O_L" + sort_telemetry.p_h2o_l_value);
+                //Debug.Log("P_H2O_L" + sort_telemetry.p_h2o_l_value);
             }
 
             //P_SOP
             if ((sort_telemetry.p_sop_value < 750) || (sort_telemetry.p_sop_value > 950))
             {
                 p_sop_bool = true;
-                Debug.Log("P_SOP" + sort_telemetry.p_sop_value);
+                //Debug.Log("P_SOP" + sort_telemetry.p_sop_value);
             }
 
             //RATE_SOP
             if ((sort_telemetry.rate_sop_value < .5) || (sort_telemetry.rate_sop_value > 1))
             {
                 rate_sop_bool = true;
-                Debug.Log("RATE_SOP" + sort_telemetry.rate_sop_value);
+                //Debug.Log("RATE_SOP" + sort_telemetry.rate_sop_value);
             }
 
             

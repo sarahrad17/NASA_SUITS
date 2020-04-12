@@ -254,6 +254,21 @@ public class voice_navigate : MonoBehaviour
                             Location_Text.text = location_data;
 
                         }
+
+
+                        //SCROLL
+                        Regex rx16 = new Regex(@"\bOpen Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches16 = rx16.Matches(f);
+                        Regex rx17 = new Regex(@"\bStart Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches17 = rx17.Matches(f);
+                        int scroll_matches = matches16.Count + matches17.Count;
+                        if (scroll_matches > 0)
+                        {
+                            scroll_instructions.Scroll();
+
+                        }
+
+
                     }
 
                 }
