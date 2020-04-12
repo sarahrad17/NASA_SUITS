@@ -32,6 +32,10 @@ public class voice_navigate : MonoBehaviour
     public GameObject Location_Data;
     public bool location_data_open;
     public TextMesh Location_Text;
+    //instructions
+    public GameObject Instructions;
+    public TextMesh Instructions_Text;
+    public int current;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +54,9 @@ public class voice_navigate : MonoBehaviour
         //location data
         location_data_open = false;
         Location_Data.SetActive(false);
+        //instructions
+        Instructions.SetActive(false);
+        current = 0;
 
 
         System.IO.File.Create(@"mark_location.txt").Close();
@@ -264,11 +271,44 @@ public class voice_navigate : MonoBehaviour
                         int scroll_matches = matches16.Count + matches17.Count;
                         if (scroll_matches > 0)
                         {
-                            scroll_instructions.Scroll();
-
+                            scroll_instructions.open(Instructions, Instructions_Text, current);
                         }
 
+                        Regex rx18 = new Regex(@"\bClose Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches18 = rx18.Matches(f);
+                        Regex rx19 = new Regex(@"\bClose the Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches19 = rx19.Matches(f);
+                        scroll_matches = matches18.Count + matches19.Count;
+                        if (scroll_matches > 0)
+                        {
+                            scroll_instructions.close(Instructions, Instructions_Text);
+                        }
 
+                        Regex rx20 = new Regex(@"\bNext Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches20 = rx20.Matches(f);
+                        Regex rx21 = new Regex(@"\bGo forward\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches21 = rx21.Matches(f);
+                        Regex rx26 = new Regex(@"\bNext\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches26 = rx26.Matches(f);
+                        int position_matches = matches20.Count + matches21.Count + matches26.Count;
+                        if (position_matches > 0)
+                        {
+                            current = scroll_instructions.go_forward(Instructions_Text, current);
+                        }
+
+                        Regex rx22 = new Regex(@"\bLast Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches22 = rx22.Matches(f);
+                        Regex rx23 = new Regex(@"\bGo back\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches23 = rx23.Matches(f);
+                        Regex rx24 = new Regex(@"\bPrevious instruction[s]\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches24 = rx24.Matches(f);
+                        Regex rx25 = new Regex(@"\bPrevious\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches25 = rx25.Matches(f);
+                        position_matches = matches22.Count + matches23.Count + matches24.Count + matches25.Count;
+                        if (position_matches > 0)
+                        {
+                            current = scroll_instructions.go_backward(Instructions_Text, current);
+                        }
                     }
 
                 }
