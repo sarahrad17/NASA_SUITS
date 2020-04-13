@@ -1,9 +1,9 @@
 
 STEP BY STEP PLAN
 
-
 loosely follow:
 https://library.vuforia.com/articles/Solution/How-To-Use-Object-Recognition-in-Unity.html
+
 
 
 
@@ -11,3 +11,10 @@ CREATE VUFORIA ENGINE DATASET via vuforia model target generator
 https://developer.vuforia.com/downloads/tool
 https://library.vuforia.com/articles/Solution/model-target-generator-user-guide.html
 
+https://library.vuforia.com/content/vuforia-library/en/articles/Solution/model-target-guide-view.html
+
+things i've done so far:
+-downloaded ModelTargetGenerator
+-created model target
+C:\Users\sarah\Downloads\ModelTargetGenerator-9-0-12\Model_Target_Generator-win32-x64\resources\sampledata\MMSEV\dataset
+-trained model target

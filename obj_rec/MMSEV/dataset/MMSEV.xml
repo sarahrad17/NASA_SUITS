@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+<Tracking>
+<ModelTarget name="MMSEV" motionHint="static"/>
+
+</Tracking>
+
+<Assembly name="MMSEVs_assembly" assemblyId="258003e54362449a9397ceb1bdbba373">
+<Part name="MMSEV" translation="0 0 0" rotation="AD: 0 0 1 0"/>
+<EntryPoint name="viewpoint_0000" translation="-0.0617463 -0.15611 9.70515" rotation="AD: -0.9127157144100692 -0.444651471144533 2.397719307811689 172.561" trained="no">
+
+</EntryPoint>
+<EntryPoint name="viewpoint_0001" translation="0.0626478 0.123638 8.80659" rotation="AD: 0.9998705971265608 -0.04542368629398908 0.38170737714764486 192.676" trained="no">
+
+</EntryPoint>
+
+</Assembly>
+
+</QCARConfig>
