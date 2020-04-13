@@ -1,0 +1,13 @@
+
+STEP BY STEP PLAN
+
+
+loosely follow:
+https://library.vuforia.com/articles/Solution/How-To-Use-Object-Recognition-in-Unity.html
+
+
+
+CREATE VUFORIA ENGINE DATASET via vuforia model target generator
+https://developer.vuforia.com/downloads/tool
+https://library.vuforia.com/articles/Solution/model-target-generator-user-guide.html
+
