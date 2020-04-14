@@ -1421,6 +1421,8 @@ MonoBehaviour:
   Instructions: {fileID: 268441322}
   Instructions_Text: {fileID: 580004417}
   current: 0
+  Rover: {fileID: 1160341065804723441}
+  Jackscrew: {fileID: 874983565}
 --- !u!114 &409353146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2457,6 +2459,12 @@ Transform:
   m_Father: {fileID: 1570372596}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &874983565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 47b1541274bd52349a39deff20aed49e,
+    type: 3}
+  m_PrefabInstance: {fileID: 705232057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &944037367
 GameObject:
   m_ObjectHideFlags: 0

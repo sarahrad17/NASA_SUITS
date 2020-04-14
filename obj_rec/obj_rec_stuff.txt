@@ -18,3 +18,5 @@ things i've done so far:
 -created model target
 C:\Users\sarah\Downloads\ModelTargetGenerator-9-0-12\Model_Target_Generator-win32-x64\resources\sampledata\MMSEV\dataset
 -trained model target
+-can import it into unity
+https://library.vuforia.com/content/vuforia-library/en/articles/Solution/introduction-model-targets-unity.html

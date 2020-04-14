@@ -6,8 +6,10 @@ public class scroll_instructions : MonoBehaviour
 {
     public static bool instructions_open;
     public static string[] instructions_arr;
+    public static string[] instructions_models_arr;
     //public static int current;
     public static string current_text = "";
+    public static string current_asset_text = "";
     
 
     // Start is called before the first frame update
@@ -18,13 +20,15 @@ public class scroll_instructions : MonoBehaviour
     }
 
     // Open: opens instruction pad
-    public static void open(GameObject Instructions, TextMesh Instructions_Text, int current)
+    public static void open(GameObject Instructions, TextMesh Instructions_Text, int current, GameObject rover, GameObject jackscrew)
     { 
         if (instructions_open == false)
         {
             update_instructions(current);
             Instructions_Text.text = current_text;
             Instructions.SetActive(true);
+            rover.SetActive(true);
+            jackscrew.SetActive(true);
             instructions_open = true;
         }
     }
@@ -43,6 +47,7 @@ public class scroll_instructions : MonoBehaviour
     public static void set_up()
     {
         instructions_arr = access_database.instruct_text_array;
+        instructions_models_arr = access_database.instruct_asset_array;
         print(string.Join("\n", instructions_arr));
     }
 
@@ -50,6 +55,7 @@ public class scroll_instructions : MonoBehaviour
     {
         set_up();
         current_text = instructions_arr[current];
+        current_asset_text = instructions_models_arr[current];
     }
 
     //Go Forward: go forward one task item
