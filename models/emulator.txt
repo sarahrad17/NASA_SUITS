@@ -1,0 +1,9 @@
+EMULATOR:
+
+
+hololens 2 download here:
+https://docs.microsoft.com/en-us/windows/mixed-reality/using-the-hololens-emulator
+
+
+so far i have:
+-downloaded it

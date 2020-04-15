@@ -36,8 +36,6 @@ public class voice_navigate : MonoBehaviour
     public GameObject Instructions;
     public TextMesh Instructions_Text;
     public int current;
-    public GameObject Rover;
-    public GameObject Jackscrew;
 
     // Start is called before the first frame update
     void Start()
@@ -59,8 +57,7 @@ public class voice_navigate : MonoBehaviour
         //instructions
         Instructions.SetActive(false);
         current = 0;
-        Rover.SetActive(false);
-        Jackscrew.SetActive(false);
+
 
 
         System.IO.File.Create(@"mark_location.txt").Close();
@@ -275,7 +272,7 @@ public class voice_navigate : MonoBehaviour
                         int scroll_matches = matches16.Count + matches17.Count;
                         if (scroll_matches > 0)
                         {
-                            scroll_instructions.open(Instructions, Instructions_Text, current, Rover, Jackscrew);
+                            scroll_instructions.open(Instructions, Instructions_Text, current);
                         }
 
                         Regex rx18 = new Regex(@"\bClose Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
