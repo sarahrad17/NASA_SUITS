@@ -36,6 +36,16 @@ public class voice_navigate : MonoBehaviour
     public GameObject Instructions;
     public TextMesh Instructions_Text;
     public int current;
+    public GameObject rover_normal;
+    public GameObject jack_screw;
+    public GameObject tire;
+    public GameObject wrench;
+    public GameObject wheel_wedge;
+    public GameObject rover_no_tire;
+    public GameObject rover_cap_removed;
+    public GameObject rover_broken_tire;
+    public GameObject cap;
+
 
     // Start is called before the first frame update
     void Start()
@@ -57,10 +67,18 @@ public class voice_navigate : MonoBehaviour
         //instructions
         Instructions.SetActive(false);
         current = 0;
+        rover_normal.SetActive(false);
+        jack_screw.SetActive(false);
+        tire.SetActive(false);
+        wrench.SetActive(false);
+        wheel_wedge.SetActive(false);
+        rover_no_tire.SetActive(false);
+        rover_cap_removed.SetActive(false);
+        rover_broken_tire.SetActive(false);
+        cap.SetActive(false);
 
 
-
-        System.IO.File.Create(@"mark_location.txt").Close();
+    System.IO.File.Create(@"mark_location.txt").Close();
         System.IO.File.Create(@"speech_output.txt").Close();
         System.IO.File.Create(@"speech_finaloutput.txt").Close();
         SpeechContinuousRecognitionAsync();
@@ -272,7 +290,8 @@ public class voice_navigate : MonoBehaviour
                         int scroll_matches = matches16.Count + matches17.Count;
                         if (scroll_matches > 0)
                         {
-                            scroll_instructions.open(Instructions, Instructions_Text, current);
+                            scroll_instructions sc = new scroll_instructions();
+                            sc.open(Instructions, Instructions_Text, current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx18 = new Regex(@"\bClose Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -282,7 +301,8 @@ public class voice_navigate : MonoBehaviour
                         scroll_matches = matches18.Count + matches19.Count;
                         if (scroll_matches > 0)
                         {
-                            scroll_instructions.close(Instructions, Instructions_Text);
+                            scroll_instructions sc = new scroll_instructions();
+                            sc.close(Instructions, Instructions_Text, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx20 = new Regex(@"\bNext Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -294,7 +314,8 @@ public class voice_navigate : MonoBehaviour
                         int position_matches = matches20.Count + matches21.Count + matches26.Count;
                         if (position_matches > 0)
                         {
-                            current = scroll_instructions.go_forward(Instructions_Text, current);
+                            scroll_instructions sc = new scroll_instructions();
+                            current = sc.go_forward(Instructions_Text, current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx22 = new Regex(@"\bLast Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -308,7 +329,8 @@ public class voice_navigate : MonoBehaviour
                         position_matches = matches22.Count + matches23.Count + matches24.Count + matches25.Count;
                         if (position_matches > 0)
                         {
-                            current = scroll_instructions.go_backward(Instructions_Text, current);
+                            scroll_instructions sc = new scroll_instructions();
+                            current = sc.go_backward(Instructions_Text, current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
                     }
 

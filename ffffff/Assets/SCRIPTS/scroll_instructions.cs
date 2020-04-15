@@ -11,29 +11,22 @@ public class scroll_instructions : MonoBehaviour
 
     public static string current_text = "";
     public static string current_asset_text = "";
-    public static GameObject rover_normal = GameObject.Find("Rover_Normal");
-    public static GameObject jack_screw = GameObject.Find("Jack_Screw");
-    public static GameObject tire = GameObject.Find("Tire");
-    public static GameObject wrench = GameObject.Find("Wrench");
-    public static GameObject wheel_wedge = GameObject.Find("Wheel_Wedge");
-    public static GameObject rover_no_tire = GameObject.Find("Rover_No_Tire");
-    public static GameObject rover_cap_removed = GameObject.Find("Rover_Cap_Removed");
-    public static GameObject rover_broken_tire = GameObject.Find("Rover_Broken_Tire");
-    public static GameObject cap = GameObject.Find("Cap");
-    
 
     // Start is called before the first frame updates
-    void Start()
+    private void Start()
     {
-        set_up();
+        
+        instructions_arr = access_database.instruct_text_array;
+        instructions_models_arr = access_database.instruct_asset_array;
     }
 
     // Open: opens instruction pad
-    public static void open(GameObject Instructions, TextMesh Instructions_Text, int current)
-    { 
+    public void open(GameObject Instructions, TextMesh Instructions_Text, int current, GameObject rover_normal, GameObject jack_screw, GameObject tire, GameObject wrench, GameObject wheel_wedge, GameObject rover_no_tire, GameObject rover_cap_removed, GameObject rover_broken_tire, GameObject cap)
+    {
+
         if (instructions_open == false)
         {
-            update_instructions(current);
+            update_instructions(current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
             Instructions_Text.text = current_text;
             Instructions.SetActive(true);
             instructions_open = true;
@@ -41,7 +34,7 @@ public class scroll_instructions : MonoBehaviour
     }
 
     //Close: close instruction pad
-    public static void close(GameObject Instructions, TextMesh Instructions_Text)
+    public void close(GameObject Instructions, TextMesh Instructions_Text, GameObject rover_normal, GameObject jack_screw, GameObject tire, GameObject wrench, GameObject wheel_wedge, GameObject rover_no_tire, GameObject rover_cap_removed, GameObject rover_broken_tire, GameObject cap)
     {
         if (instructions_open == true)
         {
@@ -50,27 +43,12 @@ public class scroll_instructions : MonoBehaviour
         }
     }
 
-    //Setup: setup instruction array text
-    public static void set_up()
+
+    public static void update_instructions(int current, GameObject rover_normal, GameObject jack_screw, GameObject tire, GameObject wrench, GameObject wheel_wedge, GameObject rover_no_tire, GameObject rover_cap_removed, GameObject rover_broken_tire, GameObject cap)
     {
         instructions_arr = access_database.instruct_text_array;
         instructions_models_arr = access_database.instruct_asset_array;
-        print(string.Join("\n", instructions_arr));
-    }
-
-    public static void update_instructions(int current)
-    {
-        rover_normal = GameObject.Find("Rover_Normal");
-        jack_screw = GameObject.Find("Jack_Screw");
-        tire = GameObject.Find("Tire");
-        wrench = GameObject.Find("Wrench");
-        wheel_wedge = GameObject.Find("Wheel_Wedge");
-        rover_no_tire = GameObject.Find("Rover_No_Tire");
-        rover_cap_removed = GameObject.Find("Rover_Cap_Removed");
-        rover_broken_tire = GameObject.Find("Rover_Broken_Tire");
-        cap = GameObject.Find("Cap");
         
-        set_up();
         current_text = instructions_arr[current];
         current_asset_text = instructions_models_arr[current];
         print(current_asset_text);
@@ -83,7 +61,9 @@ public class scroll_instructions : MonoBehaviour
         rover_no_tire.SetActive(false);
         rover_cap_removed.SetActive(false);
         rover_broken_tire.SetActive(false);
+        cap.SetActive(false);
 
+        
         if (current_asset_text.Contains("Rover_Normal") )
         {
             print("YEET");
@@ -127,24 +107,24 @@ public class scroll_instructions : MonoBehaviour
             cap.SetActive(true);
         }
 
-
     }
 
     //Go Forward: go forward one task item
-    public static int go_forward(TextMesh Instructions_Text, int current)
+    public int go_forward(TextMesh Instructions_Text, int current, GameObject rover_normal, GameObject jack_screw, GameObject tire, GameObject wrench, GameObject wheel_wedge, GameObject rover_no_tire, GameObject rover_cap_removed, GameObject rover_broken_tire, GameObject cap)
     {
         
         current = current + 1;
-        update_instructions(current);
+        update_instructions(current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
         return current;
     }
 
     //Go Backward: go backwards one task item
-    public static int go_backward(TextMesh Instructions_Text, int current)
+    
+    public int go_backward(TextMesh Instructions_Text, int current, GameObject rover_normal, GameObject jack_screw, GameObject tire, GameObject wrench, GameObject wheel_wedge, GameObject rover_no_tire, GameObject rover_cap_removed, GameObject rover_broken_tire, GameObject cap)
     {
 
         current = current - 1;
-        update_instructions(current);
+        update_instructions(current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
         return current;
     }
 
