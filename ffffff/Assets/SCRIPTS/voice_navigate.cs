@@ -36,6 +36,7 @@ public class voice_navigate : MonoBehaviour
     public GameObject Instructions;
     public TextMesh Instructions_Text;
     public int current;
+    public GameObject my_rover_done_broke;
     public GameObject rover_normal;
     public GameObject jack_screw;
     public GameObject tire;
@@ -67,10 +68,11 @@ public class voice_navigate : MonoBehaviour
         //instructions
         Instructions.SetActive(false);
         current = 0;
+        my_rover_done_broke.SetActive(false);
         rover_normal.SetActive(false);
         jack_screw.SetActive(false);
         tire.SetActive(false);
-        wrench.SetActive(false);
+        wrench.SetActive(true);
         wheel_wedge.SetActive(false);
         rover_no_tire.SetActive(false);
         rover_cap_removed.SetActive(false);

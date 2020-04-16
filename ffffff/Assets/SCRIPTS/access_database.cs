@@ -15,6 +15,7 @@ public class access_database : MonoBehaviour
     public static string[] instruction_array;
     public static string[] instruct_text_array;
     public static string[] instruct_asset_array;
+    public static string[] instruct_num_array;
 
 
     // Start is called before the first frame update
@@ -31,6 +32,7 @@ public class access_database : MonoBehaviour
         int inst_start = thing.IndexOf("{");
         string inst = instruction.Substring(inst_start+3);
 
+        print(inst);
         //find number of instructions
         int count = 0;
         int curr = 0;
@@ -87,5 +89,25 @@ public class access_database : MonoBehaviour
         }
         //print(string.Join("\n", instruct_asset_array));
 
+        //make an array of the instruction numbers
+        instruct_num_array = new string[count];
+        //text array
+        for (int m = 0; m < count; m++)
+        {
+            inst = instruction_array[m];
+            int instruct_num_start = inst.IndexOf("\"step\"");
+            string instruct_num = inst.Substring(instruct_num_start + 8);
+            int instruct_num_end = instruct_num.IndexOf("}");
+            if (instruct_num_end == -1)
+            {
+                instruct_num = "1";
+            }
+            else
+            {
+                instruct_num = instruct_num.Substring(0,instruct_num_end);
+            }
+            instruct_num_array[m] = instruct_num;
+            inst = inst.Substring(instruct_num_end + 1);
+        }
     }
 }
