@@ -51,7 +51,7 @@ public class prioritize_telemetry : MonoBehaviour
     // Enumerator
     IEnumerator Update_Telemetry()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
 
         //StartCoroutine(Flash_Screen());
 
@@ -169,9 +169,14 @@ public class prioritize_telemetry : MonoBehaviour
 
             //T_BATTERY
             //show always 10:59:59
-            t_battery_text.text = sort_telemetry.t_battery_value;
-            string bat_string = t_battery_text.text;
+            t_battery_text.text = "BAT-" + sort_telemetry.t_battery_value;
+            print("YEET   "+t_battery_text.text);
+            string bat_string = sort_telemetry.t_battery_value;
             int battery_find_hours = bat_string.IndexOf(":");
+            if(battery_find_hours == -1)
+            {
+                continue;
+            }
             string battery_hours_str = bat_string.Substring(0, battery_find_hours);
             int battery_hours = Int32.Parse(battery_hours_str, CultureInfo.InvariantCulture);
             //Debug.Log("BAT HOURS: "+battery_hours);
@@ -199,7 +204,7 @@ public class prioritize_telemetry : MonoBehaviour
 
             //T_OXYGEN
             //show always 10:59:59
-            t_oxygen_text.text = sort_telemetry.t_oxygen_value;
+            t_oxygen_text.text = "O-" + sort_telemetry.t_oxygen_value;
             int oxygen_find_hours = sort_telemetry.t_oxygen_value.IndexOf(":");
             string oxygen_hours_str = sort_telemetry.t_oxygen_value.Substring(0, oxygen_find_hours);
             int oxygen_hours = Int32.Parse(oxygen_hours_str, CultureInfo.InvariantCulture);
@@ -227,7 +232,7 @@ public class prioritize_telemetry : MonoBehaviour
 
             //T_WATER
             //show always 10:59:59
-            t_water_text.text = sort_telemetry.t_water_value;
+            t_water_text.text = "H2O-"+sort_telemetry.t_water_value;
             int water_find_hours = sort_telemetry.t_water_value.IndexOf(":");
             string water_hours_str = sort_telemetry.t_water_value.Substring(0, water_find_hours);
             int water_hours = Int32.Parse(water_hours_str, CultureInfo.InvariantCulture);

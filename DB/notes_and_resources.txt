@@ -4,3 +4,7 @@ https://www.mongodb.com/blog/post/quick-start-c-and-mongodb--read-operations
 
 baseline for how to run in unity:
 https://github.com/Julian23517/Unity-mongo-csharp-driver-dlls
+
+
+
+MISC RESOURCES:

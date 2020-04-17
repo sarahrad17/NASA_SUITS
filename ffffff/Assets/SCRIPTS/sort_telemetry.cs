@@ -37,6 +37,7 @@ public class sort_telemetry : MonoBehaviour
     // Update is called once per frame
     IEnumerator Sort_telem()
     {
+        //yield return new WaitForSeconds(5);
         while (get == true)
         {
             yield return new WaitForSeconds(3);
@@ -153,21 +154,21 @@ public class sort_telemetry : MonoBehaviour
                 string t_battery_substring = telemetry.Substring(t_battery_start + 13);
                 int t_battery_stop = t_battery_substring.IndexOf("\"");
                 t_battery_value = telemetry.Substring(t_battery_start + 13, t_battery_stop);
-                //Debug.Log("BAT:"+t_battery_value);
+                Debug.Log("BAT:"+t_battery_value);
 
                 //T_OXYGEN
                 int t_oxygen_start = telemetry.IndexOf("\"t_oxygen\":\"");
                 string t_oxygen_substring = telemetry.Substring(t_oxygen_start + 12);
                 int t_oxygen_stop = t_oxygen_substring.IndexOf("\"");
                 t_oxygen_value = telemetry.Substring(t_oxygen_start + 12, t_oxygen_stop);
-                //Debug.Log("OX"+t_oxygen_value);
+                Debug.Log("OX"+t_oxygen_value);
 
                 //T_WATER
                 int t_water_start = telemetry.IndexOf("\"t_water\":\"");
                 string t_water_substring = telemetry.Substring(t_water_start + 11);
                 int t_water_stop = t_water_substring.IndexOf("\"");
                 t_water_value = telemetry.Substring(t_water_start + 11, t_water_stop);
-                //Debug.Log("WAT"+t_water_value);
+                Debug.Log("WAT"+t_water_value);
 
             }
         }

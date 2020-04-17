@@ -44,7 +44,6 @@ public class retrieve_telemetry : MonoBehaviour
                 telem_start = telemetry.Length - 290;
                 telem_print = telemetry.Substring(telem_start);
                 System.IO.File.AppendAllText(@"telemetry.txt", telem_print);
-                //Debug.Log(telemetry[telem_length]);
             }
         }
         

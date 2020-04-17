@@ -13,7 +13,7 @@ public class voice_navigate : MonoBehaviour
     private bool waitingForReco;
     private string message;
     public int yeet = 3;
-    public int counter = 0;
+    public int counter = 1;
     private bool micPermissionGranted = false;
 
     //open/close menu
@@ -46,7 +46,9 @@ public class voice_navigate : MonoBehaviour
     public GameObject rover_cap_removed;
     public GameObject rover_broken_tire;
     public GameObject cap;
-
+    public Material MMSEV;
+    public GameObject ORIG_ROVER;
+    public GameObject ORIG_TIRE;
 
     // Start is called before the first frame update
     void Start()
@@ -72,15 +74,19 @@ public class voice_navigate : MonoBehaviour
         rover_normal.SetActive(false);
         jack_screw.SetActive(false);
         tire.SetActive(false);
-        wrench.SetActive(true);
+        wrench.SetActive(false);
         wheel_wedge.SetActive(false);
         rover_no_tire.SetActive(false);
         rover_cap_removed.SetActive(false);
         rover_broken_tire.SetActive(false);
         cap.SetActive(false);
+        ORIG_ROVER.SetActive(true);
+        ORIG_TIRE.SetActive(true);
+
+        
 
 
-    System.IO.File.Create(@"mark_location.txt").Close();
+        System.IO.File.Create(@"mark_location.txt").Close();
         System.IO.File.Create(@"speech_output.txt").Close();
         System.IO.File.Create(@"speech_finaloutput.txt").Close();
         SpeechContinuousRecognitionAsync();
@@ -293,7 +299,7 @@ public class voice_navigate : MonoBehaviour
                         if (scroll_matches > 0)
                         {
                             scroll_instructions sc = new scroll_instructions();
-                            sc.open(Instructions, Instructions_Text, current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            sc.open(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx18 = new Regex(@"\bClose Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -304,7 +310,7 @@ public class voice_navigate : MonoBehaviour
                         if (scroll_matches > 0)
                         {
                             scroll_instructions sc = new scroll_instructions();
-                            sc.close(Instructions, Instructions_Text, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            sc.close(MMSEV, Instructions, Instructions_Text, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx20 = new Regex(@"\bNext Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -317,7 +323,7 @@ public class voice_navigate : MonoBehaviour
                         if (position_matches > 0)
                         {
                             scroll_instructions sc = new scroll_instructions();
-                            current = sc.go_forward(Instructions_Text, current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            current = sc.go_forward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx22 = new Regex(@"\bLast Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -332,7 +338,7 @@ public class voice_navigate : MonoBehaviour
                         if (position_matches > 0)
                         {
                             scroll_instructions sc = new scroll_instructions();
-                            current = sc.go_backward(Instructions_Text, current, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            current = sc.go_backward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
                     }
 
