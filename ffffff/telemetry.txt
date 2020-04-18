@@ -1,1 +1,0 @@
-{"heart_bpm":"87","p_suit":"3.93","p_sub":"7.95","t_sub":"5","v_fan":"39992","p_o2":"16","rate_o2":"1.0","cap_battery":"29","p_h2o_g":"15","p_h2o_l":"15","p_sop":"921","rate_sop":"0.9","t_battery":"9:56:33","t_oxygen":"9:59:39","t_water":"9:59:39","create_date":"2020-04-17T00:18:08.127Z"}]

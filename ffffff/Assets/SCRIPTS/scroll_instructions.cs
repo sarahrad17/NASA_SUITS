@@ -49,9 +49,6 @@ public class scroll_instructions : MonoBehaviour
 
     public static void update_instructions(Material MMSEV, GameObject Instructions, TextMesh Instructions_Text, int current, GameObject ORIG_ROVER, GameObject ORIG_TIRE, GameObject rover_normal, GameObject jack_screw, GameObject tire, GameObject wrench, GameObject wheel_wedge, GameObject rover_no_tire, GameObject rover_cap_removed, GameObject rover_broken_tire, GameObject cap)
     {
-        print("CURR " + current);
-        current = current + 5;
-
         instructions_arr = access_database.instruct_text_array;
         instructions_models_arr = access_database.instruct_asset_array;
         instruct_num_arr = access_database.instruct_num_array;
@@ -60,7 +57,9 @@ public class scroll_instructions : MonoBehaviour
         current_asset_text = instructions_models_arr[current];
         current_num_text = (current-3).ToString();
 
-        //Instructions_Text.text = instructions_arr[current];
+        //SET INSTRUCTION TEXT
+        Instructions_Text.text = instructions_arr[current];
+        print(current);
 
         rover_normal.SetActive(false);
         jack_screw.SetActive(false);
@@ -74,117 +73,293 @@ public class scroll_instructions : MonoBehaviour
         ORIG_ROVER.SetActive(false);
         ORIG_TIRE.SetActive(false);
 
-
-        if (current_num_text.Contains("14"))
+        //ACTUALLY 12
+        //Tighten the cap with the wrench the rest of the way
+        if (current == 12)
         {
-
+            //set rover active and elevated 
             rover_normal.SetActive(true);
-            jack_screw.SetActive(true);
-            //jack_screw.gameObject.transform.localScale += new Vector3(.05f, .05f, .05f);
-            rover_normal.transform.Rotate(0, 0, -20);
-            instance.StartCoroutine(instruct_14(rover_normal, jack_screw));
+            rover_normal.transform.position = new Vector3(0f, 0f, 0f);
+            rover_normal.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set active wrench
+            wrench.SetActive(true);
+            wrench.transform.position = new Vector3(-2.1f, -1.36f, -1.94f);
+            wrench.transform.eulerAngles = new Vector3(0, 0, 0);
+            wrench.transform.localScale = new Vector3(.05f, .05f, .05f);
+            //set active cap
+            cap.SetActive(true);
+            cap.transform.position = new Vector3(0, 0, 0);
+            cap.transform.eulerAngles = new Vector3(0, 0, 0);
+            cap.transform.localScale = new Vector3(.75f, .75f, .75f);
+
+            instance.StartCoroutine(instruct_4(wrench));
         }
 
+        //ACTUALLY 11
+        //Using the jack, lower the rover all the way down
+        else if (current == 11)
+        {
+            //set rover active and elevated 
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0f, 0f, 0f);
+            rover_normal.transform.eulerAngles = new Vector3(0f, 0f, -15f);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set jack screw active and elevated
+            jack_screw.SetActive(true);
+            jack_screw.transform.position = new Vector3(-.75f, -1.25f, -2.1f);
+            jack_screw.transform.eulerAngles = new Vector3(0, 0, -15f);
+            jack_screw.transform.localScale = new Vector3(.005f, .005f, .005f);
+
+            instance.StartCoroutine(instruct_11(rover_normal, jack_screw));
+        }
+
+        //ACTUALLY 10
+        //Place on the cap and tighten with the wrench
+        else if (current == 10)
+        {
+            //set rover active and elevated 
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0f, 0f, 0f);
+            rover_normal.transform.eulerAngles = new Vector3(0f, 0f, -15f);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //jack screw active and elevated
+            jack_screw.SetActive(true);
+            jack_screw.transform.position = new Vector3(-.75f, -1.25f, -2.1f);
+            jack_screw.transform.eulerAngles = new Vector3(0, 0, -15f);
+            jack_screw.transform.localScale = new Vector3(.005f, .005f, .005f);
+            //set cap active and away from vehicle
+            cap.SetActive(true);
+            cap.transform.position = new Vector3(-.5f, 0f, 0f);
+            cap.transform.eulerAngles = new Vector3(0f, 0f, -15f);
+            cap.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set wrench active and away from vehicle
+            wrench.SetActive(true);
+            wrench.transform.position = new Vector3(-3f, -.86f, -1.96f);
+            wrench.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            wrench.transform.localScale = new Vector3(.05f, .05f, .05f);
+
+            instance.StartCoroutine(instruct_10(wrench, cap));
+        }
 
         //ACTUALLY 9
-        else if ( current-3 == 6) 
-        //else if (current_num_text.Contains("6"))
+        //Mount the spare on the axel
+        else if (current == 9) 
         {
-            Instructions_Text.text = "Mount the spare on the axel";
+            //set rover active and elevated
             rover_no_tire.SetActive(true);
-            tire.SetActive(true);
-            tire.GetComponentInChildren<MeshRenderer>().material = MMSEV;
-            jack_screw.SetActive(true);
-            rover_no_tire.transform.position = new Vector3(0f, 0f, 0f);
-            rover_no_tire.transform.eulerAngles = new Vector3(0f, 0f, -20f);
-            rover_no_tire.transform.localScale = new Vector3(.75f, .75f, .75f);
-            jack_screw.transform.position = new Vector3(-.75f, -1.25f, -2.1f);
-            jack_screw.transform.localScale = new Vector3(.005f, .005f, .005f);
-            tire.transform.position = new Vector3(-.204f, -.404f, 0f);
-            tire.transform.eulerAngles = new Vector3(0f, 0f, -20f);
-            tire.transform.localScale = new Vector3(.75f, .75f, .75f);
-            instance.StartCoroutine(instruct_9(tire));
-            
-        }
-        //ACTUALLY 8
-        else if (current - 3 == 5)
-        //else if (current_num_text.Contains("5"))
-        {
-            Instructions_Text.text = "Remove the flat tire from \nthe axel";
-            rover_no_tire.SetActive(true);
-            tire.SetActive(true);
-            jack_screw.SetActive(true);
-            ORIG_ROVER.SetActive(true);
-            ORIG_TIRE.SetActive(true);
             rover_no_tire.transform.position = new Vector3(0f, 0f, 0f);
             rover_no_tire.transform.eulerAngles = new Vector3(0f, 0f, -15f);
             rover_no_tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set tire active and away from rover
+            tire.SetActive(true);
+            tire.GetComponentInChildren<MeshRenderer>().material = MMSEV;
+            tire.transform.position = new Vector3(-.204f, -.404f, 0f);
+            tire.transform.eulerAngles = new Vector3(0f, 0f, -15f);
+            tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set tire jack screw active and elevated 
+            jack_screw.SetActive(true);
             jack_screw.transform.position = new Vector3(-.75f, -1.25f, -2.1f);
+            jack_screw.transform.eulerAngles = new Vector3(0, 0, -15f);
             jack_screw.transform.localScale = new Vector3(.005f, .005f, .005f);
+            
+            instance.StartCoroutine(instruct_9(tire));   
+        }
+
+        //ACTUALLY 8
+        //Remove the flat tire from the axel
+        else if (current == 8)
+        {
+            //set rover active and elevated
+            rover_no_tire.SetActive(true);
+            rover_no_tire.transform.position = new Vector3(0f, 0f, 0f);
+            rover_no_tire.transform.eulerAngles = new Vector3(0f, 0f, -15f);
+            rover_no_tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set tire active and elevated
+            tire.SetActive(true);
+            tire.GetComponentInChildren<MeshRenderer>().material = MMSEV;
             tire.transform.position = new Vector3(0f, 0f, 0f);
             tire.transform.eulerAngles = new Vector3(0f, 0f, -15f);
             tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set jack_screw active and elevated
+            jack_screw.SetActive(true);
+            jack_screw.transform.position = new Vector3(-.75f, -1.25f, -2.1f);
+            jack_screw.transform.eulerAngles = new Vector3(0, 0, -15);
+            jack_screw.transform.localScale = new Vector3(.005f, .005f, .005f);
+            
             instance.StartCoroutine(instruct_8(tire));
         }
 
         //ACTUALLY 7
-        else if (current -3 ==4)
-        //else if (current_num_text.Contains("4"))
+        //Completely remove the cap the rest of the way
+        else if (current == 7)
         {
-            Instructions_Text.text = "Completely remove the cap \nthe rest of the way";
+            //set rover active & in raised position
             rover_no_tire.SetActive(true);
+            rover_no_tire.transform.position = new Vector3(0, 0, 0);
+            rover_no_tire.transform.eulerAngles = new Vector3(0, 0, -15);
+            rover_no_tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set tire active & in raised position
             tire.SetActive(true);
+            tire.transform.position = new Vector3(0, 0, 0);
+            tire.transform.eulerAngles = new Vector3(0, 0, -15);
+            tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //jack screw active & in raised position
             jack_screw.SetActive(true);
+            jack_screw.transform.position = new Vector3(-.75f, -1.25f, -2.1f);
+            jack_screw.transform.eulerAngles = new Vector3(0,0,-15);
+            jack_screw.transform.localScale = new Vector3(.005f, .005f, .005f);
+            //cap active & at original position
             cap.SetActive(true);
+            cap.transform.position = new Vector3(0, 0, 0);
+            cap.transform.eulerAngles = new Vector3(0, 0, -15);
+            cap.transform.localScale = new Vector3(.75f,.75f,.75f);
+            //wrench active & at original position
             wrench.SetActive(true);
-            ORIG_TIRE.SetActive(true);
-            ORIG_ROVER.SetActive(true);
-            ORIG_ROVER.transform.Rotate(0f, 0f, -15f);
-            ORIG_TIRE.transform.Rotate(0f, 0f, -15f);
-            jack_screw.transform.position = new Vector3(-.75f,-1.25f,-2.1f);
             wrench.transform.position = new Vector3(-2.5f, -.85f, -1.96f);
-            rover_no_tire.transform.Rotate(0, 0, 0);
-            tire.transform.Rotate(0, 0, 0);
-            cap.transform.Rotate(0, 0, -15);
-            wrench.transform.Rotate(0, 0f, 0);
+            wrench.transform.eulerAngles = new Vector3(0, 0, 0);
+            wrench.transform.localScale = new Vector3(.05f,.05f,.05f);
+
             instance.StartCoroutine(instruct_7(cap, wrench));
         }
+
         //ACTUALLY 6
-        else if (current - 3 == 3)
-        //else if (current_num_text.Contains("3"))
+        //Using the jack raise the tire until the tire is about 1 ft off the surface
+        else if (current == 6)
         {
-            Instructions_Text.text = "Using the jack, raise the \n tire until the tire is about \n6 inches off the surface";
+            //set rover active & at origin 
             rover_no_tire.SetActive(true);
+            rover_no_tire.transform.position = new Vector3(0, 0, 0);
+            rover_no_tire.transform.eulerAngles = new Vector3(0, 0, 0);
+            rover_no_tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set tire active & at origin 
             tire.SetActive(true);
+            tire.transform.position = new Vector3(0, 0, 0);
+            tire.transform.eulerAngles = new Vector3(0, 0, 0);
+            tire.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set jack screw active and placed under rover
             jack_screw.SetActive(true);
-            ORIG_ROVER.SetActive(true);
-            ORIG_TIRE.SetActive(true);
-            rover_normal.transform.Rotate(0, 0, 0);
-            jack_screw.transform.localScale = new Vector3(.004f, .002f, .004f);
             jack_screw.transform.position = new Vector3(-.75f, -1.5f, -2.1f);
-            jack_screw.transform.Rotate(0f, 0f, 0f);
+            jack_screw.transform.eulerAngles = new Vector3(0, 0, 0);
+            jack_screw.transform.localScale = new Vector3(.004f, .002f, .004f);
+
             instance.StartCoroutine(instruct_6(rover_no_tire, tire, jack_screw));
         }
+
         //ACTUALLY 5
-        else if (current - 3 == 2)
+        //Place jack under rover at the axel of the damaged wheel
+        else if (current == 5)
         //else if (current_num_text.Contains("2"))
         {
-            Instructions_Text.text = "Place the jack under rover \nat the base frame by the \ndamaged wheel.";
-            rover_no_tire.SetActive(true);
-            tire.SetActive(true);
+            //set rover active & to origin
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0, 0, 0);
+            rover_normal.transform.eulerAngles = new Vector3(0, 0, 0);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set jack screw active & away from rover
             jack_screw.SetActive(true);
-            wheel_wedge.SetActive(true);
-            ORIG_ROVER.SetActive(true);
-            ORIG_TIRE.SetActive(true);
             jack_screw.transform.position = new Vector3(-.75f, -1.55f, -2.9f);
+            jack_screw.transform.eulerAngles = new Vector3(0, 0, 0);
             jack_screw.transform.localScale = new Vector3(.004f, .0015f, .004f);
+            //set wheel wedge active and behind wheel
+            wheel_wedge.SetActive(true);
             wheel_wedge.transform.position = new Vector3(-1.28f, -1.6f, -2f);
+            wheel_wedge.transform.eulerAngles = new Vector3(0, 0, 0);
+            wheel_wedge.transform.localScale = new Vector3(.1f,.1f,.1f);
+
             instance.StartCoroutine(instruct_5(jack_screw));
         }
-        //ACTUALLY 1
-        else if (current_num_text.Contains("0"))
+
+        //ACTUALLY 4
+        //Use wrench to loosen the cap.
+        else if (current == 4)
         {
+            //set rover_normal active & to origin 
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0, 0, 0);
+            rover_normal.transform.eulerAngles = new Vector3(0, 0, 0);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set wrench active & to start location
+            wrench.SetActive(true);
+            wrench.transform.position = new Vector3(-2.1f, -1.36f, -1.94f);
+            wrench.transform.eulerAngles = new Vector3(0, 0, 0);
+            wrench.transform.localScale = new Vector3(.05f, .05f, .05f);
+            //set cap active & to origin
             cap.SetActive(true);
+            cap.transform.position = new Vector3(0, 0, 0);
+            cap.transform.eulerAngles = new Vector3(0, 0, 0);
+            cap.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set wheel wedge active and behind wheel
+            wheel_wedge.SetActive(true);
+            wheel_wedge.transform.position = new Vector3(-1.28f, -1.6f, -2f);
+            wheel_wedge.transform.eulerAngles = new Vector3(0, 0, 0);
+            wheel_wedge.transform.localScale = new Vector3(.1f, .1f, .1f);
+
+            instance.StartCoroutine(instruct_4(wrench));
+        }
+
+        //ACTUALLY 3
+        //Once the tire is in place identify the cap that secures the tire
+        else if (current == 3)
+        {
+            //set rover_normal active & to origin
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0, 0, 0);
+            rover_normal.transform.eulerAngles = new Vector3(0, 0, 0);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set cap active to origin 
+            cap.SetActive(true);
+            cap.transform.position = new Vector3(0, 0, 0);
+            cap.transform.eulerAngles = new Vector3(0, 0, 0);
+            cap.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set wheel wedge active and behind wheel
+            wheel_wedge.SetActive(true);
+            wheel_wedge.transform.position = new Vector3(-1.28f, -1.6f, -2f);
+            wheel_wedge.transform.eulerAngles = new Vector3(0, 0, 0);
+            wheel_wedge.transform.localScale = new Vector3(.1f, .1f, .1f);
+
+            instance.StartCoroutine(instruct_3(cap));
+        }
+
+        //ACTUALLY 2
+        //Position the wheel wedge behind the damaged wheel
+        else if (current == 2)
+        {
+            //set rover_normal active & to origin
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0, 0, 0);
+            rover_normal.transform.eulerAngles = new Vector3(0, 0, 0);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            //set wheel wedge active and to away from wheel
+            wheel_wedge.SetActive(true);
+            wheel_wedge.transform.position = new Vector3(-1.28f,-1.6f,-2.5f);
+            wheel_wedge.transform.eulerAngles = new Vector3(0,0,0);
+            wheel_wedge.transform.localScale = new Vector3(.1f, .1f, .1f);
+
+            instance.StartCoroutine((instruct_2(wheel_wedge)));
+        }
+
+        //ACTUALLY 1
+        //Make sure the parking brake is applied
+        else if (current == 1)
+        {
+            //set rover_normal active & to origin
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0, 0, 0);
+            rover_normal.transform.eulerAngles = new Vector3(0, 0, 0);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
+            
+        }
+
+        //ACTUALLY 0
+        //Locate the flat tire
+        else if (current == 0)
+        {
+            //set rover_normal active & to origin 
+            rover_normal.SetActive(true);
+            rover_normal.transform.position = new Vector3(0, 0, 0);
+            rover_normal.transform.eulerAngles = new Vector3(0, 0, 0);
+            rover_normal.transform.localScale = new Vector3(.75f, .75f, .75f);
         }
 
     }
@@ -214,27 +389,86 @@ public class scroll_instructions : MonoBehaviour
     {
         instance = this;
     }
-    static IEnumerator instruct_14(GameObject rover_normal, GameObject jack_screw) // A couroutine can be run each frame so we can do animation.
+    static IEnumerator instruct_11(GameObject rover_normal, GameObject jack_screw) // A couroutine can be run each frame so we can do animation.
     {
         float endTime = Time.time + speed; // When to end the coroutine
         float step = 1f / speed; // How much to step by per sec
         Vector3 rotAmount = new Vector3(0, 0, 15);
         var fromAngle = rover_normal.transform.eulerAngles; // start rotation
-        var localScale = jack_screw.transform.localScale;
         var targetRot = rover_normal.transform.eulerAngles + rotAmount; // where we want to be at the end
+        var localScale = jack_screw.transform.localScale;
         var targetScale = jack_screw.transform.localScale - new Vector3(.001f, .003f, .001f);
-        var fromPos = jack_screw.transform.position;
-        var targetPos = jack_screw.transform.position - new Vector3(-.1f, .25f, .15f);
         float t = 0; // how far we are. 0-1
         while (Time.time <= endTime)
         {
             t += step * Time.deltaTime;
             rover_normal.transform.eulerAngles = Vector3.Lerp(fromAngle, targetRot, t);
             jack_screw.transform.localScale = Vector3.Lerp(localScale, targetScale, t);
-            //jack_screw.transform.position = Vector3.Lerp(fromPos, targetPos, t);
             yield return 0;
         }
     }
+
+    static IEnumerator instruct_10(GameObject cap, GameObject wrench) // A couroutine can be run each frame so we can do animation.
+    {
+        float endTime = Time.time + speed; // When to end the coroutine
+        float step = 1f / speed; // How much to step by per sec
+        var fromPos_13 = cap.transform.position;
+        var targetPos_13 = cap.transform.position + new Vector3(.5f, 0f, 0f);
+        var fromPos_13a = wrench.transform.position;
+        var targetPos_13a = wrench.transform.position + new Vector3(.5f, 0f, 0f);
+        float t = 0; // how far we are. 0-1
+        while (Time.time <= endTime)
+        {
+            t += step * Time.deltaTime;
+            wrench.transform.position = Vector3.Lerp(fromPos_13a, targetPos_13a, t);
+            cap.transform.position = Vector3.Lerp(fromPos_13, targetPos_13, t);
+            yield return 0;
+        }
+    }
+    static IEnumerator instruct_9(GameObject tire) // A couroutine can be run each frame so we can do animation.
+    {
+        float step = 1f / (speed * 2); // How much to step by per sec
+        float endTime = Time.time + (speed / 2); // When to end the coroutine
+        var fromPos = tire.transform.position;
+        var targetPos = tire.transform.position + new Vector3(0f, 1.8f, 0f);
+        float t = 0; // how far we are. 0-1
+        while (Time.time <= endTime)
+        {
+            t += step * Time.deltaTime;
+            tire.transform.position = Vector3.Lerp(fromPos, targetPos, t);
+            yield return 0;
+        }
+
+        float stepa = 1f / (speed * 2); // How much to step by per sec
+        float endTimea = Time.time + (speed / 2); // When to end the coroutine
+        var fromPosa = tire.transform.position;
+        var targetPosa = new Vector3(.5f, 0f, 0f);
+        float ta = 0; // how far we are. 0-1
+        while (Time.time <= endTimea)
+        {
+            ta += stepa * Time.deltaTime;
+            tire.transform.position = Vector3.Lerp(fromPosa, targetPosa, ta);
+            yield return 0;
+        }
+
+    }
+
+    static IEnumerator instruct_8(GameObject tire) // A couroutine can be run each frame so we can do animation.
+    {
+        float step = 1f / speed; // How much to step by per sec
+        float endTime = Time.time + speed; // When to end the coroutine
+        var fromPos = tire.transform.position;
+        var targetPos = tire.transform.position + new Vector3(-.204f, .204f, 0f);
+        float t = 0; // how far we are. 0-1
+        while (Time.time <= endTime)
+        {
+            t += step * Time.deltaTime;
+            tire.transform.position = Vector3.Lerp(fromPos, targetPos, t);
+            yield return 0;
+        }
+
+    }
+
     static IEnumerator instruct_7(GameObject cap, GameObject wrench) // A couroutine can be run each frame so we can do animation.
     {
         float endTime = Time.time + speed; // When to end the coroutine
@@ -292,48 +526,60 @@ public class scroll_instructions : MonoBehaviour
         }
     }
 
-    static IEnumerator instruct_8(GameObject tire) // A couroutine can be run each frame so we can do animation.
+    static IEnumerator instruct_4(GameObject wrench) // A couroutine can be run each frame so we can do animation.
     {
-        float step = 1f / speed; // How much to step by per sec
         float endTime = Time.time + speed; // When to end the coroutine
-        var fromPos = tire.transform.position;
-        var targetPos = tire.transform.position + new Vector3(-.204f, .204f, 0f);
+        float step = 1f / speed; // How much to step by per sec
+        var fromAngle = wrench.transform.eulerAngles; // start rotation
+        Vector3 rotAmount = new Vector3(90, 0, 0);
+        var targetRot = wrench.transform.eulerAngles + rotAmount; // where we want to be at the end
         float t = 0; // how far we are. 0-1
         while (Time.time <= endTime)
         {
             t += step * Time.deltaTime;
-            tire.transform.position = Vector3.Lerp(fromPos, targetPos, t);
+            wrench.transform.eulerAngles = Vector3.Lerp(fromAngle, targetRot, t);
             yield return 0;
         }
-
     }
 
-    static IEnumerator instruct_9(GameObject tire) // A couroutine can be run each frame so we can do animation.
+    static IEnumerator instruct_3(GameObject cap) // A couroutine can be run each frame so we can do animation.
     {
-        float step = 1f / (speed*2); // How much to step by per sec
-        float endTime = Time.time + (speed/2); // When to end the coroutine
-        var fromPos = tire.transform.position;
-        var targetPos = tire.transform.position + new Vector3(0f, 1.8f, 0f);
+        float endTime = Time.time + speed; // When to end the coroutine
+        float step = 1f / speed; // How much to step by per sec
+        var fromPos = cap.transform.position;
+        var targetPos = cap.transform.position + new Vector3(-.5f, 0f, 0f);
         float t = 0; // how far we are. 0-1
         while (Time.time <= endTime)
         {
             t += step * Time.deltaTime;
-            tire.transform.position = Vector3.Lerp(fromPos, targetPos, t);
+            cap.transform.position = Vector3.Lerp(fromPos, targetPos, t);
             yield return 0;
         }
-
-        float stepa = 1f / (speed * 2); // How much to step by per sec
-        float endTimea = Time.time + (speed / 2); // When to end the coroutine
-        var fromPosa = tire.transform.position;
-        var targetPosa = new Vector3(.5f, 0f, 0f);
-        float ta = 0; // how far we are. 0-1
-        while (Time.time <= endTimea)
+        float endTime2 = Time.time + speed; // When to end the coroutine
+        float step2 = 1f / speed; // How much to step by per sec
+        var fromPos2 = cap.transform.position;
+        var targetPos2 = cap.transform.position + new Vector3(.5f, 0f, 0f);
+        float t2 = 0; // how far we are. 0-1
+        while (Time.time <= endTime2)
         {
-            ta += stepa * Time.deltaTime;
-            tire.transform.position = Vector3.Lerp(fromPosa, targetPosa, ta);
+            t2 += step2 * Time.deltaTime;
+            cap.transform.position = Vector3.Lerp(fromPos2, targetPos2, t2);
             yield return 0;
         }
-
     }
 
+    static IEnumerator instruct_2(GameObject wheel_wedge) // A couroutine can be run each frame so we can do animation.
+    {
+        float endTime = Time.time + speed; // When to end the coroutine
+        float step = 1f / speed; // How much to step by per sec
+        var fromPos = wheel_wedge.transform.position;
+        var targetPos = wheel_wedge.transform.position + new Vector3(0f, 0f, .5f);
+        float t = 0; // how far we are. 0-1
+        while (Time.time <= endTime)
+        {
+            t += step * Time.deltaTime;
+            wheel_wedge.transform.position = Vector3.Lerp(fromPos, targetPos, t);
+            yield return 0;
+        }
+    }
 }

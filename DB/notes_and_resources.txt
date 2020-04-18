@@ -8,3 +8,21 @@ https://github.com/Julian23517/Unity-mongo-csharp-driver-dlls
 
 
 MISC RESOURCES:
+
+voice user interface resources:
+https://books.google.com/books?hl=en&lr=&id=PI_n2EcJfT0C&oi=fnd&pg=PR17&dq=user+interface+voice&ots=qTWv6aI0e9&sig=Q8V3xst3hHY-QLGvZZmpPwq8Lqc#v=onepage&q=user%20interface%20voice&f=false
+https://patents.google.com/patent/US20040260438A1/en
+https://ieeexplore.ieee.org/abstract/document/538404
+general user interface resources:
+https://dl.acm.org/doi/book/10.5555/3033040
+https://www.pnas.org/content/92/22/10031.short
+https://dl.acm.org/doi/10.1145/2935334.2935386
+https://ntrs.nasa.gov/search.jsp?R=19870044220
+https://dl.acm.org/doi/10.1145/2935334.2935386
+https://dl.acm.org/doi/10.1145/965105.807503
+https://ieeexplore.ieee.org/abstract/document/7502665
+https://dl.acm.org/doi/abs/10.1145/307710.307730
+https://dl.acm.org/doi/abs/10.1145/2983310.2985757
+
+GITHUB LFS
+https://github.com/git-lfs/git-lfs
