@@ -8,7 +8,6 @@ public class scroll_instructions : MonoBehaviour
     public static string[] instructions_arr;
     public static string[] instructions_models_arr;
     public static string[] instruct_num_arr;
-
    
 
     public static string current_text = "";
@@ -41,11 +40,59 @@ public class scroll_instructions : MonoBehaviour
     {
         if (instructions_open == true)
         {
+            rover_normal.SetActive(false);
+            jack_screw.SetActive(false);
+            tire.SetActive(false);
+            wrench.SetActive(false);
+            wheel_wedge.SetActive(false);
+            rover_no_tire.SetActive(false);
+            rover_cap_removed.SetActive(false);
+            rover_broken_tire.SetActive(false);
+            cap.SetActive(false);
+
             Instructions.SetActive(false);
             instructions_open = false;
         }
     }
 
+    public static string add_newlines(string full_string)
+    {
+        //if less than 26 chars
+        if (full_string.Length <= 26)
+        {
+            return full_string;
+        }
+        //substring if more than 26 remain
+        else
+        {
+            //substring first 26
+            string sub_26 = full_string.Substring(0, 26);
+            //find last space
+            int last_space = sub_26.LastIndexOf(" ");
+            //end line at last space
+            string first_line = full_string.Substring(0, last_space);
+            //length of new first line 
+            int curr_length = first_line.Length;
+            //add space
+            full_string = first_line + "\n" + full_string.Substring(curr_length);
+            //add \n 
+            curr_length = curr_length + 1;
+            //while remaining chars is longer than 26
+            while ((full_string.Length - curr_length) > 26)
+            {
+                //new substring of next 26 chars
+                sub_26 = full_string.Substring(curr_length, 26);
+                //find last space
+                last_space = sub_26.LastIndexOf(" ");
+                //add \n at end of last space
+                full_string = full_string.Substring(0, curr_length + last_space) + "\n" + full_string.Substring(curr_length + last_space);
+                //increment curr_length
+                curr_length = curr_length + last_space + 1;
+            }
+            return full_string;
+        }
+
+    }
 
     public static void update_instructions(Material MMSEV, GameObject Instructions, TextMesh Instructions_Text, int current, GameObject ORIG_ROVER, GameObject ORIG_TIRE, GameObject rover_normal, GameObject jack_screw, GameObject tire, GameObject wrench, GameObject wheel_wedge, GameObject rover_no_tire, GameObject rover_cap_removed, GameObject rover_broken_tire, GameObject cap)
     {
@@ -58,7 +105,8 @@ public class scroll_instructions : MonoBehaviour
         current_num_text = (current-3).ToString();
 
         //SET INSTRUCTION TEXT
-        Instructions_Text.text = instructions_arr[current];
+
+        Instructions_Text.text = add_newlines(instructions_arr[current]);
         print(current);
 
         rover_normal.SetActive(false);
