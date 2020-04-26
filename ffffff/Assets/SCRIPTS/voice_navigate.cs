@@ -69,7 +69,7 @@ public class voice_navigate : MonoBehaviour
         location_data_open = false;
         Location_Data.SetActive(false);
         //instructions
-        Instructions.SetActive(false);
+        Instructions.SetActive(true);
         current = 0;
         my_rover_done_broke.SetActive(false);
         rover_normal.SetActive(true);
@@ -86,7 +86,8 @@ public class voice_navigate : MonoBehaviour
         ORIG_ROVER.SetActive(false);
         ORIG_TIRE.SetActive(false);
 
-        
+        JsonTest jt = new JsonTest();
+        jt.Yeet(3, Instructions_Text);
 
 
         System.IO.File.Create(@"mark_location.txt").Close();

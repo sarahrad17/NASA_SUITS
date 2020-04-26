@@ -10,24 +10,24 @@ using UnityEngine.Rendering;
 public class do_stuff : MonoBehaviour
 {
     //standard reference values
-    public double[] reference_pos;
-    public double[] reference_rot;
-    public double[] reference_sca;
+    public float[] reference_pos;
+    public float[] reference_rot;
+    public float[] reference_sca;
 
     //current reference values
-    public double[] curr_reference_pos;
-    public double[] curr_reference_rot;
-    public double[] curr_reference_sca;
+    public float[] curr_reference_pos;
+    public float[] curr_reference_rot;
+    public float[] curr_reference_sca;
 
     static public scroll_instructions instance;
     public static float speed = 10f;
 
     //scale vectors based upon a reference model
-    public Vector3[] Scale_Vectors(double[] start_pos, double[] start_rot, double[] start_sca)
+    public Vector3[] Scale_Vectors(float[] start_pos, float[] start_rot, float[] start_sca)
     {
-        double[] pos = new double[3];
-        double[] rot = new double[3];
-        double[] sca = new double[3];
+        float[] pos = new float[3];
+        float[] rot = new float[3];
+        float[] sca = new float[3];
         Vector3[] v = new Vector3[3];
 
         pos[0] = curr_reference_pos[0] * start_pos[0];
@@ -61,7 +61,7 @@ public class do_stuff : MonoBehaviour
     }
 
 
-    public void Move_Overview(GameObject model, double[] pos, double[] rot, double[] sca, double[] pos_move, double[] rot_move, double[] sca_move, GameObject model2, double[] pos2, double[] rot2, double[] sca2, double[] pos_move2, double[] rot_move2, double[] sca_move2, GameObject model3, double[] pos3, double[] rot3, double[] sca3, double[] pos_move3, double[] rot_move3, double[] sca_move3)
+    public void Move_Overview(GameObject model, float[] pos, float[] rot, float[] sca, float[] pos_move, float[] rot_move, float[] sca_move, GameObject model2, float[] pos2, float[] rot2, float[] sca2, float[] pos_move2, float[] rot_move2, float[] sca_move2, GameObject model3, float[] pos3, float[] rot3, float[] sca3, float[] pos_move3, float[] rot_move3, float[] sca_move3)
     {
         //if all 3 models moving 
         if((model!=null) && (model2 != null) && (model3 != null))
