@@ -34,10 +34,12 @@ public class Instruction : MonoBehaviour
 		//Tuple<int, int, int> position { get; set; }
 		//Tuple<int, int, int> rotation { get; set; }
 		//Tuple<int, int, int> scale { get; set; }
-		public int position { get; set; }
-		public int rotation { get; set; }
-		public int scale { get; set; }
-
+		public List<int> position_start { get; set; }
+		public List<int> rotation_start { get; set; }
+		public List<int> scale_start { get; set; }
+		public List<int> position_end { get; set; }
+		public List<int> rotation_end { get; set; }
+		public List<int> scale_end { get; set; }
 
 		public Asset()
 		{

@@ -35,23 +35,11 @@ public class JsonTest : MonoBehaviour
             foreach (Instruction.Asset asset in step.asset_urls)
             {
                 Debug.Log("Asset Model Name: " + asset.model_name);
-                Debug.Log("Asset Position: " + asset.position);
-                Debug.Log("Asset Rotation: " + asset.rotation);
-                Debug.Log("Asset Scale: " + asset.scale);
+                Debug.Log("Asset Position: " + asset.position_start[1]);
+                Debug.Log("Asset Rotation: " + asset.rotation_start[1]);
+                Debug.Log("Asset Scale: " + asset.scale_start[1]);
             }
         }
-        //Instruction.Step step_zero = steps[2];
-        //Debug.Log("Step Numbers: " + step_zero.step);
-        //Debug.Log("Step: " + step_zero.text);
-        //Instruction.Asset asset = step_zero.asset_urls[0];
-        //Debug.Log("Asset Zero Model Name: " + asset.model_name);
-        //Debug.Log("Asset Zero Position: " + asset.position);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 
