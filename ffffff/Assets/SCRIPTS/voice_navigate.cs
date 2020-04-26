@@ -49,6 +49,7 @@ public class voice_navigate : MonoBehaviour
     public Material MMSEV;
     public GameObject ORIG_ROVER;
     public GameObject ORIG_TIRE;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -71,8 +72,8 @@ public class voice_navigate : MonoBehaviour
         Instructions.SetActive(false);
         current = 0;
         my_rover_done_broke.SetActive(false);
-        rover_normal.SetActive(false);
-        jack_screw.SetActive(false);
+        rover_normal.SetActive(true);
+        jack_screw.SetActive(true);
         tire.SetActive(false);
         wrench.SetActive(false);
         wheel_wedge.SetActive(false);
@@ -80,8 +81,10 @@ public class voice_navigate : MonoBehaviour
         rover_cap_removed.SetActive(false);
         rover_broken_tire.SetActive(false);
         cap.SetActive(false);
-        ORIG_ROVER.SetActive(true);
-        ORIG_TIRE.SetActive(true);
+
+        //for demo
+        ORIG_ROVER.SetActive(false);
+        ORIG_TIRE.SetActive(false);
 
         
 
