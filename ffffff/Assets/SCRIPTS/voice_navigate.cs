@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using System.IO;
 using Microsoft.CognitiveServices.Speech;
 using System.Text.RegularExpressions;
+using UnityEngine.Profiling;
+
 public class voice_navigate : MonoBehaviour
 {
 
@@ -32,6 +34,9 @@ public class voice_navigate : MonoBehaviour
     public GameObject Location_Data;
     public bool location_data_open;
     public TextMesh Location_Text;
+    //sampling
+    public GameObject Sample;
+    public TextMesh Sample_Text;
     //instructions
     public GameObject Instructions;
     public TextMesh Instructions_Text;
@@ -69,7 +74,7 @@ public class voice_navigate : MonoBehaviour
         location_data_open = false;
         Location_Data.SetActive(false);
         //instructions
-        Instructions.SetActive(true);
+        Instructions.SetActive(false);
         current = 0;
         my_rover_done_broke.SetActive(false);
         rover_normal.SetActive(true);
@@ -81,6 +86,7 @@ public class voice_navigate : MonoBehaviour
         rover_cap_removed.SetActive(false);
         rover_broken_tire.SetActive(false);
         cap.SetActive(false);
+        Sample.SetActive(true);
 
         //for demo
         ORIG_ROVER.SetActive(false);
@@ -302,8 +308,10 @@ public class voice_navigate : MonoBehaviour
                         int scroll_matches = matches16.Count + matches17.Count;
                         if (scroll_matches > 0)
                         {
-                            scroll_instructions sc = new scroll_instructions();
-                            sc.open(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            JsonTest j = new JsonTest();
+                            j.Yeet(current, Instructions_Text);
+                            //scroll_instructions sc = new scroll_instructions();
+                            //sc.open(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx18 = new Regex(@"\bClose Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -326,8 +334,11 @@ public class voice_navigate : MonoBehaviour
                         int position_matches = matches20.Count + matches21.Count + matches26.Count;
                         if (position_matches > 0)
                         {
-                            scroll_instructions sc = new scroll_instructions();
-                            current = sc.go_forward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            current = current + 1;
+                            JsonTest j = new JsonTest();
+                            j.Yeet(current, Instructions_Text);
+                            //scroll_instructions sc = new scroll_instructions();
+                            //current = sc.go_forward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx22 = new Regex(@"\bLast Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -341,8 +352,11 @@ public class voice_navigate : MonoBehaviour
                         position_matches = matches22.Count + matches23.Count + matches24.Count + matches25.Count;
                         if (position_matches > 0)
                         {
-                            scroll_instructions sc = new scroll_instructions();
-                            current = sc.go_backward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            current = current - 1;
+                            JsonTest j = new JsonTest();
+                            j.Yeet(current, Instructions_Text);
+                            //scroll_instructions sc = new scroll_instructions();
+                            //current = sc.go_backward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
                     }
 

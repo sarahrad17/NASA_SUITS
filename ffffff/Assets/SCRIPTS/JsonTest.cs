@@ -58,6 +58,7 @@ public class JsonTest : MonoBehaviour
             GameObject curr_asset = GameObject.Find("/Model_Path/Models/"+asset.model_name);
             model_names[i] = curr_asset;
             //get asset details
+            
             position_start_vectors[i] = new Vector3(asset.position_start[0], asset.position_start[1], asset.position_start[2]);
             rotation_start_vectors[i] = new Vector3(asset.rotation_start[0], asset.rotation_start[1], asset.rotation_start[2]);
             scale_start_vectors[i] = new Vector3(asset.scale_start[0], asset.scale_start[1], asset.scale_start[2]);
@@ -65,34 +66,38 @@ public class JsonTest : MonoBehaviour
             rotation_end_vectors[i] = new Vector3(asset.rotation_end[0], asset.rotation_end[1], asset.rotation_end[2]);
             scale_end_vectors[i] = new Vector3(asset.scale_end[0], asset.scale_end[1], asset.scale_end[2]);
         }
-        print(model_names[0]);
-        print(position_start_vectors[0]);
+
+        float[] position_start = new[] {position_start_vectors[0].x, position_start_vectors[0].y, position_start_vectors[0].z};
+        float[] position_start_2 = new[] { position_start_vectors[1].x, position_start_vectors[1].y, position_start_vectors[1].z };
+        float[] position_start_3 = new[] { position_start_vectors[2].x, position_start_vectors[2].y, position_start_vectors[2].z };
+
+        float[] rotation_start = new[] { rotation_start_vectors[0].x, rotation_start_vectors[0].y, rotation_start_vectors[0].z };
+        float[] rotation_start_2 = new[] { rotation_start_vectors[1].x, rotation_start_vectors[1].y, rotation_start_vectors[1].z };
+        float[] rotation_start_3 = new[] { rotation_start_vectors[2].x, rotation_start_vectors[2].y, rotation_start_vectors[2].z };
+
+        float[] scale_start = new[] { scale_start_vectors[0].x, scale_start_vectors[0].y, scale_start_vectors[0].z };
+        float[] scale_start_2 = new[] { scale_start_vectors[1].x, scale_start_vectors[1].y, scale_start_vectors[1].z };
+        float[] scale_start_3 = new[] { scale_start_vectors[2].x, scale_start_vectors[2].y, scale_start_vectors[2].z };
+
+
+
+        float[] position_end = new[] { position_end_vectors[0].x, position_end_vectors[0].y, position_end_vectors[0].z };
+        float[] position_end_2 = new[] { position_end_vectors[1].x, position_end_vectors[1].y, position_end_vectors[1].z };
+        float[] position_end_3 = new[] { position_end_vectors[2].x, position_end_vectors[2].y, position_end_vectors[2].z };
+
+        float[] rotation_end = new[] { rotation_end_vectors[0].x, rotation_end_vectors[0].y, rotation_end_vectors[0].z };
+        float[] rotation_end_2 = new[] { rotation_end_vectors[1].x, rotation_end_vectors[1].y, rotation_end_vectors[1].z };
+        float[] rotation_end_3 = new[] { rotation_end_vectors[2].x, rotation_end_vectors[2].y, rotation_end_vectors[2].z };
+
+        float[] scale_end = new[] { scale_end_vectors[0].x, scale_end_vectors[0].y, scale_end_vectors[0].z };
+        float[] scale_end_2 = new[] { scale_end_vectors[1].x, scale_end_vectors[1].y, scale_end_vectors[1].z };
+        float[] scale_end_3 = new[] { scale_end_vectors[2].x, scale_end_vectors[2].y, scale_end_vectors[2].z };
+
         //move model
-        //do_stuff.Move_Overview(model_names[0], );
-
-        //Move_Overview(GameObject model, float[] pos, float[] rot, float[] sca, float[] pos_move, float[] rot_move, float[] sca_move, GameObject model2, float[] pos2, float[] rot2, float[] sca2, float[] pos_move2, float[] rot_move2, float[] sca_move2, GameObject model3, float[] pos3, float[] rot3, float[] sca3, float[] pos_move3, float[] rot_move3, float[] sca_move3)
-   
-
-
-
-
-
-            /*
-            foreach (Instruction.Step step in steps)
-            {
-                Debug.Log("Step Number:" + step.step);
-                Debug.Log("Step Name: " + step.text);
-                foreach (Instruction.Asset asset in step.asset_urls)
-                {
-                    Debug.Log("Asset Model Name: " + asset.model_name);
-                    Debug.Log("Asset Position: " + asset.position_start);
-                    Debug.Log("Asset Rotation: " + asset.rotation_start);
-                    Debug.Log("Asset Scale: " + asset.scale_start);
-                }
-            }
-            */
-
-        }
+        do_stuff d = new do_stuff();
+        d.Move_Overview(model_names[0], position_start, rotation_start, scale_start, position_end, rotation_end, scale_end, model_names[1], position_start_2, rotation_start_2, scale_start_2, position_end_2, rotation_end_2, scale_end_2, model_names[2], position_start_3, rotation_start_3, scale_start_3, position_end_3, rotation_end_3, scale_end_3);
+        //print("here");
+    }
 
     /// <summary>
     /// Returns an Instruction object from the MongoDB database
@@ -107,8 +112,6 @@ public class JsonTest : MonoBehaviour
         //Debug.Log(allInstructionSets.Count);
         Instruction objectToFind = collection.Find(d => d._id.Equals(document_id)).FirstOrDefault();
         return objectToFind;
-
-
     }
 
     public static string add_newlines(string full_string)
