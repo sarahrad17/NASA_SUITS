@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.CognitiveServices.Speech;
 using System.Text.RegularExpressions;
 using UnityEngine.Profiling;
+using JetBrains.Annotations;
 
 public class voice_navigate : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class voice_navigate : MonoBehaviour
     public GameObject Instructions;
     public TextMesh Instructions_Text;
     public int current;
+
+    public List<GameObject> models = new List<GameObject>();
     public GameObject my_rover_done_broke;
     public GameObject rover_normal;
     public GameObject jack_screw;
@@ -76,24 +79,31 @@ public class voice_navigate : MonoBehaviour
         //instructions
         Instructions.SetActive(false);
         current = 0;
-        my_rover_done_broke.SetActive(false);
-        rover_normal.SetActive(true);
-        jack_screw.SetActive(true);
-        tire.SetActive(false);
-        wrench.SetActive(false);
-        wheel_wedge.SetActive(false);
-        rover_no_tire.SetActive(false);
-        rover_cap_removed.SetActive(false);
-        rover_broken_tire.SetActive(false);
-        cap.SetActive(false);
-        Sample.SetActive(true);
 
+        models.Add(my_rover_done_broke);
+        models.Add(rover_normal);
+        models.Add(jack_screw);
+        models.Add(tire);
+        models.Add(wrench);
+        models.Add(wheel_wedge);
+        models.Add(rover_no_tire);
+        models.Add(rover_cap_removed);
+        models.Add(cap);
+        models.Add(ORIG_ROVER);
+        models.Add(ORIG_TIRE);
+
+        foreach(GameObject m in models)
+        {
+            m.SetActive(false);
+        }
+        jack_screw.SetActive(true);
+        rover_normal.SetActive(true);
         //for demo
         ORIG_ROVER.SetActive(false);
         ORIG_TIRE.SetActive(false);
 
-        JsonTest jt = new JsonTest();
-        jt.Yeet(3, Instructions_Text);
+        //sample
+        Sample.SetActive(false);
 
 
         System.IO.File.Create(@"mark_location.txt").Close();
@@ -308,8 +318,10 @@ public class voice_navigate : MonoBehaviour
                         int scroll_matches = matches16.Count + matches17.Count;
                         if (scroll_matches > 0)
                         {
+                            Instructions.SetActive(true);
                             JsonTest j = new JsonTest();
                             j.Yeet(current, Instructions_Text);
+                            print("OPEN INSTRUCTIONS");
                             //scroll_instructions sc = new scroll_instructions();
                             //sc.open(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
@@ -321,8 +333,13 @@ public class voice_navigate : MonoBehaviour
                         scroll_matches = matches18.Count + matches19.Count;
                         if (scroll_matches > 0)
                         {
-                            scroll_instructions sc = new scroll_instructions();
-                            sc.close(MMSEV, Instructions, Instructions_Text, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            Instructions.SetActive(false);
+                            //scroll_instructions sc = new scroll_instructions();
+                            //sc.close(MMSEV, Instructions, Instructions_Text, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
+                            foreach (GameObject m in models)
+                            {
+                                m.SetActive(false);
+                            }
                         }
 
                         Regex rx20 = new Regex(@"\bNext Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);

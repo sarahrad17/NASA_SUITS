@@ -18,6 +18,7 @@ public class JsonTest : MonoBehaviour
     private MongoClient client;
     private IMongoDatabase db;
     public static JsonTest instance;
+    public GameObject g;
     
 
     public void Yeet(int step_num, TextMesh inst)
@@ -38,12 +39,12 @@ public class JsonTest : MonoBehaviour
         //create empty array
         GameObject[] model_names = new GameObject[3];
 
-        Vector3[] position_start_vectors = new Vector3[3];
-        Vector3[] rotation_start_vectors = new Vector3[3];
-        Vector3[] scale_start_vectors = new Vector3[3];
-        Vector3[] position_end_vectors = new Vector3[3];
-        Vector3[] rotation_end_vectors = new Vector3[3];
-        Vector3[] scale_end_vectors = new Vector3[3];
+        double[,] position_start_vectors = new double[3, 3];
+        double[,] rotation_start_vectors = new double[3, 3];
+        double[,] scale_start_vectors = new double[3, 3];
+        double[,] position_end_vectors = new double[3, 3];
+        double[,] rotation_end_vectors = new double[3, 3];
+        double[,] scale_end_vectors = new double[3, 3];
 
         for(int j = 0; j<model_names.Length; j++)
         {
@@ -55,48 +56,66 @@ public class JsonTest : MonoBehaviour
         foreach (Instruction.Asset asset in current_step.asset_urls)
         {
             //associate asset name to model in asset bundle
-            GameObject curr_asset = GameObject.Find("/Model_Path/Models/"+asset.model_name);
+            GameObject curr_asset = GameObject.Find("/Model_Path/Models/" + asset.model_name);
             model_names[i] = curr_asset;
             //get asset details
-            
-            position_start_vectors[i] = new Vector3(asset.position_start[0], asset.position_start[1], asset.position_start[2]);
-            rotation_start_vectors[i] = new Vector3(asset.rotation_start[0], asset.rotation_start[1], asset.rotation_start[2]);
-            scale_start_vectors[i] = new Vector3(asset.scale_start[0], asset.scale_start[1], asset.scale_start[2]);
-            position_end_vectors[i] = new Vector3(asset.position_end[0], asset.position_end[1], asset.position_end[2]);
-            rotation_end_vectors[i] = new Vector3(asset.rotation_end[0], asset.rotation_end[1], asset.rotation_end[2]);
-            scale_end_vectors[i] = new Vector3(asset.scale_end[0], asset.scale_end[1], asset.scale_end[2]);
+            position_start_vectors[i, 0] = asset.position_start[0];
+            position_start_vectors[i, 1] = asset.position_start[1];
+            position_start_vectors[i, 2] = asset.position_start[2];
+
+            rotation_start_vectors[i, 0] = asset.rotation_start[0];
+            rotation_start_vectors[i, 1] = asset.rotation_start[1];
+            rotation_start_vectors[i, 2] = asset.rotation_start[2];
+
+            scale_start_vectors[i, 0] = asset.scale_start[0];
+            scale_start_vectors[i, 1] = asset.scale_start[1];
+            scale_start_vectors[i, 2] = asset.scale_start[2];
+
+            position_end_vectors[i, 0] = asset.position_end[0];
+            position_end_vectors[i, 1] = asset.position_end[1];
+            position_end_vectors[i, 2] = asset.position_end[2];
+
+            rotation_end_vectors[i, 0] = asset.rotation_end[0];
+            rotation_end_vectors[i, 1] = asset.rotation_end[1];
+            rotation_end_vectors[i, 2] = asset.rotation_end[2];
+
+            scale_end_vectors[i, 0] = asset.scale_end[0];
+            scale_end_vectors[i, 1] = asset.scale_end[1];
+            scale_end_vectors[i, 2] = asset.scale_end[2];
         }
 
-        float[] position_start = new[] {position_start_vectors[0].x, position_start_vectors[0].y, position_start_vectors[0].z};
-        float[] position_start_2 = new[] { position_start_vectors[1].x, position_start_vectors[1].y, position_start_vectors[1].z };
-        float[] position_start_3 = new[] { position_start_vectors[2].x, position_start_vectors[2].y, position_start_vectors[2].z };
+        //yes i am fully aware that there is a better way to do this i just got caught up debugging in this mess and 
+        //it works so im not changing it thank u have a nice day
 
-        float[] rotation_start = new[] { rotation_start_vectors[0].x, rotation_start_vectors[0].y, rotation_start_vectors[0].z };
-        float[] rotation_start_2 = new[] { rotation_start_vectors[1].x, rotation_start_vectors[1].y, rotation_start_vectors[1].z };
-        float[] rotation_start_3 = new[] { rotation_start_vectors[2].x, rotation_start_vectors[2].y, rotation_start_vectors[2].z };
+        float[] pos_start0 = { (float)position_start_vectors[0, 0], (float)position_start_vectors[0, 1], (float)position_start_vectors[0, 2] };
+        float[] pos_start1 = { (float)position_start_vectors[1, 0], (float)position_start_vectors[1, 1], (float)position_start_vectors[1, 2] };
+        float[] pos_start2 = { (float)position_start_vectors[2, 0], (float)position_start_vectors[2, 1], (float)position_start_vectors[2, 2] };
 
-        float[] scale_start = new[] { scale_start_vectors[0].x, scale_start_vectors[0].y, scale_start_vectors[0].z };
-        float[] scale_start_2 = new[] { scale_start_vectors[1].x, scale_start_vectors[1].y, scale_start_vectors[1].z };
-        float[] scale_start_3 = new[] { scale_start_vectors[2].x, scale_start_vectors[2].y, scale_start_vectors[2].z };
+        float[] rot_start0 = { (float)rotation_start_vectors[0, 0], (float)rotation_start_vectors[0, 1], (float)rotation_start_vectors[0, 2] };
+        float[] rot_start1 = { (float)rotation_start_vectors[1, 0], (float)rotation_start_vectors[1, 1], (float)rotation_start_vectors[1, 2] };
+        float[] rot_start2 = { (float)rotation_start_vectors[2, 0], (float)rotation_start_vectors[2, 1], (float)rotation_start_vectors[2, 2] };
 
+        float[] sca_start0 = { (float)scale_start_vectors[0, 0], (float)scale_start_vectors[0, 1], (float)scale_start_vectors[0, 2] };
+        float[] sca_start1 = { (float)scale_start_vectors[1, 0], (float)scale_start_vectors[1, 1], (float)scale_start_vectors[1, 2] };
+        float[] sca_start2 = { (float)scale_start_vectors[2, 0], (float)scale_start_vectors[2, 1], (float)scale_start_vectors[2, 2] };
 
+        float[] pos_end0 = { (float)position_end_vectors[0, 0], (float)position_end_vectors[0, 1], (float)position_end_vectors[0, 2] };
+        float[] pos_end1 = { (float)position_end_vectors[1, 0], (float)position_end_vectors[1, 1], (float)position_end_vectors[1, 2] };
+        float[] pos_end2 = { (float)position_end_vectors[2, 0], (float)position_end_vectors[2, 1], (float)position_end_vectors[2, 2] };
 
-        float[] position_end = new[] { position_end_vectors[0].x, position_end_vectors[0].y, position_end_vectors[0].z };
-        float[] position_end_2 = new[] { position_end_vectors[1].x, position_end_vectors[1].y, position_end_vectors[1].z };
-        float[] position_end_3 = new[] { position_end_vectors[2].x, position_end_vectors[2].y, position_end_vectors[2].z };
+        float[] rot_end0 = { (float)rotation_end_vectors[0, 0], (float)rotation_end_vectors[0, 1], (float)rotation_end_vectors[0, 2] };
+        float[] rot_end1 = { (float)rotation_end_vectors[1, 0], (float)rotation_end_vectors[1, 1], (float)rotation_end_vectors[1, 2] };
+        float[] rot_end2 = { (float)rotation_end_vectors[2, 0], (float)rotation_end_vectors[2, 1], (float)rotation_end_vectors[2, 2] };
 
-        float[] rotation_end = new[] { rotation_end_vectors[0].x, rotation_end_vectors[0].y, rotation_end_vectors[0].z };
-        float[] rotation_end_2 = new[] { rotation_end_vectors[1].x, rotation_end_vectors[1].y, rotation_end_vectors[1].z };
-        float[] rotation_end_3 = new[] { rotation_end_vectors[2].x, rotation_end_vectors[2].y, rotation_end_vectors[2].z };
+        float[] sca_end0 = { (float)scale_end_vectors[0, 0], (float)scale_end_vectors[0, 1], (float)scale_end_vectors[0, 2] };
+        float[] sca_end1 = { (float)scale_end_vectors[1, 0], (float)scale_end_vectors[1, 1], (float)scale_end_vectors[1, 2] };
+        float[] sca_end2 = { (float)scale_end_vectors[2, 0], (float)scale_end_vectors[2, 1], (float)scale_end_vectors[2, 2] };
 
-        float[] scale_end = new[] { scale_end_vectors[0].x, scale_end_vectors[0].y, scale_end_vectors[0].z };
-        float[] scale_end_2 = new[] { scale_end_vectors[1].x, scale_end_vectors[1].y, scale_end_vectors[1].z };
-        float[] scale_end_3 = new[] { scale_end_vectors[2].x, scale_end_vectors[2].y, scale_end_vectors[2].z };
 
         //move model
         do_stuff d = new do_stuff();
-        d.Move_Overview(model_names[0], position_start, rotation_start, scale_start, position_end, rotation_end, scale_end, model_names[1], position_start_2, rotation_start_2, scale_start_2, position_end_2, rotation_end_2, scale_end_2, model_names[2], position_start_3, rotation_start_3, scale_start_3, position_end_3, rotation_end_3, scale_end_3);
-        //print("here");
+        do_stuff.Move_Overview(model_names[0], pos_start0, rot_start0, sca_start0, pos_end0, rot_end0, sca_end0, model_names[1], pos_start1, rot_start1, sca_start1, pos_end1, rot_end1, sca_end1, model_names[2], pos_start2, rot_start2, sca_start2, pos_end2, rot_end2, sca_end2);
+
     }
 
     /// <summary>

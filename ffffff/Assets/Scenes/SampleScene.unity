@@ -1487,8 +1487,8 @@ MonoBehaviour:
   Location_Data: {fileID: 1581100894}
   location_data_open: 0
   Location_Text: {fileID: 294618515}
-  Sample: {fileID: 0}
-  Sample_Text: {fileID: 0}
+  Sample: {fileID: 1864640313}
+  Sample_Text: {fileID: 873183198}
   Instructions: {fileID: 268441322}
   Instructions_Text: {fileID: 580004417}
   current: 0
@@ -2980,6 +2980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1050278261}
   - component: {fileID: 1050278262}
+  - component: {fileID: 1050278263}
   m_Layer: 0
   m_Name: JSON
   m_TagString: Untagged
@@ -3011,6 +3012,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52269e6332c36494dae975d3a2543a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g: {fileID: 0}
+--- !u!114 &1050278263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050278260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565643dce6b3f244fac2bbdf16552370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1088156947
@@ -7793,7 +7807,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085600309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 229cab24bca8ccb44a91e75fd7a680de, type: 3}
   m_Name: 
@@ -7805,7 +7819,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085600309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48159e5a44cf2b444b194ed314329ce8, type: 3}
   m_Name: 
