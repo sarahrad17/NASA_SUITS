@@ -38,6 +38,7 @@ public class voice_navigate : MonoBehaviour
     //sampling
     public GameObject Sample;
     public TextMesh Sample_Text;
+    public bool sample_status; 
     //instructions
     public GameObject Instructions;
     public TextMesh Instructions_Text;
@@ -78,7 +79,7 @@ public class voice_navigate : MonoBehaviour
         Location_Data.SetActive(false);
         //instructions
         Instructions.SetActive(false);
-        current = 0;
+        current = 5;
 
         models.Add(my_rover_done_broke);
         models.Add(rover_normal);
@@ -96,14 +97,15 @@ public class voice_navigate : MonoBehaviour
         {
             m.SetActive(false);
         }
-        jack_screw.SetActive(true);
-        rover_normal.SetActive(true);
+        //wrench.SetActive(true);
+        //rover_normal.SetActive(true);
         //for demo
         ORIG_ROVER.SetActive(false);
         ORIG_TIRE.SetActive(false);
-
+        rover_broken_tire.SetActive(true);
         //sample
         Sample.SetActive(false);
+
 
 
         System.IO.File.Create(@"mark_location.txt").Close();
@@ -322,8 +324,6 @@ public class voice_navigate : MonoBehaviour
                             JsonTest j = new JsonTest();
                             j.Yeet(current, Instructions_Text);
                             print("OPEN INSTRUCTIONS");
-                            //scroll_instructions sc = new scroll_instructions();
-                            //sc.open(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx18 = new Regex(@"\bClose Instructions\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -351,6 +351,10 @@ public class voice_navigate : MonoBehaviour
                         int position_matches = matches20.Count + matches21.Count + matches26.Count;
                         if (position_matches > 0)
                         {
+                            foreach (GameObject m in models)
+                            {
+                                m.SetActive(false);
+                            }
                             current = current + 1;
                             JsonTest j = new JsonTest();
                             j.Yeet(current, Instructions_Text);
@@ -369,6 +373,10 @@ public class voice_navigate : MonoBehaviour
                         position_matches = matches22.Count + matches23.Count + matches24.Count + matches25.Count;
                         if (position_matches > 0)
                         {
+                            foreach (GameObject m in models)
+                            {
+                                m.SetActive(false);
+                            }
                             current = current - 1;
                             JsonTest j = new JsonTest();
                             j.Yeet(current, Instructions_Text);

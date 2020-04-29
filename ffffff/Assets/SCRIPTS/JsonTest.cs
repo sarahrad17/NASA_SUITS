@@ -55,9 +55,11 @@ public class JsonTest : MonoBehaviour
         int i = 0;
         foreach (Instruction.Asset asset in current_step.asset_urls)
         {
+            print(asset.model_name);
             //associate asset name to model in asset bundle
             GameObject curr_asset = GameObject.Find("/Model_Path/Models/" + asset.model_name);
             model_names[i] = curr_asset;
+            curr_asset.SetActive(true);
             //get asset details
             position_start_vectors[i, 0] = asset.position_start[0];
             position_start_vectors[i, 1] = asset.position_start[1];
@@ -82,6 +84,7 @@ public class JsonTest : MonoBehaviour
             scale_end_vectors[i, 0] = asset.scale_end[0];
             scale_end_vectors[i, 1] = asset.scale_end[1];
             scale_end_vectors[i, 2] = asset.scale_end[2];
+            i = i + 1;
         }
 
         //yes i am fully aware that there is a better way to do this i just got caught up debugging in this mess and 
