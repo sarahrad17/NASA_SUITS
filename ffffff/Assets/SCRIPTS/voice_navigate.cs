@@ -58,6 +58,7 @@ public class voice_navigate : MonoBehaviour
     public Material MMSEV;
     public GameObject ORIG_ROVER;
     public GameObject ORIG_TIRE;
+    public bool recording_sample_notes;
     
 
     // Start is called before the first frame update
@@ -104,8 +105,9 @@ public class voice_navigate : MonoBehaviour
         ORIG_TIRE.SetActive(false);
         rover_broken_tire.SetActive(true);
         //sample
-        Sample.SetActive(false);
 
+        Sample.SetActive(false);
+        recording_sample_notes = false;
 
 
         System.IO.File.Create(@"mark_location.txt").Close();
@@ -210,6 +212,12 @@ public class voice_navigate : MonoBehaviour
                             Notes_Text.text = Notes_Text.text + f + "\n";
 
                         }
+                    }
+
+
+                    else if(recording_sample_notes == true)
+                    {
+                        recording_sample_notes = sample.Record_Features("picture_testing", Sample_Text, f);
                     }
 
                     //NOT TAKING NOTES
@@ -383,6 +391,29 @@ public class voice_navigate : MonoBehaviour
                             //scroll_instructions sc = new scroll_instructions();
                             //current = sc.go_backward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
+
+                        Regex rxsample = new Regex(@"\bCollect Sample\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches_sample = rxsample.Matches(f);
+                        position_matches = matches_sample.Count;
+                        if (position_matches > 0)
+                        {
+                            print("sample");
+                            Sample.SetActive(true);
+                            sample.Start_NoteTaking("picture_testing");
+                            //StartCoroutine(sample.Take_Scenery_Pics("yeet"));
+                            sample sam = Sample.AddComponent<sample>() as sample;
+                            recording_sample_notes =sam.Notable_Features("picture_testing", Instructions_Text, f);
+                            
+                        }
+
+
+
+
+
+
+
+
+
                     }
 
                 }

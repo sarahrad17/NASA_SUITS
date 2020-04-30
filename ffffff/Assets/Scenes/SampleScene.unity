@@ -1489,6 +1489,7 @@ MonoBehaviour:
   Location_Text: {fileID: 294618515}
   Sample: {fileID: 1864640313}
   Sample_Text: {fileID: 873183198}
+  sample_status: 0
   Instructions: {fileID: 268441322}
   Instructions_Text: {fileID: 580004417}
   current: 0
@@ -1506,6 +1507,7 @@ MonoBehaviour:
   MMSEV: {fileID: 2100000, guid: 22b2edf0fae0466479b748746ff238f1, type: 2}
   ORIG_ROVER: {fileID: 1023627821}
   ORIG_TIRE: {fileID: 101559273}
+  recording_sample_notes: 0
 --- !u!114 &409353146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5154,7 +5156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5bc256a112c8d4d8131b56a79736fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tm: {fileID: 0}
+  tm: {fileID: 873183198}
 --- !u!4 &1470348528
 Transform:
   m_ObjectHideFlags: 0

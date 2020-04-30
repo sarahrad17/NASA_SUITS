@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -6,17 +7,14 @@ using UnityEngine.UI;
 
 public class sample : MonoBehaviour
 {
+    public static IEnumerator s;
 
     public TextMesh tm;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Start_NoteTaking("4_29_2020");
-    }
 
-
-    public void Start_NoteTaking(string file_name)
+    //open display, append location & time
+    public static void Start_NoteTaking(string file_name)
     {
+        System.IO.Directory.CreateDirectory("Sampling");
         file_name = file_name + ".txt";
         System.IO.File.Create(file_name).Close();
         //record current time
@@ -27,16 +25,26 @@ public class sample : MonoBehaviour
         System.IO.File.AppendAllText(file_name, "Current Location: "+cam_pos_string+"\n");
     }
 
-    public void Take_Scenery_Pics(string file_name)
+    //takes pictures for 25 seconds
+    public static IEnumerator Take_Scenery_Pics(string file_name)
     {
-        System.IO.Directory.CreateDirectory(file_name);
-        for (int curr=0; curr < 100; curr++)
+        if(System.IO.Directory.Exists("Sampling\\" + file_name))
         {
-            ScreenCapture.CaptureScreenshot(file_name + curr.ToString());
-            System.Threading.Thread.Sleep(100);
-        }    
+            System.IO.Directory.Delete("Sampling\\" + file_name);
+        }
+        System.IO.Directory.CreateDirectory("Sampling\\" + file_name);
+        int c = 0;
+        while (c < 50 )
+        {
+            ScreenCapture.CaptureScreenshot("Sampling\\" + file_name + "\\" + c.ToString()+".png");
+            yield return new WaitForSeconds(.5f);
+            c++;
+        }
+        yield break;
     }
-
+    
+    
+    //append temperature to display
     public void Get_Temp(string file_name)
     {
         int temp = sort_telemetry.t_sub_value;
@@ -45,11 +53,12 @@ public class sample : MonoBehaviour
         System.IO.File.AppendAllText(file_name, "\n");
     }
 
+    //get ready to collect sample
     public void Collect_Environment_Display(string file_name, bool taking_vid, TextMesh tm)
     {
         if (taking_vid == true)
         {
-            Take_Scenery_Pics(file_name);
+            StartCoroutine(Take_Scenery_Pics(file_name));
             taking_vid = false;
         }
         else
@@ -61,25 +70,30 @@ public class sample : MonoBehaviour
 
     // returns current UTC time
 
-    public void Notable_Features(string file_name, TextMesh tm)
+    public bool Notable_Features(string file_name, TextMesh tm, string f)
     {
         tm.text = "Speak record notable environmental\n features. \nTo stop, \n say \"Stop!\"\n To skip, say \"Skip!\"";
-        System.IO.File.AppendAllText(file_name, "Notable Features:\n");
-
+        System.IO.File.AppendAllText(file_name+".txt", "Notable Features:\n");
+        
+        return Record_Features(file_name, tm, f);
     }
 
 
     //while output is false, keep calling this function
-    public bool Record_Features(string file_name, TextMesh tm, string sample_status, string f)
+    public static bool Record_Features(string file_name, TextMesh tm, string f)
     {
-        if(sample_status == "Stop" || sample_status == "Skip")
+        if (f.Contains("Stop") || f.Contains("stop") || f.Contains("Skip") || f.Contains("Skip") )
         {
-            return true;
+            return false;
         }
         else
         {
-            System.IO.File.AppendAllText(file_name, f+"\n");
-            return false;
+            if(!(f.Contains("Collect Sample")))
+            {
+                System.IO.File.AppendAllText(file_name + ".txt", f + "\n");
+            }
+            
+            return true;
         }
     }
 
