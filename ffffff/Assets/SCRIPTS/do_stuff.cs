@@ -160,9 +160,9 @@ public class do_stuff : MonoBehaviour
         var fromPos = model.transform.position;
         var targetPos = pos_move;
         //ROTATION
-        Vector3 rotAmount = rot_move;
-        var fromAngle = model.transform.eulerAngles; // start rotation
-        var targetRot = rot_move; // where we want to be at the end
+        Quaternion rotAmount = Quaternion.Euler(rot_move);
+        Quaternion fromAngle = Quaternion.Euler(model.transform.eulerAngles); // start rotation
+        var targetRot = rotAmount; // where we want to be at the end
         //SCALE
         var localScale = model.transform.localScale;
         var targetScale = sca_move;
@@ -178,7 +178,7 @@ public class do_stuff : MonoBehaviour
             //transform rotation
             if ((targetRot.x - fromAngle.x) != 0 || (targetRot.y - fromAngle.y) != 0 || (targetRot.z - fromAngle.z) != 0)
             {
-                model.transform.eulerAngles = Vector3.Lerp(fromAngle, targetRot, t);
+                model.transform.rotation = Quaternion.Slerp(fromAngle, targetRot, t);
             }
             //transform scale
             if ((localScale.x - targetScale.x) != 0 || (localScale.y - targetScale.y) != 0 || (localScale.z - targetScale.z) != 0)
@@ -205,9 +205,9 @@ public class do_stuff : MonoBehaviour
         var fromPos = model.transform.position;
         var targetPos = pos_move;
         //ROTATION
-        Vector3 rotAmount = rot_move;
-        var fromAngle = model.transform.eulerAngles; // start rotation
-        var targetRot = rot_move; // where we want to be at the end
+        Quaternion rotAmount = Quaternion.Euler(rot_move);
+        Quaternion fromAngle = Quaternion.Euler(model.transform.eulerAngles); // start rotation
+        var targetRot = rotAmount; // where we want to be at the end
         //SCALE
         var localScale = model.transform.localScale;
         var targetScale = sca_move;
@@ -220,9 +220,9 @@ public class do_stuff : MonoBehaviour
         var fromPos2 = model2.transform.position;
         var targetPos2 = pos_move2;
         //ROTATION
-        Vector3 rotAmount2 = rot_move2;
-        var fromAngle2 = model2.transform.eulerAngles; // start rotation
-        var targetRot2 = rot_move2; // where we want to be at the end
+        Quaternion rotAmount2 = Quaternion.Euler(rot_move2);
+        Quaternion fromAngle2 = Quaternion.Euler(model2.transform.eulerAngles); // start rotation
+        var targetRot2 = rotAmount2; // where we want to be at the end
         //SCALE
         var localScale2 = model2.transform.localScale;
         var targetScale2 = sca_move2;
@@ -241,7 +241,7 @@ public class do_stuff : MonoBehaviour
             //transform rotation
             if ((targetRot.x - fromAngle.x) != 0 || (targetRot.y - fromAngle.y) != 0 || (targetRot.z - fromAngle.z) != 0)
             {
-                model.transform.eulerAngles = Vector3.Lerp(fromAngle, targetRot, t);
+                model.transform.rotation = Quaternion.Slerp(fromAngle, targetRot, t);
             }
             //transform scale
             if ((localScale.x - targetScale.x) != 0 || (localScale.y - targetScale.y) != 0 || (localScale.z - targetScale.z) != 0)
@@ -257,7 +257,7 @@ public class do_stuff : MonoBehaviour
             //transform rotation
             if ((targetRot2.x - fromAngle2.x) != 0 || (targetRot2.y - fromAngle2.y) != 0 || (targetRot2.z - fromAngle2.z) != 0)
             {
-                model2.transform.eulerAngles = Vector3.Lerp(fromAngle2, targetRot2, t);
+                model2.transform.rotation = Quaternion.Slerp(fromAngle2, targetRot2, t);
                 print("hello");
             }
             //transform scale
@@ -279,8 +279,8 @@ public class do_stuff : MonoBehaviour
         var fromPos = model.transform.position;
         var targetPos = pos_move;
         //ROTATION
-        Vector3 rotAmount = rot_move;
-        var fromAngle = model.transform.eulerAngles; // start rotation
+        Quaternion rotAmount = Quaternion.Euler(rot_move);
+        Quaternion fromAngle = Quaternion.Euler(model.transform.eulerAngles); // start rotation
         var targetRot = rotAmount; // where we want to be at the end
         //SCALE
         var localScale = model.transform.localScale;
@@ -291,8 +291,8 @@ public class do_stuff : MonoBehaviour
         var fromPos2 = model2.transform.position;
         var targetPos2 = pos_move2;
         //ROTATION
-        Vector3 rotAmount2 = rot_move2;
-        var fromAngle2 = model2.transform.eulerAngles; // start rotation
+        Quaternion rotAmount2 = Quaternion.Euler(rot_move2);
+        Quaternion fromAngle2 = Quaternion.Euler(model2.transform.eulerAngles); // start rotation
         var targetRot2 = rotAmount2; // where we want to be at the end
         //SCALE
         var localScale2 = model2.transform.localScale;
@@ -303,8 +303,8 @@ public class do_stuff : MonoBehaviour
         var fromPos3 = model3.transform.position;
         var targetPos3 = pos_move3;
         //ROTATION
-        Vector3 rotAmount3 = rot_move3;
-        var fromAngle3 = model3.transform.eulerAngles; // start rotation
+        Quaternion rotAmount3 = Quaternion.Euler(rot_move3);
+        Quaternion fromAngle3 = Quaternion.Euler(model3.transform.eulerAngles); // start rotation
         var targetRot3 = rotAmount3; // where we want to be at the end
         //SCALE
         var localScale3 = model3.transform.localScale;
@@ -322,7 +322,7 @@ public class do_stuff : MonoBehaviour
             //transform rotation
             if ((targetRot.x - fromAngle.x) != 0 || (targetRot.y - fromAngle.y) != 0 || (targetRot.z - fromAngle.z) != 0)
             {
-                model.transform.eulerAngles = Vector3.Lerp(fromAngle, targetRot, t);
+                model.transform.rotation = Quaternion.Slerp(fromAngle, targetRot, t);
             }
             //transform scale
             if ((localScale.x - targetScale.x) != 0 || (localScale.y - targetScale.y) != 0 || (localScale.z - targetScale.z) != 0)
@@ -338,7 +338,7 @@ public class do_stuff : MonoBehaviour
             //transform rotation
             if ((targetRot2.x - fromAngle2.x) != 0 || (targetRot2.y - fromAngle2.y) != 0 || (targetRot2.z - fromAngle2.z) != 0)
             {
-                model2.transform.eulerAngles = Vector3.Lerp(fromAngle2, targetRot2, t);
+                model2.transform.rotation = Quaternion.Slerp(fromAngle2, targetRot2, t);
             }
             //transform scale
             if ((localScale2.x - targetScale2.x) != 0 || (localScale2.y - targetScale2.y) != 0 || (localScale2.z - targetScale2.z) != 0)
@@ -355,7 +355,7 @@ public class do_stuff : MonoBehaviour
             //transform rotation
             if ((targetRot3.x - fromAngle3.x) != 0 || (targetRot3.y - fromAngle3.y) != 0 || (targetRot3.z - fromAngle3.z) != 0)
             {
-                model3.transform.eulerAngles = Vector3.Lerp(fromAngle3, targetRot3, t);
+                model3.transform.rotation = Quaternion.Slerp(fromAngle3, targetRot3, t);
             }
             //transform scale
             if ((localScale3.x - targetScale3.x) != 0 || (localScale3.y - targetScale3.y) != 0 || (localScale3.z - targetScale3.z) != 0)

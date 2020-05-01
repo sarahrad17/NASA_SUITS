@@ -12,7 +12,7 @@ public class sample : MonoBehaviour
     public TextMesh tm;
 
     //open display, append location & time
-    public static void Start_NoteTaking(string file_name)
+    public static void Start_NoteTaking(string file_name, TextMesh Sample_Text)
     {
         System.IO.Directory.CreateDirectory("Sampling");
         file_name = file_name + ".txt";
@@ -23,6 +23,7 @@ public class sample : MonoBehaviour
         UnityEngine.Vector3 cam_pos = Camera.main.transform.position;
         string cam_pos_string = cam_pos.ToString();
         System.IO.File.AppendAllText(file_name, "Current Location: "+cam_pos_string+"\n");
+        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file_name));
     }
 
     //takes pictures for 25 seconds

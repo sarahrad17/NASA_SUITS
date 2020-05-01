@@ -80,7 +80,7 @@ public class voice_navigate : MonoBehaviour
         Location_Data.SetActive(false);
         //instructions
         Instructions.SetActive(false);
-        current = 5;
+        current = 0;
 
         models.Add(my_rover_done_broke);
         models.Add(rover_normal);
@@ -366,8 +366,6 @@ public class voice_navigate : MonoBehaviour
                             current = current + 1;
                             JsonTest j = new JsonTest();
                             j.Yeet(current, Instructions_Text);
-                            //scroll_instructions sc = new scroll_instructions();
-                            //current = sc.go_forward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rx22 = new Regex(@"\bLast Instruction\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -388,8 +386,6 @@ public class voice_navigate : MonoBehaviour
                             current = current - 1;
                             JsonTest j = new JsonTest();
                             j.Yeet(current, Instructions_Text);
-                            //scroll_instructions sc = new scroll_instructions();
-                            //current = sc.go_backward(MMSEV, Instructions, Instructions_Text, current, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                         }
 
                         Regex rxsample = new Regex(@"\bCollect Sample\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -399,7 +395,7 @@ public class voice_navigate : MonoBehaviour
                         {
                             print("sample");
                             Sample.SetActive(true);
-                            sample.Start_NoteTaking("picture_testing");
+                            sample.Start_NoteTaking("picture_testing", Sample_Text);
                             //StartCoroutine(sample.Take_Scenery_Pics("yeet"));
                             sample sam = Sample.AddComponent<sample>() as sample;
                             recording_sample_notes =sam.Notable_Features("picture_testing", Instructions_Text, f);
