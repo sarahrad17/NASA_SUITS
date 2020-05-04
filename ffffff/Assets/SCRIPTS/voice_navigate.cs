@@ -246,7 +246,7 @@ public class voice_navigate : MonoBehaviour
                         {
                             fff = f;
                             Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample color or tone (Ex. grey, black, streaked, shiny)", 30);
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "Sample Texture:\n");
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Color:\n");
                             recording_sample_color = true;
                         }
                     }
@@ -259,7 +259,7 @@ public class voice_navigate : MonoBehaviour
                         {
                             fff = f;
                             Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample grain size & texture (Ex.fine, metallic, grassy)", 30);
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "Sample Texture:\n");
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Texture:\n");
                             recording_sample_texture = true;
                         }
                     }
@@ -489,7 +489,8 @@ public class voice_navigate : MonoBehaviour
                                 sample_start_time = sample.Take_Sample(Sample, Sample_Text, sample_session, sample_num);
                                 Sample_Instructions.SetActive(true);
                                 Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record approximate sample size and shape.", 24)+ "\n \nSay stop to end recording \nand proceed.";
-                                Sample_Text.text = Sample_Text.text+"\n Sample Size:\n";
+                                System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Size:\n");
+                                Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                                 recording_sample_size = sample.Record_Sample_Size("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
                                 fff = f;
                             }

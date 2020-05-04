@@ -31,9 +31,9 @@ public class sample : MonoBehaviour
         //record current temperature
         Get_Temp(file_name);
         //update display pad
-        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file_name));
+        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file_name), 40);
         //display something here on instructions about move around to take pictures
-        Sampling_Instructions_Text.text =JsonTest.add_newlines("Move around slowly to record environment");
+        Sampling_Instructions_Text.text =JsonTest.add_newlines("Move around slowly to record environment", 30);
         //take pictures of environment & display time remaining
         Take_Scenery_Pics(file_name, photo_time);
         return start_time;
@@ -76,7 +76,7 @@ public class sample : MonoBehaviour
 
     public bool Notable_Features(string file_name, TextMesh tm, string f, string start_time)
     {
-        tm.text = JsonTest.add_newlines("Speak to record notable environmental features. To stop recording, say \"Stop!\" To skip, say \"Skip!\"");
+        tm.text = JsonTest.add_newlines("Speak to record notable environmental features. To stop recording, say \"Stop!\" To skip, say \"Skip!\"", 30);
         System.IO.File.AppendAllText(file_name+".txt", "Notable Features:\n");       
         return Record_Features(file_name, tm, f, start_time);
     }
@@ -115,8 +115,8 @@ public class sample : MonoBehaviour
         string file_name = "Sampling\\"+sample_session.ToString()+"\\"+sample_num.ToString()+"\\info.txt";
         System.IO.File.Create(file_name).Close();
         string sample_start_time = Get_Time();
-        System.IO.File.AppendAllText(file_name,"Sample Start Time: "+sample_start_time+"\n");
-        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file_name));
+        System.IO.File.AppendAllText(file_name,"Start Time: "+sample_start_time+"\n");
+        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file_name),40);
         
         return sample_start_time;
     }
@@ -131,7 +131,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, f + "\n");
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f+"\n", 40));
             }
             return true;
         }
@@ -179,7 +179,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect Sample")))
             {
-                System.IO.File.AppendAllText(file_name, f + "\n");
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
             }
             return true;
         }
