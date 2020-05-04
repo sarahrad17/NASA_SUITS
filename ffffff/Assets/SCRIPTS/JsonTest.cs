@@ -32,7 +32,7 @@ public class JsonTest : MonoBehaviour
 
         Instruction.Step current_step = steps.ElementAt(step_num);
         //get instruction text
-        string current_text = add_newlines(current_step.text);
+        string current_text = add_newlines(current_step.text, 26);
         //display instruction text
         inst.text = current_text;
         
@@ -136,10 +136,10 @@ public class JsonTest : MonoBehaviour
         return objectToFind;
     }
 
-    public static string add_newlines(string full_string)
+    public static string add_newlines(string full_string, int n)
     {
         //if less than 26 chars
-        if (full_string.Length <= 26)
+        if (full_string.Length <= n)
         {
             return full_string;
         }
@@ -147,9 +147,9 @@ public class JsonTest : MonoBehaviour
         else
         {
             //substring first 26
-            string sub_26 = full_string.Substring(0, 26);
+            string sub_n = full_string.Substring(0, n);
             //find last space
-            int last_space = sub_26.LastIndexOf(" ");
+            int last_space = sub_n.LastIndexOf(" ");
             //end line at last space
             string first_line = full_string.Substring(0, last_space);
             //length of new first line 
@@ -158,13 +158,13 @@ public class JsonTest : MonoBehaviour
             full_string = first_line + "\n" + full_string.Substring(curr_length);
             //add \n 
             curr_length = curr_length + 1;
-            //while remaining chars is longer than 26
-            while ((full_string.Length - curr_length) > 26)
+            //while remaining chars is longer than n
+            while ((full_string.Length - curr_length) > n)
             {
                 //new substring of next 26 chars
-                sub_26 = full_string.Substring(curr_length, 26);
+                sub_n = full_string.Substring(curr_length, n);
                 //find last space
-                last_space = sub_26.LastIndexOf(" ");
+                last_space = sub_n.LastIndexOf(" ");
                 //add \n at end of last space
                 full_string = full_string.Substring(0, curr_length + last_space) + "\n" + full_string.Substring(curr_length + last_space);
                 //increment curr_length
