@@ -110,7 +110,6 @@ public class sample : MonoBehaviour
     public static string Take_Sample(GameObject Sample, TextMesh Sample_Text, int sample_session, int sample_num)
     {
         Sample.SetActive(true);
-        System.IO.Directory.CreateDirectory("Sampling");
         System.IO.Directory.CreateDirectory("Sampling\\"+sample_session.ToString());
         System.IO.Directory.CreateDirectory("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString());
         string file_name = "Sampling\\"+sample_session.ToString()+"\\"+sample_num.ToString()+"\\info.txt";
@@ -130,9 +129,9 @@ public class sample : MonoBehaviour
         }
         else
         {
-            if (!(f.Contains("Collect Sample")))
+            if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name + ".txt", f + "\n");
+                System.IO.File.AppendAllText(file_name, f + "\n");
             }
             return true;
         }
@@ -148,7 +147,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect Sample")))
             {
-                System.IO.File.AppendAllText(file_name + ".txt", f + "\n");
+                System.IO.File.AppendAllText(file_name, f + "\n");
             }
             return true;
         }
@@ -164,7 +163,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect Sample")))
             {
-                System.IO.File.AppendAllText(file_name + ".txt", f + "\n");
+                System.IO.File.AppendAllText(file_name, f + "\n");
             }
             return true;
         }
@@ -180,7 +179,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect Sample")))
             {
-                System.IO.File.AppendAllText(file_name + ".txt", f + "\n");
+                System.IO.File.AppendAllText(file_name, f + "\n");
             }
             return true;
         }
@@ -196,7 +195,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect Sample")))
             {
-                System.IO.File.AppendAllText(file_name + ".txt", f + "\n");
+                System.IO.File.AppendAllText(file_name, f + "\n");
             }
             return true;
         }
