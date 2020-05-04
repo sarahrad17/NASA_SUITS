@@ -8,6 +8,7 @@ using Microsoft.CognitiveServices.Speech;
 using System.Text.RegularExpressions;
 using UnityEngine.Profiling;
 using JetBrains.Annotations;
+using MongoDB.Bson.IO;
 
 public class voice_navigate : MonoBehaviour
 {
@@ -38,27 +39,39 @@ public class voice_navigate : MonoBehaviour
     //sampling
     public GameObject Sample;
     public TextMesh Sample_Text;
-    public bool sample_status; 
+    public GameObject Sample_Instructions;
+    public TextMesh Sample_Instructions_Text;
+    public bool recording_sample_notes;
+    public bool sample_status;
+    public TextMesh photo_time;
+    public string start_time;
+    public int sample_session;
+    public string sample_start_time;
+    public int sample_num;
+    public bool recording_sample;
+    public bool recording_sample_size;
+    public bool recording_sample_color;
+    public bool recording_sample_texture;
+    public bool recording_major_components;
+    public bool recording_char_features; 
+
     //instructions
     public GameObject Instructions;
     public TextMesh Instructions_Text;
     public int current;
 
     public List<GameObject> models = new List<GameObject>();
-    public GameObject my_rover_done_broke;
     public GameObject rover_normal;
     public GameObject jack_screw;
     public GameObject tire;
     public GameObject wrench;
     public GameObject wheel_wedge;
     public GameObject rover_no_tire;
-    public GameObject rover_cap_removed;
-    public GameObject rover_broken_tire;
     public GameObject cap;
-    public Material MMSEV;
+
     public GameObject ORIG_ROVER;
     public GameObject ORIG_TIRE;
-    public bool recording_sample_notes;
+    
     
 
     // Start is called before the first frame update
@@ -82,35 +95,38 @@ public class voice_navigate : MonoBehaviour
         Instructions.SetActive(false);
         current = 0;
 
-        models.Add(my_rover_done_broke);
         models.Add(rover_normal);
         models.Add(jack_screw);
         models.Add(tire);
         models.Add(wrench);
         models.Add(wheel_wedge);
         models.Add(rover_no_tire);
-        models.Add(rover_cap_removed);
         models.Add(cap);
-        models.Add(ORIG_ROVER);
-        models.Add(ORIG_TIRE);
 
         foreach(GameObject m in models)
         {
             m.SetActive(false);
         }
-        //wrench.SetActive(true);
-        //rover_normal.SetActive(true);
+
         //for demo
         ORIG_ROVER.SetActive(false);
         ORIG_TIRE.SetActive(false);
-        rover_broken_tire.SetActive(true);
+
         //sample
-
         Sample.SetActive(false);
+        Sample_Instructions.SetActive(false);
         recording_sample_notes = false;
+        recording_sample = false;
+        recording_sample_size = false;
+        recording_sample_color = false;
+        recording_sample_texture = false;
+        recording_major_components = false;
+        recording_char_features = false;
+        sample_num = 0;
+        sample_session = 0;
+        Sample_Instructions_Text.text = "";
 
-
-        System.IO.File.Create(@"mark_location.txt").Close();
+    System.IO.File.Create(@"mark_location.txt").Close();
         System.IO.File.Create(@"speech_output.txt").Close();
         System.IO.File.Create(@"speech_finaloutput.txt").Close();
         SpeechContinuousRecognitionAsync();
@@ -186,19 +202,19 @@ public class voice_navigate : MonoBehaviour
                     System.IO.File.AppendAllText(@"speech_finaloutput.txt", "\n");
 
                     //CHECK IF TAKING NOTES
-                    Regex rx0 = new Regex(@"\bstart taking notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches0 = rx0.Matches(f);
-                    Regex rx0_1 = new Regex(@"\btake notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                    MatchCollection matches0_1 = rx0_1.Matches(f);
+                    Regex rx_start_taking_notes = new Regex(@"\bstart taking notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches_start_taking_notes = rx_start_taking_notes.Matches(f);
+                    Regex rx_start_taking_notes2 = new Regex(@"\btake notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    MatchCollection matches_start_taking_notes2 = rx_start_taking_notes2.Matches(f);
                     not_first = true; 
-                    if (matches0_1.Count + matches0.Count > 0)
+                    if (matches_start_taking_notes.Count + matches_start_taking_notes2.Count > 0)
                     {
                         taking_notes = true;
                         not_first = false;
                     }
 
                     //TAKING NOTES
-                    if (taking_notes == true && not_first == true)
+                    if (taking_notes && not_first)
                     {
                         //check if stop taking notes
                         Regex rx_0 = new Regex(@"\bstop taking notes\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -210,26 +226,76 @@ public class voice_navigate : MonoBehaviour
                         else
                         {
                             Notes_Text.text = Notes_Text.text + f + "\n";
+                        }
+                    }
+
+                    //else if recording notes abt environment
+                    else if(recording_sample_notes)
+                    {
+                        recording_sample_notes = sample.Record_Features("picture_testing", Sample_Text, f, start_time);
+                    }
+
+                    else if (recording_sample_size)
+                    {
+                        recording_sample_size = sample.Record_Sample_Size("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info", Sample_Text, f);
+                        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info"));
+                        if (!recording_sample_size)
+                        {
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample color or tone (Ex. grey, black, streaked, shiny)");
+                            recording_sample_color = true;
+                        }
+                    }
+
+                    else if (recording_sample_color)
+                    {
+                        recording_sample_color = sample.Record_Sample_Color("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                        if (!recording_sample_color)
+                        {
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample grain size & texture (Ex.fine, metallic, grassy)");
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "Sample Texture:\n");
+                        }
+                    }
+
+                    else if (recording_sample_texture)
+                    {
+                        recording_sample_texture = sample.Record_Sample_Texture("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                        if (!recording_sample_texture)
+                        {
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample mineral/clast description (Ex. Size, Shape, Color, Sorting/Approximate %)");
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "Sample Mineral/Clast Description:\n");
 
                         }
                     }
 
-
-                    else if(recording_sample_notes == true)
+                    else if (recording_major_components)
                     {
-                        recording_sample_notes = sample.Record_Features("picture_testing", Sample_Text, f);
+                        recording_major_components = sample.Record_Major_Components("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                        if (!recording_major_components)
+                        {
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample density, durability, & any surface features. ");
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "Major Components:\n");
+
+                        }
+                    }
+
+                    else if (recording_char_features)
+                    {
+                        recording_char_features = sample.Record_Major_Components("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                        if (!recording_char_features)
+                        {
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record any initial geological interpretations or additional comments");
+                        }
                     }
 
                     //NOT TAKING NOTES
                     else
                     {
-
                         //MENU
                         Regex rx = new Regex(@"\bOpen menu\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                         MatchCollection matches = rx.Matches(f);
                         if (matches.Count > 0)
                         {
-                            if (menu_open == false)
+                            if (!menu_open)
                             {
                                 Menu_Buttons.SetActive(true);
                                 menu_open = true;
@@ -239,7 +305,7 @@ public class voice_navigate : MonoBehaviour
                         MatchCollection matches1 = rx1.Matches(f);
                         if (matches1.Count > 0)
                         {
-                            if (menu_open == true)
+                            if (menu_open)
                             {
                                 Menu_Buttons.SetActive(false);
                                 menu_open = false;
@@ -254,7 +320,7 @@ public class voice_navigate : MonoBehaviour
                         notepad_matches = matches2.Count + matches3.Count;
                         if (notepad_matches > 0)
                         {
-                            if (notepad_open == false)
+                            if (!notepad_open)
                             {
                                 Notepad.SetActive(true);
                                 notepad_open = true;
@@ -342,8 +408,6 @@ public class voice_navigate : MonoBehaviour
                         if (scroll_matches > 0)
                         {
                             Instructions.SetActive(false);
-                            //scroll_instructions sc = new scroll_instructions();
-                            //sc.close(MMSEV, Instructions, Instructions_Text, ORIG_ROVER, ORIG_TIRE, rover_normal, jack_screw, tire, wrench, wheel_wedge, rover_no_tire, rover_cap_removed, rover_broken_tire, cap);
                             foreach (GameObject m in models)
                             {
                                 m.SetActive(false);
@@ -388,21 +452,35 @@ public class voice_navigate : MonoBehaviour
                             j.Yeet(current, Instructions_Text);
                         }
 
-                        Regex rxsample = new Regex(@"\bCollect Sample\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                        MatchCollection matches_sample = rxsample.Matches(f);
-                        position_matches = matches_sample.Count;
+                        Regex rx_set_up_sample = new Regex(@"\bSet up Sample\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches_set_up_sample = rx_set_up_sample.Matches(f);
+                        position_matches = matches_set_up_sample.Count;
                         if (position_matches > 0)
                         {
-                            print("sample");
-                            Sample.SetActive(true);
-                            sample.Start_NoteTaking("picture_testing", Sample_Text);
-                            //StartCoroutine(sample.Take_Scenery_Pics("yeet"));
+                            print("oof");
+                            //PRESAMPLE
+                            //prelimiary set up                     
+                            start_time = sample.Start_NoteTaking("picture_testing", Sample, Sample_Text, sample_session, Sample_Instructions_Text, photo_time);
+                            //record additional features
                             sample sam = Sample.AddComponent<sample>() as sample;
-                            recording_sample_notes =sam.Notable_Features("picture_testing", Instructions_Text, f);
-                            
+                            recording_sample_notes =sam.Notable_Features("picture_testing", Sample_Instructions_Text, f, start_time); 
                         }
 
-
+                        Regex rx_collect_sample = new Regex(@"\bCollect Sample\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        MatchCollection matches_collect_sample = rx_collect_sample.Matches(f);
+                        position_matches = matches_collect_sample.Count;
+                        if(position_matches > 0)
+                        {
+                            if (!recording_sample_size)
+                            {
+                                //COLLECT A SAMPLE
+                                sample_start_time = sample.Take_Sample(Sample, Sample_Text, sample_session, sample_num);
+                                Sample_Instructions.SetActive(true);
+                                Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record approximate sample size and shape.")+ "\n \nSay stop to end recording \nand proceed.";
+                                print("here");
+                                recording_sample_size = sample.Record_Sample_Size("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                            }
+                        }
 
 
 
