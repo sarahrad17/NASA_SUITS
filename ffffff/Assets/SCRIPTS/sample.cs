@@ -141,13 +141,14 @@ public class sample : MonoBehaviour
     {
         if (f.Contains("Stop") || f.Contains("Skip"))
         {
+            print("stopped!");
             return false;
         }
         else
         {
-            if (!(f.Contains("Collect Sample")))
+            if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, f + "\n");
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
             }
             return true;
         }
@@ -161,9 +162,9 @@ public class sample : MonoBehaviour
         }
         else
         {
-            if (!(f.Contains("Collect Sample")))
+            if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, f + "\n");
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
             }
             return true;
         }
@@ -177,7 +178,7 @@ public class sample : MonoBehaviour
         }
         else
         {
-            if (!(f.Contains("Collect Sample")))
+            if (!(f.Contains("Collect sample")))
             {
                 System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
             }
@@ -187,18 +188,70 @@ public class sample : MonoBehaviour
 
     public static bool Record_Other_Features(string file_name, TextMesh tm, string f)
     {
+
         if (f.Contains("Stop") || f.Contains("Skip"))
         {
             return false;
         }
         else
         {
-            if (!(f.Contains("Collect Sample")))
+            if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, f + "\n");
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f+"\n", 40));
             }
             return true;
         }
     }
 
+    public static bool Record_Other_Notes(string file_name, TextMesh tm, string f)
+    {
+        if (f.Contains("Stop") || f.Contains("Skip"))
+        {
+            return false;
+        }
+        else
+        {
+            if (!(f.Contains("Collect sample")))
+            {
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
+            }
+            return true;
+        }
+    }
+
+    public static bool Ready_To_Close(string file_name, TextMesh tm, string f)
+    {
+        if (f.Contains("Stop") || f.Contains("Close"))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public static bool Exit_Sample(string f)
+    {
+        if (f.Contains("Stop") || f.Contains("Close") || f.Contains("Exit"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public static bool Continue_Sample(string f)
+    {
+        if (f.Contains("Continue") )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

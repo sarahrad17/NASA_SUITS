@@ -54,6 +54,8 @@ public class voice_navigate : MonoBehaviour
     public bool recording_sample_texture;
     public bool recording_major_components;
     public bool recording_char_features;
+    public bool recording_other_notes;
+    public bool ready_to_close;
     public string fff;
 
     //instructions
@@ -123,6 +125,8 @@ public class voice_navigate : MonoBehaviour
         recording_sample_texture = false;
         recording_major_components = false;
         recording_char_features = false;
+        recording_other_notes = false;
+        ready_to_close = false;
         sample_num = 0;
         sample_session = 0;
         Sample_Instructions_Text.text = "";
@@ -237,16 +241,47 @@ public class voice_navigate : MonoBehaviour
                         recording_sample_notes = sample.Record_Features("picture_testing", Sample_Text, f, start_time);
                     }
 
+                    else if (recording_sample)
+                    {
+                        fff = f;
+                        //if exit:
+                        if (recording_sample = sample.Exit_Sample(f))
+                        {
+                            Sample.SetActive(false);
+                            Sample_Instructions.SetActive(false);
+                        }
+                        //if continue
+                        else if (recording_sample = sample.Continue_Sample(f))
+                        {
+                            recording_sample = false;
+                            Sample.SetActive(true);
+                            sample_num = sample_num + 1;
+                            sample_start_time = sample.Take_Sample(Sample, Sample_Text, sample_session, sample_num);
+                            Sample_Instructions.SetActive(true);
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record approximate sample size and shape.", 30) + "\n \nSay stop to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Size:\n");
+                            Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt"), 40);
+                            recording_sample_size = true;
+                            fff = f;
+                        }
+                        //else keep trying
+                        else
+                        {
+                            recording_sample = true;
+                        }                      
+                    }
+
+
                     else if (recording_sample_size)
                     {
-                        print("here");
                         recording_sample_size = sample.Record_Sample_Size("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
-                        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt"), 40);
+                        Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_sample_size && fff!=f)
                         {
                             fff = f;
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample color or tone (Ex. grey, black, streaked, shiny)", 30);
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample color or tone (Ex. grey, black, streaked, shiny)", 30) + "\n \nSay stop to end recording \nand proceed.";
                             System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Color:\n");
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_sample_color = true;
                         }
                     }
@@ -254,12 +289,14 @@ public class voice_navigate : MonoBehaviour
                     else if (recording_sample_color)
                     {
                         recording_sample_color = sample.Record_Sample_Color("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
-                        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt"), 40);
-                        if (!recording_sample_color && fff!=f)
+                        Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
+                        if (!recording_sample_color)
                         {
+                            print("oooo");
                             fff = f;
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample grain size & texture (Ex.fine, metallic, grassy)", 30);
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample grain size & texture (Ex.fine, metallic, grassy)", 30) + "\n \nSay stop to end recording \nand proceed.";
                             System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Texture:\n");
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_sample_texture = true;
                         }
                     }
@@ -267,11 +304,12 @@ public class voice_navigate : MonoBehaviour
                     else if (recording_sample_texture)
                     {
                         recording_sample_texture = sample.Record_Sample_Texture("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
-                        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt"),40);
+                        Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_sample_texture)
                         {
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample mineral/clast description (Ex. Size, Shape, Color, Sorting/Approximate %)", 30);
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "Sample Mineral/Clast Description:\n");
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample mineral/clast description (Ex. Size, Shape, Color, Sorting/Approximate %)", 30) + "\n \nSay stop to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Mineral/Clast Description:\n");
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_major_components = true;
                         }
                     }
@@ -279,22 +317,52 @@ public class voice_navigate : MonoBehaviour
                     else if (recording_major_components)
                     {
                         recording_major_components = sample.Record_Major_Components("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
-                        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt"), 40);
+                        Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_major_components)
                         {
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample density, durability, & any surface features. ", 26);
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "Major Components:\n");
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample density, durability, & any surface features. ", 30) + "\n \nSay stop to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nOther Features:\n");
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_char_features = true;
                         }
                     }
 
                     else if (recording_char_features)
                     {
-                        recording_char_features = sample.Record_Major_Components("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info", Sample_Text, f);
-                        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info"), 40);
+                        recording_char_features = sample.Record_Other_Features("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                        Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_char_features)
                         {
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record any initial geological interpretations or additional comments", 30);
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record any initial geological interpretations or additional comments", 30) + "\n \nSay stop to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nAdditional Notes:\n");
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
+                            recording_other_notes = true;
+                        }
+                    }
+
+                    else if (recording_other_notes)
+                    {
+                        recording_other_notes = sample.Record_Other_Notes("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                        Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
+                        if (!recording_other_notes)
+                        {
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Say \'Close\' to save and exit from sample", 30);
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nEnd Time:\n");
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
+                            ready_to_close = true;
+                        }
+                    }
+
+                    else if (ready_to_close)
+                    {
+                        ready_to_close = sample.Ready_To_Close("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
+                        Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
+                        if (!ready_to_close)
+                        {
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", sample.Get_Time());
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
+                            Sample.SetActive(false);
+                            Sample_Instructions.SetActive(false);
                         }
                     }
 
@@ -468,7 +536,7 @@ public class voice_navigate : MonoBehaviour
                         position_matches = matches_set_up_sample.Count;
                         if (position_matches > 0)
                         {
-                            print("oof");
+                            sample_session = sample_session + 1;
                             //PRESAMPLE
                             //prelimiary set up                     
                             start_time = sample.Start_NoteTaking("picture_testing", Sample, Sample_Text, sample_session, Sample_Instructions_Text, photo_time);
@@ -483,24 +551,11 @@ public class voice_navigate : MonoBehaviour
                         position_matches = matches_collect_sample.Count;
                         if(position_matches > 0)
                         {
-                            if (!recording_sample_size)
-                            {
-                                //COLLECT A SAMPLE
-                                sample_start_time = sample.Take_Sample(Sample, Sample_Text, sample_session, sample_num);
-                                Sample_Instructions.SetActive(true);
-                                Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record approximate sample size and shape.", 24)+ "\n \nSay stop to end recording \nand proceed.";
-                                System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Size:\n");
-                                Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
-                                recording_sample_size = sample.Record_Sample_Size("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", Sample_Text, f);
-                                fff = f;
-                            }
+                            //add here for boolean
+                            Sample_Instructions.SetActive(true);
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Before you continue, ensure you have completed pre-sampling task.", 30) + "\nIf not, say \'exit\', and do so by\nsaying:\'set up sample\'. \nIf you have, say \'continue\'.";
+                            recording_sample = true;
                         }
-
-
-
-
-
-
 
                     }
 
