@@ -121,9 +121,9 @@ public class sample : MonoBehaviour
         return sample_start_time;
     }
 
-    public static bool Record_Sample_Size(string file_name, TextMesh tm, string f)
+    public static bool Record_Sample_Size(string file_name, TextMesh Sample_Text, string f)
     {
-        if (f.Contains("Stop") || f.Contains("Skip"))
+        if (f.Contains("Next") || f.Contains("Skip"))
         {
             return false;
         }
@@ -132,6 +132,7 @@ public class sample : MonoBehaviour
             if (!(f.Contains("Collect sample")))
             {
                 System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f+"\n", 40));
+                Sample_Text.text = System.IO.File.ReadAllText(file_name);
             }
             return true;
         }
@@ -139,9 +140,8 @@ public class sample : MonoBehaviour
 
     public static bool Record_Sample_Color(string file_name, TextMesh tm, string f)
     {
-        if (f.Contains("Stop") || f.Contains("Skip"))
+        if (f.Contains("Next") || f.Contains("Skip"))
         {
-            print("stopped!");
             return false;
         }
         else
@@ -156,7 +156,7 @@ public class sample : MonoBehaviour
 
     public static bool Record_Sample_Texture(string file_name, TextMesh tm, string f)
     {
-        if (f.Contains("Stop") || f.Contains("Skip"))
+        if (f.Contains("Next") || f.Contains("Skip"))
         {
             return false;
         }
@@ -172,7 +172,7 @@ public class sample : MonoBehaviour
 
     public static bool Record_Major_Components(string file_name, TextMesh tm, string f)
     {
-        if (f.Contains("Stop") || f.Contains("Skip"))
+        if (f.Contains("Next") || f.Contains("Skip"))
         {
             return false;
         }
@@ -189,7 +189,7 @@ public class sample : MonoBehaviour
     public static bool Record_Other_Features(string file_name, TextMesh tm, string f)
     {
 
-        if (f.Contains("Stop") || f.Contains("Skip"))
+        if (f.Contains("Next") || f.Contains("Skip"))
         {
             return false;
         }
@@ -205,7 +205,7 @@ public class sample : MonoBehaviour
 
     public static bool Record_Other_Notes(string file_name, TextMesh tm, string f)
     {
-        if (f.Contains("Stop") || f.Contains("Skip"))
+        if (f.Contains("Next") || f.Contains("Skip"))
         {
             return false;
         }

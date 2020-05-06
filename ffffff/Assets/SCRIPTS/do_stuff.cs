@@ -6,9 +6,6 @@ using UnityEngine.Rendering;
 using JetBrains.Annotations;
 using Microsoft.MixedReality.Toolkit.OpenVR.Headers;
 
-
-//model.transform.rotation = Quaternion.Euler(rotation);
-
 public class do_stuff : MonoBehaviour
 {
     //standard reference values
@@ -16,7 +13,7 @@ public class do_stuff : MonoBehaviour
     public static float[] reference_rot = new[] { 0f, 0f, 0f };
     public static float[] reference_sca = new[] { 1f, 1f, 1f };
 
-    //current reference values
+    //current reference values--these will be the ones changed by vuforia findings
     public static float[] curr_reference_pos = new[] { 0f, 0f, 0f };
     public static float[] curr_reference_rot = new[] { 0f, 0f, 0f };
     public static float[] curr_reference_sca = new[] { .75f, .75f, .75f };
@@ -31,7 +28,6 @@ public class do_stuff : MonoBehaviour
         float[] rot = new float[3];
         float[] sca = new float[3];
         Vector3[] v = new Vector3[3];
-
 
         pos[0] = (curr_reference_sca[0] * start_pos[0]) / reference_sca[0];
         pos[1] = (curr_reference_sca[1] * start_pos[1]) / reference_sca[1];
@@ -93,12 +89,10 @@ public class do_stuff : MonoBehaviour
             do_stuff d = tempgameObject.AddComponent<do_stuff>();
             d.StartCoroutine(Move_Model3(model, v_end[0], v_end[1], v_end[2], model2, v_end2[0], v_end2[1], v_end[2], model3, v_end3[0], v_end3[1], v_end3[2]));
 
-
         }
         //else if 2 models moving 
         else if ((model != null) && (model2 != null) && (model3 == null))
         {
-            print("YUP");
             //scale start vectors
             Vector3[] v = Scale_Vectors(pos, rot, sca);
             Vector3[] v2 = Scale_Vectors(pos2, rot2, sca2);
@@ -115,8 +109,6 @@ public class do_stuff : MonoBehaviour
             //start coroutine
             var tempgameObject = new GameObject();
             do_stuff d = tempgameObject.AddComponent<do_stuff>();
-
-
 
             d.StartCoroutine(Move_Model2(model, v_end[0], v_end[1], v_end[2], model2, v_end2[0], v_end2[1], v_end2[2]));
         }
@@ -138,15 +130,8 @@ public class do_stuff : MonoBehaviour
             var tempgameObject = new GameObject();
             do_stuff d = tempgameObject.AddComponent<do_stuff>();
             d.StartCoroutine(Move_Model(model, v_end[0], v_end[1], v_end[2]));
-
         }
-
     }
-
-
-
-
-
 
 
     //move model
