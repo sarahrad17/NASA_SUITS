@@ -107,7 +107,7 @@ Material:
     - _Cull: 2
     - _CullMode: 2
     - _CustomMode: 2
-    - _Cutoff: 0.5
+    - _Cutoff: 0.443
     - _DetailNormalMapScale: 1
     - _DirectionalLight: 1
     - _DstBlend: 10

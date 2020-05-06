@@ -58,6 +58,7 @@ public class voice_navigate : MonoBehaviour
     public bool recording_other_notes;
     public bool ready_to_close;
     public string fff;
+    public bool recording_notable_features;
 
     //instructions
     public GameObject Instructions;
@@ -128,6 +129,7 @@ public class voice_navigate : MonoBehaviour
         recording_char_features = false;
         recording_other_notes = false;
         ready_to_close = false;
+        recording_notable_features = false;
         sample_num = 0;
         sample_session = 0;
         Sample_Instructions_Text.text = "";
@@ -245,10 +247,15 @@ public class voice_navigate : MonoBehaviour
                     }
 
                     //else if recording notes abt environment
-                    else if(recording_sample_notes)
-                    {
-                        recording_sample_notes = sample.Record_Features("picture_testing", Sample_Text, f, start_time);
+
+                    
+                    else if (recording_notable_features) { 
+                        if(!(sample.Record_Notable_Features("Sampling\\" + sample_session.ToString() + "\\sampling.txt", Sample_Text, f )))
+                        {
+                            recording_notable_features = false;
+                        }
                     }
+                    
 
                     else if (recording_sample)
                     {
@@ -269,8 +276,8 @@ public class voice_navigate : MonoBehaviour
                             sample_start_time = sample.Take_Sample(Sample, Sample_Text, sample_session, sample_num);
                             Sample_Instructions.SetActive(true);
                             Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record approximate sample size and shape.", 32) + "<i>\n Ex. 3 cm, round/flat</i>" + "\n \nSay <b>next</b> to end recording \nand proceed.";
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Size:\n");
-                            Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt"), 40);
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\n<b>Sample Size:</b>\n");
+                            Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_sample_size = true;
                             fff = f;
                         }
@@ -289,8 +296,8 @@ public class voice_navigate : MonoBehaviour
                         if (!recording_sample_size && fff!=f)
                         {
                             fff = f;
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample color or tone", 32) +"<i>\n Ex. grey/black, streaked/shiny</i>"+"\n\nSay <b>next</b> to end recording \nand proceed.";
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Color:\n");
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample color or tone", 32) +"<i>\nEx. grey/black, streaked/shiny</i>"+"\n\nSay <b>next</b> to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\n<b>Sample Color:</b>\n");
                             Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_sample_color = true;
                         }
@@ -303,8 +310,8 @@ public class voice_navigate : MonoBehaviour
                         if (!recording_sample_color)
                         {
                             fff = f;
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample grain size & texture (Ex.fine, metallic, grassy)", 30) + "\n \nSay <b>next</b> to end recording \nand proceed.";
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Texture:\n");
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample grain size & texture", 32) + "<i>\nEx.fine, metallic, grassy</i>" + "\n\nSay <b>next</b> to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\n<b>Sample Texture:</b>\n");
                             Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_sample_texture = true;
                         }
@@ -316,8 +323,8 @@ public class voice_navigate : MonoBehaviour
                         Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_sample_texture)
                         {
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample mineral/clast description (Ex. Size, Shape, Color, Sorting/Approximate %)", 30) + "\n \nSay <b>next</b> to end recording \nand proceed.";
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nSample Mineral/Clast Description:\n");
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample mineral/clast description", 32)+ "\n<i>Ex.Size, Shape, Color, Sorting</i>" + "\n \nSay <b>next</b> to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\n<b>Mineral/Clast Description:</b>\n");
                             Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_major_components = true;
                         }
@@ -329,8 +336,8 @@ public class voice_navigate : MonoBehaviour
                         Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_major_components)
                         {
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample density, durability, & any surface features. ", 30) + "\n \nSay <b>next</b> to end recording \nand proceed.";
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nOther Features:\n");
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record sample density, durability, & any surface features.", 32) + "\n \nSay <b>next</b> to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\n<b>Other Features:</b>\n");
                             Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_char_features = true;
                         }
@@ -342,8 +349,8 @@ public class voice_navigate : MonoBehaviour
                         Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_char_features)
                         {
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record any initial geological interpretations or additional comments", 30) + "\n \nSay <b>next</b> to end recording \nand proceed.";
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nAdditional Notes:\n");
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Speak now to record any initial geological interpretations or additional comments", 32) + "\n \nSay <b>next</b> to end recording \nand proceed.";
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\n<b>Additional Notes:</b>\n");
                             Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             recording_other_notes = true;
                         }
@@ -355,7 +362,7 @@ public class voice_navigate : MonoBehaviour
                         Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                         if (!recording_other_notes)
                         {
-                            Sample_Instructions_Text.text = JsonTest.add_newlines("Say \'Close\' to save and exit from sample", 30);
+                            Sample_Instructions_Text.text = JsonTest.add_newlines("Say <b>Close</b> to save and exit from sample", 32);
                             System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt", "\nEnd Time:\n");
                             Sample_Text.text = System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\" + sample_num.ToString() + "\\info.txt");
                             ready_to_close = true;
@@ -544,13 +551,12 @@ public class voice_navigate : MonoBehaviour
                         position_matches = matches_set_up_sample.Count;
                         if (position_matches > 0)
                         {
-                            print("Setting up!");
                             sample_session = sample_session + 1;
                             //prelimiary set up                     
-                            start_time = sample.Start_NoteTaking("picture_testing", Sample, Sample_Text, sample_session, Sample_Instructions_Text, photo_time);
-                            //record additional features
-                            sample sam = Sample.AddComponent<sample>() as sample;
-                            recording_sample_notes =sam.Notable_Features("picture_testing", Sample_Instructions_Text, f, start_time); 
+                            start_time = sample.Start_NoteTaking("sampling", Sample, Sample_Text, sample_session, Sample_Instructions, Sample_Instructions_Text, photo_time);
+                            print("OOP:" + System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt"));
+                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt", "\n<b>Additional Features:</b>\n");
+                            recording_notable_features = true;
                         }
 
                         //COLLECT SAMPLE

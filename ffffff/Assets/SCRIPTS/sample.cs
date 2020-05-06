@@ -13,55 +13,38 @@ public class sample : MonoBehaviour
     public TextMesh tm;
 
     //open display, append location & time
-    public static string Start_NoteTaking(string file_name, GameObject Sample, TextMesh Sample_Text, int sample_session, TextMesh Sampling_Instructions_Text, TextMesh photo_time)
+    public static string Start_NoteTaking(string file_name, GameObject Sample, TextMesh Sample_Text, int sample_session, GameObject Sample_Instructions, TextMesh Sample_Instructions_Text, TextMesh photo_time)
     {
         Sample.SetActive(true);
+        Sample_Instructions.SetActive(true);
         //create sampling directory & text file
         System.IO.Directory.CreateDirectory("Sampling");
         System.IO.Directory.CreateDirectory("Sampling\\"+sample_session.ToString());
-        file_name = file_name + ".txt";
-        System.IO.File.Create("Sampling\\" +sample_session.ToString() + "\\" + file_name).Close();
+        string file = "Sampling\\" + sample_session.ToString() + "\\sampling.txt";
+        System.IO.File.Create(file).Close();
+        print("file: "+file);
         //record start time
         string start_time = Get_Time();
-        System.IO.File.AppendAllText(file_name, "Start Time: "+start_time+"\n");
+        System.IO.File.WriteAllText(file, "Start Time: "+start_time+"\n");
         //record current location
         UnityEngine.Vector3 cam_pos = Camera.main.transform.position;
         string cam_pos_string = cam_pos.ToString();
-        System.IO.File.AppendAllText(file_name, "Current Location: "+cam_pos_string+"\n");
+        System.IO.File.AppendAllText(file, "Current Location: "+cam_pos_string+"\n");
         //record current temperature
-        Get_Temp(file_name);
+        Get_Temp(file);
         //update display pad
-        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file_name), 40);
+        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file), 30);
         //display something here on instructions about move around to take pictures
-        Sampling_Instructions_Text.text =JsonTest.add_newlines("Move around slowly to record environment", 30);
+        Sample_Instructions_Text.text ="Move around slowly to record \nenvironment.\n \nTime remaining to record:";
         //take pictures of environment & display time remaining
-        Take_Scenery_Pics(file_name, photo_time);
+        take_pics t = Sample.AddComponent<take_pics>();
+        IEnumerator coroutine = take_pics.Take_Scenery_Pics(sample_session.ToString(), Sample_Instructions_Text, photo_time);
+        t.StartCoroutine(coroutine);
         return start_time;
     }
 
     //takes pictures for 25 seconds
-    public static IEnumerator Take_Scenery_Pics(string file_name, TextMesh photo_time)
-    {
-        if(System.IO.Directory.Exists("Sampling\\" + file_name))
-        {
-            System.IO.Directory.Delete("Sampling\\" + file_name);
-        }
-        System.IO.Directory.CreateDirectory("Sampling\\" + file_name);
-        int c = 0;
-        photo_time.gameObject.SetActive(true);
-        while (c < 50 )
-        {
-            ScreenCapture.CaptureScreenshot("Sampling\\" + file_name + "\\" + c.ToString()+".png");
-            if((c % 2) == 0)
-            {
-                photo_time.text = "00:" + (c % 2);
-            }
-            yield return new WaitForSeconds(.5f);
-            c++;
-        }
-        photo_time.gameObject.SetActive(false);
-        yield break;
-    }
+    
     
     
     //append temperature to display
@@ -74,32 +57,25 @@ public class sample : MonoBehaviour
     }
 
 
-    public bool Notable_Features(string file_name, TextMesh tm, string f, string start_time)
+    public static bool Record_Notable_Features(string file_name, TextMesh Sample_Text, string f)
     {
-        tm.text = JsonTest.add_newlines("Speak to record notable environmental features. To stop recording, say \"Stop!\" To skip, say \"Skip!\"", 30);
-        System.IO.File.AppendAllText(file_name+".txt", "Notable Features:\n");       
-        return Record_Features(file_name, tm, f, start_time);
-    }
-
-    //while output is false, keep calling this function
-    public static bool Record_Features(string file_name, TextMesh tm, string f, string start_time)
-    {
-        if (f.Contains("Stop") || f.Contains("Skip") )
-        {
-            string end_time = Get_Time();
-            System.IO.File.AppendAllText(file_name, "End Time: " + end_time + "\n");
-            
+        if (f.Contains("Stop") || f.Contains("Skip"))
+        {          
             return false;
         }
         else
         {
-            if(!(f.Contains("Set up Sample")))
+            if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name + ".txt", f + "\n");
-            }          
+                
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 30));
+                Sample_Text.text = System.IO.File.ReadAllText(file_name);
+            }
             return true;
         }
     }
+
+    //while output is false, keep calling this function
 
     public static string Get_Time()
     {
@@ -115,8 +91,8 @@ public class sample : MonoBehaviour
         string file_name = "Sampling\\"+sample_session.ToString()+"\\"+sample_num.ToString()+"\\info.txt";
         System.IO.File.Create(file_name).Close();
         string sample_start_time = Get_Time();
-        System.IO.File.AppendAllText(file_name,"Start Time: "+sample_start_time+"\n");
-        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file_name),40);
+        System.IO.File.AppendAllText(file_name,"<b>Start Time:</b>" +sample_start_time + "\n");
+        Sample_Text.text = System.IO.File.ReadAllText(file_name);
         
         return sample_start_time;
     }
@@ -131,7 +107,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f+"\n", 40));
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f+"\n", 30));
                 Sample_Text.text = System.IO.File.ReadAllText(file_name);
             }
             return true;
@@ -148,7 +124,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 30));
             }
             return true;
         }
@@ -164,7 +140,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 30));
             }
             return true;
         }
@@ -180,7 +156,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 30));
             }
             return true;
         }
@@ -197,7 +173,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f+"\n", 40));
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f+"\n", 30));
             }
             return true;
         }
@@ -209,11 +185,11 @@ public class sample : MonoBehaviour
         {
             return false;
         }
-        else
+        else   
         {
             if (!(f.Contains("Collect sample")))
             {
-                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 40));
+                System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 30));
             }
             return true;
         }
