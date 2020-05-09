@@ -13,33 +13,32 @@ public class sample : MonoBehaviour
     public TextMesh tm;
 
     //open display, append location & time
-    public static string Start_NoteTaking(string file_name, GameObject Sample, TextMesh Sample_Text, int sample_session, GameObject Sample_Instructions, TextMesh Sample_Instructions_Text, TextMesh photo_time)
+    public static string Start_NoteTaking(string file, GameObject Sample, TextMesh Sample_Text, int sample_session, GameObject Sample_Instructions, TextMesh Sample_Instructions_Text, TextMesh photo_time)
     {
         Sample.SetActive(true);
         Sample_Instructions.SetActive(true);
-        //create sampling directory & text file
-        System.IO.Directory.CreateDirectory("Sampling");
-        System.IO.Directory.CreateDirectory("Sampling\\"+sample_session.ToString());
-        string file = "Sampling\\" + sample_session.ToString() + "\\sampling.txt";
-        System.IO.File.Create(file).Close();
-        print("file: "+file);
+        print("3: "+file);
         //record start time
         string start_time = Get_Time();
-        System.IO.File.WriteAllText(file, "Start Time: "+start_time+"\n");
+        System.IO.File.WriteAllText(file, "<b>Start Time:</b>\n"+start_time+"\n");
         //record current location
-        UnityEngine.Vector3 cam_pos = Camera.main.transform.position;
-        string cam_pos_string = cam_pos.ToString();
-        System.IO.File.AppendAllText(file, "Current Location: "+cam_pos_string+"\n");
+        //UnityEngine.Vector3 cam_pos = Camera.main.transform.position;
+        //string cam_pos_string = cam_pos.ToString();
+        //System.IO.File.AppendAllText(file, "<b>Current Location:</b>\n"+cam_pos_string+"\n");
         //record current temperature
         Get_Temp(file);
         //update display pad
-        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file), 30);
+        //Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file), 30);
         //display something here on instructions about move around to take pictures
-        Sample_Instructions_Text.text ="Move around slowly to record \nenvironment.\n \nTime remaining to record:";
+        //Sample_Instructions_Text.text ="Move around slowly to record \nenvironment.\n \nTime remaining to record:";
         //take pictures of environment & display time remaining
-        take_pics t = Sample.AddComponent<take_pics>();
-        IEnumerator coroutine = take_pics.Take_Scenery_Pics(sample_session.ToString(), Sample_Instructions_Text, photo_time);
-        t.StartCoroutine(coroutine);
+        //take_pics t = Sample.AddComponent<take_pics>();
+        //IEnumerator coroutine = take_pics.Take_Scenery_Pics(sample_session.ToString(), Sample_Instructions_Text, photo_time);
+        System.IO.File.AppendAllText(file, "<b>Additional Features:</b>\n");
+        Sample_Text.text = JsonTest.add_newlines(System.IO.File.ReadAllText(file), 30);
+
+        //t.StartCoroutine(coroutine);
+        
         return start_time;
     }
 
@@ -51,7 +50,7 @@ public class sample : MonoBehaviour
     public static void Get_Temp(string file_name)
     {
         int temp = sort_telemetry.t_sub_value;
-        System.IO.File.AppendAllText(file_name, "Temperature: ");
+        System.IO.File.AppendAllText(file_name, "<b>Temperature:</b>\n");
         System.IO.File.AppendAllText(file_name, temp.ToString());
         System.IO.File.AppendAllText(file_name, "\n");
     }
@@ -67,7 +66,7 @@ public class sample : MonoBehaviour
         {
             if (!(f.Contains("Collect sample")))
             {
-                
+                //print("P: "+System.IO.File.ReadAllText(file_name));
                 System.IO.File.AppendAllText(file_name, JsonTest.add_newlines(f + "\n", 30));
                 Sample_Text.text = System.IO.File.ReadAllText(file_name);
             }

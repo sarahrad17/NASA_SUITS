@@ -13,11 +13,6 @@ public class take_pics : MonoBehaviour
     public static IEnumerator Take_Scenery_Pics(string file_name, TextMesh Sample_Instructions_Text, TextMesh photo_time)
     {
         print("takin pics");
-        if (System.IO.Directory.Exists("Sampling\\" + file_name))
-        {
-            System.IO.Directory.Delete("Sampling\\" + file_name, true);
-        }
-        System.IO.Directory.CreateDirectory("Sampling\\" + file_name);
         int c = 0;
         photo_time.gameObject.SetActive(true);
         while (c < 50)

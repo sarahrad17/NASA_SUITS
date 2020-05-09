@@ -246,16 +246,15 @@ public class voice_navigate : MonoBehaviour
                         }
                     }
 
-                    //else if recording notes abt environment
-
-                    
+                    //else if recording notes abt environment                   
                     else if (recording_notable_features) { 
                         if(!(sample.Record_Notable_Features("Sampling\\" + sample_session.ToString() + "\\sampling.txt", Sample_Text, f )))
                         {
                             recording_notable_features = false;
+                            Sample_Instructions.SetActive(false);
+                            Sample.SetActive(false);
                         }
                     }
-                    
 
                     else if (recording_sample)
                     {
@@ -551,12 +550,15 @@ public class voice_navigate : MonoBehaviour
                         position_matches = matches_set_up_sample.Count;
                         if (position_matches > 0)
                         {
-                            sample_session = sample_session + 1;
-                            //prelimiary set up                     
-                            start_time = sample.Start_NoteTaking("sampling", Sample, Sample_Text, sample_session, Sample_Instructions, Sample_Instructions_Text, photo_time);
-                            print("OOP:" + System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt"));
-                            System.IO.File.AppendAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt", "\n<b>Additional Features:</b>\n");
-                            recording_notable_features = true;
+                            print(1);
+                            sample_session = sample_session + 1;            
+                            //create sampling directory & text file
+                            string file = Create_File(sample_session);
+                            print(2);
+                            System.IO.File.WriteAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt", "<b>Start Time:</b>\n" + start_time + "\n");
+                            start_time = sample.Start_NoteTaking(file, Sample, Sample_Text, sample_session, Sample_Instructions, Sample_Instructions_Text, photo_time);
+                            //print("YEET: "+System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt"));
+                            //recording_notable_features = true;
                         }
 
                         //COLLECT SAMPLE
@@ -575,5 +577,15 @@ public class voice_navigate : MonoBehaviour
             System.IO.File.Create(@"speech_output.txt").Close();
             counter = 0;
         }
+    }
+
+    public String Create_File(int sample_session)
+    {
+        //create sampling directory & text file
+        System.IO.Directory.CreateDirectory("Sampling");
+        System.IO.Directory.CreateDirectory("Sampling\\" + sample_session.ToString());
+        string file = "Sampling\\" + sample_session.ToString() + "\\sampling.txt";
+        System.IO.File.Create(file).Dispose();
+        return file;
     }
 }
