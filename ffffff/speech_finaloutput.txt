@@ -1,4 +1,8 @@
-Collect sample.
-Continue.
+Sampling.
+Record environment.
 Flat.
-Next
+Stop.
+Record environment.
+Banana
+stop
+Stop.

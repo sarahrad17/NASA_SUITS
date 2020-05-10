@@ -555,10 +555,11 @@ public class voice_navigate : MonoBehaviour
                             //create sampling directory & text file
                             string file = Create_File(sample_session);
                             print(2);
-                            System.IO.File.WriteAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt", "<b>Start Time:</b>\n" + start_time + "\n");
-                            start_time = sample.Start_NoteTaking(file, Sample, Sample_Text, sample_session, Sample_Instructions, Sample_Instructions_Text, photo_time);
+                            print(file);
+                            sample s = new sample();
+                            start_time = s.Start_NoteTaking(file, Sample, Sample_Text, sample_session, Sample_Instructions, Sample_Instructions_Text, photo_time);
                             //print("YEET: "+System.IO.File.ReadAllText("Sampling\\" + sample_session.ToString() + "\\sampling.txt"));
-                            //recording_notable_features = true;
+                            recording_notable_features = true;
                         }
 
                         //COLLECT SAMPLE
