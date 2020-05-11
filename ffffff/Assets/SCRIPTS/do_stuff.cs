@@ -170,10 +170,6 @@ public class do_stuff : MonoBehaviour
             {
                 model.transform.localScale = Vector3.Lerp(localScale, targetScale, t);
             }
-            else
-            {
-                print("this is bad");
-            }
             yield return 0;
         }
     }
@@ -196,9 +192,6 @@ public class do_stuff : MonoBehaviour
         //SCALE
         var localScale = model.transform.localScale;
         var targetScale = sca_move;
-
-        print("L:" + fromAngle.z);
-        print("T:" + targetRot.z);
 
         //MODEL2
         //POSITION
@@ -243,7 +236,6 @@ public class do_stuff : MonoBehaviour
             if ((targetRot2.x - fromAngle2.x) != 0 || (targetRot2.y - fromAngle2.y) != 0 || (targetRot2.z - fromAngle2.z) != 0)
             {
                 model2.transform.rotation = Quaternion.Slerp(fromAngle2, targetRot2, t);
-                print("hello");
             }
             //transform scale
             if ((localScale2.x - targetScale2.x) != 0 || (localScale2.y - targetScale2.y) != 0 || (localScale2.z - targetScale2.z) != 0)

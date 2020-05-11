@@ -1,8 +1,0 @@
-Sampling.
-Record environment.
-Flat.
-Stop.
-Record environment.
-Banana
-stop
-Stop.

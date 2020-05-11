@@ -17,7 +17,6 @@ public class access_database : MonoBehaviour
     public static string[] instruct_asset_array;
     public static string[] instruct_num_array;
 
-
     // Start is called before the first frame update
     void Start()
     {

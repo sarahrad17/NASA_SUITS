@@ -32,7 +32,7 @@ public class JsonTest : MonoBehaviour
 
         Instruction.Step current_step = steps.ElementAt(step_num);
         //get instruction text
-        string current_text = add_newlines(current_step.text, 26);
+        string current_text = add_newlines(current_step.text, 34);
         //display instruction text
         inst.text = current_text;
         
@@ -55,7 +55,7 @@ public class JsonTest : MonoBehaviour
         int i = 0;
         foreach (Instruction.Asset asset in current_step.asset_urls)
         {
-            print(asset.model_name);
+
             //associate asset name to model in asset bundle
             GameObject curr_asset = GameObject.Find("/Model_Path/Models/" + asset.model_name);
             model_names[i] = curr_asset;
@@ -116,7 +116,7 @@ public class JsonTest : MonoBehaviour
 
 
         //move model
-        do_stuff d = new do_stuff();
+        //do_stuff d = new do_stuff();
         do_stuff.Move_Overview(model_names[0], pos_start0, rot_start0, sca_start0, pos_end0, rot_end0, sca_end0, model_names[1], pos_start1, rot_start1, sca_start1, pos_end1, rot_end1, sca_end1, model_names[2], pos_start2, rot_start2, sca_start2, pos_end2, rot_end2, sca_end2);
 
     }

@@ -489,7 +489,8 @@ public class voice_navigate : MonoBehaviour
                         if (scroll_matches > 0)
                         {
                             Instructions.SetActive(true);
-                            JsonTest j = new JsonTest();
+                            //JsonTest j = new JsonTest();
+                            JsonTest j = Instructions.AddComponent<JsonTest>();
                             j.Yeet(current, Instructions_Text);
                         }
 

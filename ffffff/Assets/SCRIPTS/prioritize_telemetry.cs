@@ -13,6 +13,7 @@ public class prioritize_telemetry : MonoBehaviour
     public TextMesh t_water_text;
     public TextMesh emergency_warning_text;
 
+    //moon
     public static bool heart_bpm_bool;
     public static bool p_suit_bool;
     public static bool p_sub_bool;
@@ -28,6 +29,14 @@ public class prioritize_telemetry : MonoBehaviour
     public static bool t_battery_bool;
     public static bool t_oxygen_bool;
     public static bool t_water_bool;
+    //mars
+    public bool sop_on_bool;
+    public bool sspe_bool;
+    public bool fan_error_bool;
+    public bool vent_error_bool;
+    public bool vehicle_power_bool;
+    public bool h2o_off_bool;
+    public bool o2_off_bool;
 
     public bool yes = true;
 
@@ -44,22 +53,18 @@ public class prioritize_telemetry : MonoBehaviour
         battery_warn = 0;
         oxygen_warn = 0;
         water_warn = 0;
-    StartCoroutine(Update_Telemetry());
+        StartCoroutine(Update_Telemetry());
 
     }
 
     // Enumerator
     IEnumerator Update_Telemetry()
     {
-        yield return new WaitForSeconds(10);
-
+        yield return new WaitForSeconds(3);
         //StartCoroutine(Flash_Screen());
-
         while (yes == true)
-        {
-            
+        {            
             yield return new WaitForSeconds(3);
-
             //check values
             emergency_warning_text.text = "";
             heart_bpm_bool = false;
@@ -77,101 +82,121 @@ public class prioritize_telemetry : MonoBehaviour
             t_battery_bool = false;
             t_oxygen_bool = false;
             t_water_bool = false;
+            sop_on_bool = false;
+            sspe_bool = false;
+            fan_error_bool = false;
+            vent_error_bool = false;
+            vehicle_power_bool = false;
+            h2o_off_bool = false;
+            o2_off_bool = false;
 
-
-    //HEART_BPM
-    
-            if ((sort_telemetry.heart_bpm_value < 40) || (sort_telemetry.heart_bpm_value > 140))
+            //HEART_BPM
+            if ((MarsMoonDataRetrieval.heart_bpm_value < 40) || (MarsMoonDataRetrieval.heart_bpm_value > 140))
+            //if ((sort_telemetry.heart_bpm_value < 40) || (sort_telemetry.heart_bpm_value > 140))
             {
                 heart_bpm_bool = true;
-                //Debug.Log("HEART : " + sort_telemetry.heart_bpm_value);
+                Debug.Log("HEART : " + sort_telemetry.heart_bpm_value);
             }
 
             
             //P_SUIT
-            if ((sort_telemetry.p_suit_value < 2.0) || (sort_telemetry.p_suit_value > 4.0))
+            //if ((sort_telemetry.p_suit_value < 2.0) || (sort_telemetry.p_suit_value > 4.0))
+            if ((MarsMoonDataRetrieval.p_suit_value < 2.0) || (MarsMoonDataRetrieval.p_suit_value > 4.0))
             {
-                p_suit_bool = true;
+                    p_suit_bool = true;
                 //Debug.Log("PSUIT" + sort_telemetry.p_suit_value);
             }
 
             //P_SUB
-            if ((sort_telemetry.p_sub_value < 2.0) || (sort_telemetry.p_sub_value > 4.0))
+            //if ((sort_telemetry.p_sub_value < 2.0) || (sort_telemetry.p_sub_value > 4.0))
+            if ((MarsMoonDataRetrieval.p_sub_value < 2.0) || (MarsMoonDataRetrieval.p_sub_value > 4.0))
             {
                 p_sub_bool = true;
                 //Debug.Log("P_SUB" + sort_telemetry.p_sub_value);
             }
 
             //T_SUB
-            if ((sort_telemetry.t_sub_value < 0) || (sort_telemetry.t_sub_value > 80))
+            //if ((sort_telemetry.t_sub_value < 0) || (sort_telemetry.t_sub_value > 80))
+            if ((MarsMoonDataRetrieval.t_sub_value < 0) || (MarsMoonDataRetrieval.t_sub_value > 80))
             {
                 t_sub_bool = true;
                 //Debug.Log("T_SUB" + sort_telemetry.t_sub_value);
             }
 
             //V_FAN 
-            if (sort_telemetry.v_fan_value > 40000)
+            //if (sort_telemetry.v_fan_value > 40000)
+            if (MarsMoonDataRetrieval.v_fan_value > 40000)
             {
                 v_fan_bool = true;
                 //Debug.Log("V_FAN" + sort_telemetry.v_fan_value);
             }
 
             //P_O2
-            if ((sort_telemetry.p_o2_value < 750) || (sort_telemetry.p_o2_value > 950))
+            //if ((sort_telemetry.p_o2_value < 750) || (sort_telemetry.p_o2_value > 950))
+            if ((MarsMoonDataRetrieval.p_o2_value < 750) || (MarsMoonDataRetrieval.p_o2_value > 950))
             {
                 p_o2_bool = true;
                 //Debug.Log("P_O2" + sort_telemetry.p_o2_value);
             }
 
             //RATE_O2
-            if ((sort_telemetry.rate_o2_value < .5) || (sort_telemetry.rate_o2_value > 1))
+            //if ((sort_telemetry.rate_o2_value < .5) || (sort_telemetry.rate_o2_value > 1))
+            if ((MarsMoonDataRetrieval.rate_o2_value < .5) || (MarsMoonDataRetrieval.rate_o2_value > 1))
             {
                 rate_o2_bool = true;
                 //Debug.Log("RATEO2" + sort_telemetry.rate_o2_value);
             }
 
             //CAP_BATTERY
-            if ((sort_telemetry.cap_battery_value < 0) || (sort_telemetry.cap_battery_value > 30))
+            //if ((sort_telemetry.cap_battery_value < 0) || (sort_telemetry.cap_battery_value > 30))
+            if ((MarsMoonDataRetrieval.cap_battery_value < 0) || (MarsMoonDataRetrieval.cap_battery_value > 30))
             {
                 cap_battery_bool = true;
                 //Debug.Log("CAPBAT" + sort_telemetry.cap_battery_value);
             }
 
             //P_H2O_G
-            if ((sort_telemetry.p_h2o_g_value < 14) || (sort_telemetry.p_h2o_g_value > 16))
+            //if ((sort_telemetry.p_h2o_g_value < 14) || (sort_telemetry.p_h2o_g_value > 16))
+            if ((MarsMoonDataRetrieval.p_h2o_g_value < 14) || (MarsMoonDataRetrieval.p_h2o_g_value > 16))
             {
                 p_h2o_g_bool = true;
                 //Debug.Log("P_H2O_G" + sort_telemetry.p_h2o_g_value);
             }
 
             //P_H2O_L
-            if ((sort_telemetry.p_h2o_l_value < 14) || (sort_telemetry.p_h2o_l_value > 16))
+            //if ((sort_telemetry.p_h2o_l_value < 14) || (sort_telemetry.p_h2o_l_value > 16))
+            if ((MarsMoonDataRetrieval.p_h2o_l_value < 14) || (MarsMoonDataRetrieval.p_h2o_l_value > 16))
             {
                 p_h2o_l_bool = true;
                 //Debug.Log("P_H2O_L" + sort_telemetry.p_h2o_l_value);
             }
 
             //P_SOP
-            if ((sort_telemetry.p_sop_value < 750) || (sort_telemetry.p_sop_value > 950))
+            //if ((sort_telemetry.p_sop_value < 750) || (sort_telemetry.p_sop_value > 950))
+            if ((MarsMoonDataRetrieval.p_sop_value < 750) || (MarsMoonDataRetrieval.p_sop_value > 950))
             {
                 p_sop_bool = true;
                 //Debug.Log("P_SOP" + sort_telemetry.p_sop_value);
             }
 
             //RATE_SOP
-            if ((sort_telemetry.rate_sop_value < .5) || (sort_telemetry.rate_sop_value > 1))
+            //if ((sort_telemetry.rate_sop_value < .5) || (sort_telemetry.rate_sop_value > 1))
+            if ((MarsMoonDataRetrieval.rate_sop_value < .5) || (MarsMoonDataRetrieval.rate_sop_value > 1))
             {
                 rate_sop_bool = true;
                 //Debug.Log("RATE_SOP" + sort_telemetry.rate_sop_value);
             }
 
-            
+
 
             //T_BATTERY
             //show always 10:59:59
+            /*
             t_battery_text.text = "BAT-" + sort_telemetry.t_battery_value;
-            print("YEET   "+t_battery_text.text);
             string bat_string = sort_telemetry.t_battery_value;
+            */
+            t_battery_text.text = "BAT-" + MarsMoonDataRetrieval.t_battery_value;
+            string bat_string = MarsMoonDataRetrieval.t_battery_value;
             int battery_find_hours = bat_string.IndexOf(":");
             if(battery_find_hours == -1)
             {
@@ -181,7 +206,7 @@ public class prioritize_telemetry : MonoBehaviour
             int battery_hours = Int32.Parse(battery_hours_str, CultureInfo.InvariantCulture);
             //Debug.Log("BAT HOURS: "+battery_hours);
             //if less than hour remaining
-            if (battery_hours < 10)
+            if (battery_hours < 1)
             {
                 t_battery_text.color = Color.red;
                 emergency_warning_text.text = emergency_warning_text.text + "BATTERY TIME LOW\n";
@@ -200,13 +225,19 @@ public class prioritize_telemetry : MonoBehaviour
                     battery_warn = battery_warn + 1;
                 }
             }
-            
+
 
             //T_OXYGEN
             //show always 10:59:59
+
+            /*
             t_oxygen_text.text = "O-" + sort_telemetry.t_oxygen_value;
             int oxygen_find_hours = sort_telemetry.t_oxygen_value.IndexOf(":");
             string oxygen_hours_str = sort_telemetry.t_oxygen_value.Substring(0, oxygen_find_hours);
+            */
+            t_oxygen_text.text = "O-" + MarsMoonDataRetrieval.t_oxygen_value;
+            int oxygen_find_hours = MarsMoonDataRetrieval.t_oxygen_value.IndexOf(":");
+            string oxygen_hours_str = MarsMoonDataRetrieval.t_oxygen_value.Substring(0, oxygen_find_hours);
             int oxygen_hours = Int32.Parse(oxygen_hours_str, CultureInfo.InvariantCulture);
             //if less than hour remaining
             if (oxygen_hours < 1)
@@ -232,9 +263,15 @@ public class prioritize_telemetry : MonoBehaviour
 
             //T_WATER
             //show always 10:59:59
+
+            /*
             t_water_text.text = "H2O-"+sort_telemetry.t_water_value;
             int water_find_hours = sort_telemetry.t_water_value.IndexOf(":");
             string water_hours_str = sort_telemetry.t_water_value.Substring(0, water_find_hours);
+            */
+            t_water_text.text = "H2O-" + MarsMoonDataRetrieval.t_water_value;
+            int water_find_hours = MarsMoonDataRetrieval.t_water_value.IndexOf(":");
+            string water_hours_str = MarsMoonDataRetrieval.t_water_value.Substring(0, water_find_hours);
             int water_hours = Int32.Parse(water_hours_str, CultureInfo.InvariantCulture);
             //if less than hour remaining
             if (water_hours < 1)
@@ -257,6 +294,53 @@ public class prioritize_telemetry : MonoBehaviour
                 }
             }
 
+
+            //SOP_ON
+            if (MarsMoonDataRetrieval.sop_on_value)
+            {
+                sop_on_bool = true;
+            }
+
+            //SSPE
+            if (MarsMoonDataRetrieval.sspe_value)
+            {
+                sspe_bool = true;
+                StartCoroutine(Flash_Screen());
+            }
+
+            //FAN ERROR
+            if (MarsMoonDataRetrieval.fan_error_value)
+            {
+                fan_error_bool = true;
+                StartCoroutine(Flash_Screen());
+            }
+
+            //VENT ERROR
+            if (MarsMoonDataRetrieval.vent_error_value)
+            {
+                vent_error_bool = true;
+                StartCoroutine(Flash_Screen());
+            }
+
+            //VEHICLE POWER
+            if (MarsMoonDataRetrieval.vehicle_power_value)
+            {
+                vehicle_power_bool = true;
+            }
+
+            //H2O OFF
+            if (MarsMoonDataRetrieval.h2o_off_value)
+            {
+                h2o_off_bool = true;
+                StartCoroutine(Flash_Screen());
+            }
+
+            //O2 OFF
+            if (MarsMoonDataRetrieval.o2_off_value)
+            {
+                o2_off_bool = true;
+                StartCoroutine(Flash_Screen());
+            }
 
             //display emergency signals
             if (heart_bpm_bool)
@@ -308,27 +392,45 @@ public class prioritize_telemetry : MonoBehaviour
             {
                 emergency_warning_text.text = emergency_warning_text.text + "SECONDARY OXYGEN PACK FLOWRATE WARNING\n";
             }
-            
-        }
-
-        
+            if (sop_on_bool)
+            {
+                emergency_warning_text.text = emergency_warning_text.text + "USING SECONDARY OXYGEN PACK\n";
+            }
+            if (sspe_bool)
+            {
+                emergency_warning_text.text = "SPACESUIT PRESSURE EMERGENCY\n" + emergency_warning_text.text;
+            }
+            if (fan_error_bool)
+            {
+                emergency_warning_text.text = emergency_warning_text.text + "COOLING FAN FAILURE\n";
+            }
+            if (vent_error_bool)
+            {
+                emergency_warning_text.text = emergency_warning_text.text + "VENTILATION FAILURE\n";
+            }
+            if (h2o_off_bool)
+            {
+                emergency_warning_text.text = emergency_warning_text.text + "H2O SYSTEM OFFLINE\n";
+            }
+            if (o2_off_bool)
+            {
+                emergency_warning_text.text = emergency_warning_text.text + "O2 SYSTEM OFFLINE\n";
+            }
+        }        
     }
     
     IEnumerator Flash_Screen()
     {
-        Debug.Log("YEET");
         int yeet = 0;
         while (yeet < 3)
-        {
-            
+        {         
             yield return new WaitForSeconds(.5f);
             Image img = GameObject.Find("warning_flash").GetComponent<Image>();
             img.color = new Color(1, 0, 0, .5f);
             yeet = yeet + 1;
             yield return new WaitForSeconds(.5f);
             img.color = new Color(0, 0, 0, 0f);
-        }
-       
+        }    
     }
     
 }
